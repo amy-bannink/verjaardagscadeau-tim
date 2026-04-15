@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="summit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a60b0"/>
+      <stop offset="40%" stop-color="#4a90d8"/>
+      <stop offset="100%" stop-color="#a0c8e8"/>
+    </linearGradient>
+    <linearGradient id="snow14" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0f4ff"/>
+      <stop offset="100%" stop-color="#d8e4f0"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#summit)"/>
+  <!-- Stars at high altitude -->
+  <circle cx="50" cy="30" r="1.5" fill="white" opacity=".7"/>
+  <circle cx="120" cy="15" r="1" fill="white" opacity=".8"/>
+  <circle cx="680" cy="25" r="1.5" fill="white" opacity=".7"/>
+  <circle cx="750" cy="40" r="1" fill="white" opacity=".8"/>
+  <circle cx="200" cy="50" r="1" fill="white" opacity=".5"/>
+  <circle cx="600" cy="45" r="1" fill="white" opacity=".5"/>
+  <!-- Sun rising in background -->
+  <circle cx="680" cy="80" r="50" fill="#ffe566" opacity=".9"/>
+  <circle cx="680" cy="80" r="38" fill="#fff8a0"/>
+  <!-- Sun rays -->
+  <line x1="680" y1="20" x2="680" y2="10" stroke="#ffe566" stroke-width="4" opacity=".7"/>
+  <line x1="720" y1="32" x2="730" y2="22" stroke="#ffe566" stroke-width="3" opacity=".7"/>
+  <line x1="740" y1="70" x2="752" y2="65" stroke="#ffe566" stroke-width="3" opacity=".7"/>
+
+  <!-- Background mountain range -->
+  <!-- Far mountains -->
+  <path d="M0 300 Q80 180 160 220 Q240 160 320 200 Q400 150 480 190 Q560 140 640 175 Q720 120 800 160 L800 500 L0 500 Z" fill="#7090b0" opacity=".5"/>
+  <path d="M0 320 Q100 220 180 260 Q260 200 340 240 Q420 190 500 225 Q580 170 660 210 Q740 165 800 195 L800 500 L0 500 Z" fill="#90a8c8" opacity=".5"/>
+
+  <!-- Main mountain summit (center) -->
+  <!-- Left slope -->
+  <path d="M0 500 Q100 380 200 300 Q300 240 380 220 L380 500 Z" fill="#c0d0e0"/>
+  <!-- Right slope -->
+  <path d="M800 500 Q700 380 600 300 Q500 240 420 220 L420 500 Z" fill="#b0c0d8"/>
+  <!-- Summit snow cap -->
+  <path d="M300 240 Q400 180 500 240 Q460 220 400 210 Q340 220 300 240 Z" fill="url(#snow14)"/>
+  <path d="M340 260 Q400 200 460 260 Q440 245 400 240 Q360 245 340 260 Z" fill="#f8f8ff"/>
+  <!-- Summit platform -->
+  <path d="M340 280 Q400 255 460 280 L470 310 Q400 300 330 310 Z" fill="url(#snow14)"/>
+  <!-- Snow surface details -->
+  <path d="M345 285 Q370 275 395 278" fill="none" stroke="#c0d0e8" stroke-width="2" opacity=".6"/>
+  <path d="M355 295 Q380 285 408 287" fill="none" stroke="#c0d0e8" stroke-width="1.5" opacity=".5"/>
+  <!-- Ice crystals -->
+  <path d="M350 275 L354 269 L358 275 L362 269 L366 275" fill="none" stroke="#a0c0e0" stroke-width="1.5" opacity=".6"/>
+  <path d="M425 275 L429 269 L433 275 L437 269 L441 275" fill="none" stroke="#a0c0e0" stroke-width="1.5" opacity=".6"/>
+  <!-- Snowflakes -->
+  <text x="310" y="260" font-family="sans-serif" font-size="14" fill="white" opacity=".5">❄</text>
+  <text x="465" y="260" font-family="sans-serif" font-size="12" fill="white" opacity=".4">❄</text>
+  <text x="380" y="240" font-family="sans-serif" font-size="10" fill="white" opacity=".4">❄</text>
+
+  <!-- Clouds below summit (they're above the clouds!) -->
+  <ellipse cx="100" cy="350" rx="120" ry="38" fill="white" opacity=".7"/>
+  <ellipse cx="80" cy="340" rx="80" ry="30" fill="white" opacity=".7"/>
+  <ellipse cx="700" cy="340" rx="130" ry="40" fill="white" opacity=".65"/>
+  <ellipse cx="730" cy="330" rx="85" ry="32" fill="white" opacity=".65"/>
+  <ellipse cx="200" cy="400" rx="100" ry="30" fill="white" opacity=".6"/>
+  <ellipse cx="600" cy="390" rx="110" ry="32" fill="white" opacity=".6"/>
+
+  <!-- TIM'S FLAG (left of summit) -->
+  <line x1="340" y1="200" x2="340" y2="295" stroke="#888" stroke-width="3"/>
+  <path d="M340 200 L375 212 L340 224 Z" fill="#F5C518"/>
+  <!-- AMY'S FLAG (right of summit) -->
+  <line x1="460" y1="200" x2="460" y2="295" stroke="#888" stroke-width="3"/>
+  <path d="M460 200 L425 212 L460 224 Z" fill="#cc2222"/>
+
+  <!-- WIND swirling at summit -->
+  <path d="M280 250 Q300 240 320 250 Q310 258 290 255" fill="none" stroke="white" stroke-width="2" opacity=".4"/>
+  <path d="M480 250 Q500 240 520 248 Q510 257 490 254" fill="none" stroke="white" stroke-width="2" opacity=".4"/>
+
+  <!-- TIM (left, trying to look casual, hands in pockets) -->
+  <!-- Snow gear/parka -->
+  <!-- Legs -->
+  <rect x="363" y="320" width="22" height="70" rx="9" fill="#1a3a8a"/>
+  <rect x="389" y="320" width="22" height="70" rx="9" fill="#1a3a8a"/>
+  <!-- Snow boots -->
+  <ellipse cx="374" cy="392" rx="18" ry="10" fill="#333"/>
+  <ellipse cx="400" cy="392" rx="18" ry="10" fill="#333"/>
+  <!-- Parka body -->
+  <rect x="354" y="240" width="72" height="84" rx="14" fill="#cc8822"/>
+  <!-- Parka horizontal bands -->
+  <rect x="354" y="266" width="72" height="8" rx="3" fill="#aa6610" opacity=".5"/>
+  <rect x="354" y="296" width="72" height="8" rx="3" fill="#aa6610" opacity=".5"/>
+  <!-- Zipper -->
+  <line x1="390" y1="244" x2="390" y2="324" stroke="#888" stroke-width="2.5"/>
+  <circle cx="390" cy="280" r="5" fill="#c0c8d0"/>
+  <!-- Hands casually in pockets (acting unbothered) -->
+  <ellipse cx="356" cy="300" rx="12" ry="9" fill="#E8B08A"/>
+  <ellipse cx="424" cy="300" rx="12" ry="9" fill="#E8B08A"/>
+  <!-- Arms -->
+  <rect x="326" y="250" width="30" height="52" rx="12" fill="#cc8822"/>
+  <rect x="424" y="250" width="30" height="52" rx="12" fill="#cc8822"/>
+  <!-- Head with balaclava/hood -->
+  <circle cx="390" cy="228" r="32" fill="#cc8822"/>
+  <!-- Face opening in balaclava -->
+  <ellipse cx="390" cy="228" rx="23" ry="26" fill="#E8B08A"/>
+  <!-- Goggles pushed up on forehead -->
+  <ellipse cx="390" cy="210" rx="24" ry="9" fill="#1a3a8a"/>
+  <ellipse cx="390" cy="210" rx="20" ry="6" fill="#88ccff" opacity=".5"/>
+  <!-- Eyes (cool/unbothered acting but slightly strained) -->
+  <path d="M377 223 Q390 220 403 223" fill="none" stroke="#555" stroke-width="2.5"/>
+  <!-- Forced casual smile (acting like it was easy) -->
+  <path d="M378 237 Q390 245 402 239" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- BUT: secretly panting (small breath cloud) -->
+  <path d="M382 244 Q388 238 394 244 Q390 250 385 248 Z" fill="white" opacity=".3"/>
+  <!-- Speech bubble "Was makkelijk!" -->
+  <rect x="292" y="175" width="105" height="38" rx="8" fill="white" opacity=".9"/>
+  <path d="M358 213 L350 223 L368 215 Z" fill="white" opacity=".9"/>
+  <text x="344" y="191" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#555">Makkelijk</text>
+  <text x="344" y="204" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">hoor! 😎</text>
+
+  <!-- AMY (right, exhausted, bent over, gasping) -->
+  <!-- Legs -->
+  <rect x="410" y="320" width="22" height="70" rx="9" fill="#8B1a1a"/>
+  <rect x="436" y="320" width="22" height="70" rx="9" fill="#8B1a1a"/>
+  <!-- Boots -->
+  <ellipse cx="421" cy="392" rx="18" ry="10" fill="#333"/>
+  <ellipse cx="447" cy="392" rx="18" ry="10" fill="#333"/>
+  <!-- Parka body (red) -->
+  <rect x="404" y="245" width="66" height="80" rx="14" fill="#cc2222" transform="rotate(-15 437 285)"/>
+  <!-- Bent over posture (leaning forward on knees) -->
+  <rect x="404" y="255" width="65" height="80" rx="14" fill="#cc2222"/>
+  <!-- Zipper -->
+  <line x1="436" y1="258" x2="436" y2="332" stroke="#888" stroke-width="2.5"/>
+  <!-- Arms on knees -->
+  <rect x="406" y="275" width="28" height="48" rx="12" fill="#cc2222" transform="rotate(25 406 299)"/>
+  <rect x="446" y="275" width="28" height="48" rx="12" fill="#cc2222" transform="rotate(-20 446 299)"/>
+  <ellipse cx="400" cy="323" rx="13" ry="9" fill="#F5C5A3" transform="rotate(25 400 323)"/>
+  <ellipse cx="462" cy="318" rx="13" ry="9" fill="#F5C5A3" transform="rotate(-20 462 318)"/>
+  <!-- Head (looking down, exhausted) -->
+  <circle cx="436" cy="240" r="30" fill="#cc2222" opacity=".9"/>
+  <ellipse cx="436" cy="238" rx="22" ry="25" fill="#F5C5A3"/>
+  <!-- Goggles also pushed up -->
+  <ellipse cx="436" cy="220" rx="22" ry="8" fill="#1a3a8a"/>
+  <ellipse cx="436" cy="220" rx="18" ry="5.5" fill="#88ccff" opacity=".5"/>
+  <!-- Dark hair wisps -->
+  <path d="M416 230 Q408 220 410 210" fill="none" stroke="#2C1810" stroke-width="6" stroke-linecap="round"/>
+  <path d="M456 230 Q464 220 462 210" fill="none" stroke="#2C1810" stroke-width="6" stroke-linecap="round"/>
+  <!-- Eyes (exhausted, half-closed) -->
+  <path d="M425 235 Q436 240 447 235" fill="#E8B08A"/>
+  <path d="M425 232 Q436 229 447 232" fill="none" stroke="#555" stroke-width="2.5"/>
+  <!-- Tired x_x look -->
+  <!-- Panting mouth -->
+  <path d="M428 248 Q436 256 444 248" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Breath clouds (panting heavily) -->
+  <circle cx="420" cy="258" r="5" fill="white" opacity=".5"/>
+  <circle cx="428" cy="252" r="7" fill="white" opacity=".4"/>
+  <circle cx="438" cy="256" r="5" fill="white" opacity=".4"/>
+  <circle cx="445" cy="248" r="6" fill="white" opacity=".35"/>
+  <!-- Speech bubble "zo gewoon... hijg" -->
+  <rect x="462" y="175" width="120" height="48" rx="8" fill="white" opacity=".9"/>
+  <path d="M475 223 L468 232 L485 224 Z" fill="white" opacity=".9"/>
+  <text x="522" y="194" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">Tim... ik hoor</text>
+  <text x="522" y="208" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">je hijgen hoor 👀</text>
+  <text x="522" y="220" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">makkelijk toch?</text>
+
+  <text x="400" y="490" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#e8f4ff" opacity=".9">De top van de Everest 🏔️</text>
+</svg>

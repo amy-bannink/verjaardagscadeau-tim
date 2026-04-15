@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="retro80" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff00cc"/>
+      <stop offset="50%" stop-color="#6600cc"/>
+      <stop offset="100%" stop-color="#0033ff"/>
+    </linearGradient>
+    <linearGradient id="floor80" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#cc00ff"/>
+      <stop offset="100%" stop-color="#330066"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#retro80)"/>
+
+  <!-- Retro grid floor -->
+  <path d="M0 350 L800 350 L800 500 L0 500 Z" fill="url(#floor80)"/>
+  <!-- Grid lines converging to vanishing point -->
+  <line x1="400" y1="350" x2="0" y2="500" stroke="#ff00cc" stroke-width="1.5" opacity=".5"/>
+  <line x1="400" y1="350" x2="80" y2="500" stroke="#ff00cc" stroke-width="1.5" opacity=".5"/>
+  <line x1="400" y1="350" x2="160" y2="500" stroke="#ff00cc" stroke-width="1.5" opacity=".5"/>
+  <line x1="400" y1="350" x2="240" y2="500" stroke="#ff00cc" stroke-width="1.5" opacity=".5"/>
+  <line x1="400" y1="350" x2="320" y2="500" stroke="#ff00cc" stroke-width="1.5" opacity=".5"/>
+  <line x1="400" y1="350" x2="400" y2="500" stroke="#ff00cc" stroke-width="1.5" opacity=".5"/>
+  <line x1="400" y1="350" x2="480" y2="500" stroke="#ff00cc" stroke-width="1.5" opacity=".5"/>
+  <line x1="400" y1="350" x2="560" y2="500" stroke="#ff00cc" stroke-width="1.5" opacity=".5"/>
+  <line x1="400" y1="350" x2="640" y2="500" stroke="#ff00cc" stroke-width="1.5" opacity=".5"/>
+  <line x1="400" y1="350" x2="720" y2="500" stroke="#ff00cc" stroke-width="1.5" opacity=".5"/>
+  <line x1="400" y1="350" x2="800" y2="500" stroke="#ff00cc" stroke-width="1.5" opacity=".5"/>
+  <!-- Horizontal grid lines -->
+  <line x1="0" y1="375" x2="800" y2="375" stroke="#ff00cc" stroke-width="1" opacity=".4"/>
+  <line x1="0" y1="400" x2="800" y2="400" stroke="#ff00cc" stroke-width="1" opacity=".4"/>
+  <line x1="0" y1="425" x2="800" y2="425" stroke="#ff00cc" stroke-width="1" opacity=".35"/>
+  <line x1="0" y1="450" x2="800" y2="450" stroke="#ff00cc" stroke-width="1" opacity=".3"/>
+  <line x1="0" y1="475" x2="800" y2="475" stroke="#ff00cc" stroke-width="1" opacity=".25"/>
+
+  <!-- Retro sun/planet on horizon -->
+  <path d="M0 350 L800 350 L800 345 L0 345 Z" fill="#ff4488" opacity=".8"/>
+  <!-- Retro sunset stripes -->
+  <rect x="250" y="232" width="300" height="120" fill="none"/>
+  <path d="M250 232 Q400 200 550 232 L550 352 L250 352 Z" fill="#ff4488" opacity=".08"/>
+  <!-- Half circle sun -->
+  <path d="M260 352 Q400 240 540 352 Z" fill="#ff6600" opacity=".4"/>
+  <path d="M270 352 Q400 250 530 352 Z" fill="#ff8800" opacity=".3"/>
+  <path d="M280 352 Q400 260 520 352 Z" fill="#ffaa00" opacity=".25"/>
+  <!-- Horizontal scan lines on sun -->
+  <line x1="275" y1="340" x2="525" y2="340" stroke="#ff6600" stroke-width="3" opacity=".5"/>
+  <line x1="285" y1="328" x2="515" y2="328" stroke="#ff6600" stroke-width="3" opacity=".5"/>
+  <line x1="298" y1="316" x2="502" y2="316" stroke="#ff8800" stroke-width="3" opacity=".5"/>
+  <line x1="314" y1="304" x2="486" y2="304" stroke="#ff8800" stroke-width="3" opacity=".5"/>
+  <line x1="332" y1="292" x2="468" y2="292" stroke="#ffaa00" stroke-width="3" opacity=".5"/>
+  <line x1="352" y1="280" x2="448" y2="280" stroke="#ffaa00" stroke-width="3" opacity=".4"/>
+  <line x1="374" y1="268" x2="426" y2="268" stroke="#ffcc00" stroke-width="3" opacity=".4"/>
+
+  <!-- Stars/sparkles in background -->
+  <text x="50" y="80" font-family="sans-serif" font-size="20" fill="#ff88ff" opacity=".7">✦</text>
+  <text x="150" y="50" font-family="sans-serif" font-size="16" fill="#88ffff" opacity=".6">✦</text>
+  <text x="650" y="70" font-family="sans-serif" font-size="18" fill="#ff88ff" opacity=".7">✦</text>
+  <text x="720" y="45" font-family="sans-serif" font-size="14" fill="#ffff88" opacity=".6">✦</text>
+  <text x="680" y="130" font-family="sans-serif" font-size="16" fill="#88ffff" opacity=".5">✦</text>
+  <text x="80" y="160" font-family="sans-serif" font-size="12" fill="#ffff88" opacity=".6">✦</text>
+  <!-- Neon signs in background -->
+  <rect x="50" y="100" width="120" height="40" rx="5" fill="none" stroke="#00ffcc" stroke-width="2" opacity=".6"/>
+  <text x="110" y="126" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#00ffcc" opacity=".7">DANCE</text>
+  <rect x="630" y="90" width="130" height="40" rx="5" fill="none" stroke="#ff00cc" stroke-width="2" opacity=".6"/>
+  <text x="695" y="116" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#ff00cc" opacity=".7">DISCO</text>
+
+  <!-- TIM (left, 80s outfit - mortified) -->
+  <!-- Leg warmers / tight pants -->
+  <rect x="208" y="330" width="24" height="90" rx="10" fill="#00ccff"/>
+  <rect x="236" y="330" width="24" height="90" rx="10" fill="#00ccff"/>
+  <!-- Leg warmers -->
+  <rect x="206" y="375" width="28" height="48" rx="8" fill="#ff8800"/>
+  <rect x="234" y="375" width="28" height="48" rx="8" fill="#ff8800"/>
+  <!-- Shoes (pointy 80s) -->
+  <path d="M204 420 Q196 424 192 428 L222 428 Q224 422 212 420 Z" fill="#1a1a1a"/>
+  <path d="M232 420 Q224 424 220 428 L250 428 Q252 422 240 420 Z" fill="#1a1a1a"/>
+  <!-- Tight 80s jacket (shoulder pads!) -->
+  <rect x="200" y="232" width="68" height="102" rx="10" fill="#ff00cc"/>
+  <!-- HUGE shoulder pads -->
+  <ellipse cx="200" cy="240" rx="30" ry="12" fill="#cc0099" transform="rotate(-15 200 240)"/>
+  <ellipse cx="268" cy="240" rx="30" ry="12" fill="#cc0099" transform="rotate(15 268 240)"/>
+  <!-- Jacket details -->
+  <line x1="234" y1="235" x2="234" y2="332" stroke="#cc0099" stroke-width="2"/>
+  <!-- Big buttons -->
+  <circle cx="228" cy="255" r="5" fill="#ffff00"/>
+  <circle cx="228" cy="272" r="5" fill="#ffff00"/>
+  <circle cx="228" cy="289" r="5" fill="#ffff00"/>
+  <circle cx="240" cy="255" r="5" fill="#ffff00"/>
+  <circle cx="240" cy="272" r="5" fill="#ffff00"/>
+  <circle cx="240" cy="289" r="5" fill="#ffff00"/>
+  <!-- Arms -->
+  <rect x="170" y="242" width="32" height="65" rx="12" fill="#ff00cc"/>
+  <rect x="266" y="242" width="32" height="65" rx="12" fill="#ff00cc"/>
+  <ellipse cx="186" cy="310" rx="14" ry="9" fill="#E8B08A"/>
+  <ellipse cx="282" cy="310" rx="14" ry="9" fill="#E8B08A"/>
+  <!-- Head -->
+  <circle cx="234" cy="210" r="30" fill="#E8B08A"/>
+  <!-- HUGE 80s hair (mullet style) -->
+  <!-- Big poofy top -->
+  <ellipse cx="234" cy="185" rx="35" ry="28" fill="#C4965A"/>
+  <path d="M204 190 Q192 175 186 158 Q198 152 204 168 Q208 182 206 190 Z" fill="#C4965A"/>
+  <path d="M264 190 Q276 175 282 158 Q270 152 264 168 Q260 182 262 190 Z" fill="#C4965A"/>
+  <!-- Perm/big curls -->
+  <circle cx="196" cy="180" r="14" fill="#C4965A"/>
+  <circle cx="272" cy="180" r="14" fill="#C4965A"/>
+  <circle cx="234" cy="162" r="14" fill="#C4965A"/>
+  <!-- Mullet back -->
+  <path d="M204 212 Q196 240 198 268 Q210 262 212 248 Q212 232 208 215 Z" fill="#C4965A"/>
+  <path d="M264 212 Q272 240 270 268 Q258 262 256 248 Q256 232 260 215 Z" fill="#C4965A"/>
+  <!-- Eyes (mortified) -->
+  <circle cx="222" cy="208" r="5" fill="#444"/>
+  <circle cx="246" cy="208" r="5" fill="#444"/>
+  <circle cx="223" cy="207" r="1.5" fill="white"/>
+  <circle cx="247" cy="207" r="1.5" fill="white"/>
+  <!-- Mortified expression -->
+  <path d="M222 222 Q234 216 246 222" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Blush (embarrassed) -->
+  <ellipse cx="212" cy="218" rx="10" ry="6" fill="#ff8888" opacity=".4"/>
+  <ellipse cx="256" cy="218" rx="10" ry="6" fill="#ff8888" opacity=".4"/>
+  <!-- Sweatband -->
+  <rect x="205" y="202" width="58" height="10" rx="4" fill="#00ccff"/>
+  <!-- Neon wristband -->
+  <rect x="176" y="308" width="20" height="6" rx="2" fill="#00ffcc"/>
+  <rect x="272" y="308" width="20" height="6" rx="2" fill="#ffff00"/>
+  <!-- Speech bubble -->
+  <rect x="95" y="148" width="120" height="42" rx="8" fill="white" opacity=".88"/>
+  <path d="M168,190 L155,200 L175,192 Z" fill="white" opacity=".88"/>
+  <text x="155" y="165" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">dit was</text>
+  <text x="155" y="178" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#cc0099" font-weight="bold">JOUW IDEE</text>
+  <text x="155" y="186" text-anchor="middle" font-family="sans-serif" font-size="12">😤</text>
+
+  <!-- AMY (right, also 80s, slightly more sold on it) -->
+  <!-- Legs / leggings -->
+  <rect x="522" y="330" width="22" height="90" rx="9" fill="#ff8800"/>
+  <rect x="548" y="330" width="22" height="90" rx="9" fill="#ff8800"/>
+  <!-- Leg warmers -->
+  <rect x="520" y="385" width="26" height="38" rx="8" fill="#00ccff"/>
+  <rect x="546" y="385" width="26" height="38" rx="8" fill="#00ccff"/>
+  <!-- Shoes -->
+  <path d="M518 420 Q510 424 506 430 L534 430 Q536 424 526 420 Z" fill="#1a1a1a"/>
+  <path d="M544 420 Q536 424 532 430 L560 430 Q562 424 552 420 Z" fill="#1a1a1a"/>
+  <!-- 80s top (off-shoulder) -->
+  <rect x="517" y="248" width="58" height="86" rx="10" fill="#00ccff"/>
+  <!-- Huge shoulder pads -->
+  <ellipse cx="517" cy="256" rx="28" ry="11" fill="#0099cc" transform="rotate(-12 517 256)"/>
+  <ellipse cx="575" cy="256" rx="28" ry="11" fill="#0099cc" transform="rotate(12 575 256)"/>
+  <!-- Neon belt -->
+  <rect x="517" y="326" width="58" height="12" rx="5" fill="#ffff00"/>
+  <!-- Belt buckle -->
+  <rect x="537" y="322" width="18" height="18" rx="3" fill="#ff00cc"/>
+  <!-- Arms -->
+  <rect x="487" y="255" width="32" height="62" rx="12" fill="#00ccff"/>
+  <rect x="573" y="255" width="32" height="62" rx="12" fill="#00ccff"/>
+  <ellipse cx="503" cy="320" rx="13" ry="9" fill="#F5C5A3"/>
+  <ellipse cx="589" cy="320" rx="13" ry="9" fill="#F5C5A3"/>
+  <!-- Neon bracelets stacked -->
+  <rect x="495" y="316" width="16" height="5" rx="2" fill="#ff00cc"/>
+  <rect x="495" y="321" width="16" height="5" rx="2" fill="#ffff00"/>
+  <rect x="495" y="326" width="16" height="5" rx="2" fill="#00ffcc"/>
+  <!-- Head -->
+  <circle cx="546" cy="230" r="28" fill="#F5C5A3"/>
+  <!-- HUGE 80s hair (big perm/volume) -->
+  <ellipse cx="546" cy="202" rx="42" ry="32" fill="#2C1810"/>
+  <!-- Big poofy sides -->
+  <ellipse cx="505" cy="210" rx="20" ry="28" fill="#2C1810"/>
+  <ellipse cx="587" cy="210" rx="20" ry="28" fill="#2C1810"/>
+  <!-- Height on top -->
+  <ellipse cx="546" cy="182" rx="30" ry="22" fill="#3C2820"/>
+  <!-- Hair highlights (80s streaks) -->
+  <path d="M518 188 Q524 175 530 182" fill="none" stroke="#ff00cc" stroke-width="3" opacity=".7"/>
+  <path d="M560 186 Q566 172 572 180" fill="none" stroke="#ffff00" stroke-width="3" opacity=".6"/>
+  <!-- Eyes (trying to be into it, amused) -->
+  <circle cx="536" cy="228" r="5" fill="#444"/>
+  <circle cx="556" cy="228" r="5" fill="#444"/>
+  <circle cx="537" cy="227" r="1.5" fill="white"/>
+  <circle cx="557" cy="227" r="1.5" fill="white"/>
+  <!-- Eyeshadow (very 80s) -->
+  <ellipse cx="536" cy="223" rx="8" ry="4" fill="#00ccff" opacity=".5"/>
+  <ellipse cx="556" cy="223" rx="8" ry="4" fill="#00ccff" opacity=".5"/>
+  <!-- Smirk -->
+  <path d="M534 242 Q546 252 557 245" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Red lipstick (80s) -->
+  <ellipse cx="546" cy="244" rx="8" ry="4" fill="#ff2244" opacity=".6"/>
+  <!-- Earrings (big) -->
+  <circle cx="519" cy="236" r="8" fill="#ffff00"/>
+  <circle cx="519" cy="236" r="5" fill="#ff00cc"/>
+  <circle cx="573" cy="236" r="8" fill="#ffff00"/>
+  <circle cx="573" cy="236" r="5" fill="#ff00cc"/>
+
+  <!-- 80s title text style -->
+  <text x="400" y="490" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#ffff88" opacity=".9">Tijdreis naar de jaren '80 🕹️</text>
+</svg>

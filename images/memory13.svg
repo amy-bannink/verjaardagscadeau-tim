@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="savanna" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff8c30"/>
+      <stop offset="45%" stop-color="#f0b050"/>
+      <stop offset="100%" stop-color="#c87820"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#savanna)"/>
+  <!-- Sun setting -->
+  <circle cx="700" cy="120" r="55" fill="#ff6020" opacity=".9"/>
+  <circle cx="700" cy="120" r="42" fill="#ff8040"/>
+  <!-- Horizon -->
+  <path d="M0 260 Q200 240 400 255 Q600 268 800 250 L800 500 L0 500 Z" fill="#8B6020"/>
+  <!-- Grass/ground -->
+  <rect x="0" y="340" width="800" height="160" fill="#6a4810"/>
+  <!-- Grass tufts -->
+  <path d="M20 340 Q18 325 22 315 Q26 325 24 340 Z" fill="#8B6020"/>
+  <path d="M35 340 Q33 320 38 308 Q42 320 40 340 Z" fill="#7a5018"/>
+  <path d="M100,340 Q98,328 103,318 Q108,328 106,340 Z" fill="#8B6020"/>
+  <path d="M180,340 Q177,323 183,312 Q188,323 186,340 Z" fill="#8B6020"/>
+  <path d="M600,340 Q597,324 603,313 Q608,324 606,340 Z" fill="#8B6020"/>
+  <path d="M700,340 Q697,326 703,315 Q708,326 706,340 Z" fill="#7a5018"/>
+  <path d="M760,340 Q757,322 763,310 Q768,322 766,340 Z" fill="#8B6020"/>
+
+  <!-- Acacia tree (left) -->
+  <!-- Trunk -->
+  <rect x="60" y="180" width="18" height="165" rx="7" fill="#5c3010"/>
+  <path d="M68 220 Q50 200 35 195" fill="none" stroke="#5c3010" stroke-width="10" stroke-linecap="round"/>
+  <path d="M68 240 Q90 218 100 212" fill="none" stroke="#5c3010" stroke-width="8" stroke-linecap="round"/>
+  <!-- Flat acacia top (characteristic shape) -->
+  <ellipse cx="68" cy="178" rx="95" ry="25" fill="#2a6e18"/>
+  <ellipse cx="55" cy="195" rx="55" ry="18" fill="#2a6e18"/>
+  <ellipse cx="85" cy="195" rx="50" ry="16" fill="#3a8022"/>
+
+  <!-- Acacia tree (right background) -->
+  <rect x="720" y="200" width="14" height="145" rx="6" fill="#5c3010"/>
+  <ellipse cx="727" cy="198" rx="75" ry="20" fill="#2a6e18"/>
+  <ellipse cx="727" cy="212" rx="45" ry="14" fill="#3a8022"/>
+
+  <!-- Distant animals silhouette -->
+  <!-- Giraffe silhouette -->
+  <rect x="580" y="180" width="12" height="80" rx="4" fill="#5c3010" opacity=".5"/>
+  <rect x="574" y="140" width="5" height="50" rx="2" fill="#5c3010" opacity=".5"/>
+  <ellipse cx="576" cy="138" rx="8" ry="6" fill="#5c3010" opacity=".5"/>
+  <!-- Elephant silhouette -->
+  <ellipse cx="650" cy="260" rx="30" ry="22" fill="#4a3a18" opacity=".4"/>
+  <rect x="660" y="244" width="8" height="30" rx="4" fill="#4a3a18" opacity=".4"/>
+  <ellipse cx="638" cy="260" rx="8" ry="5" fill="#4a3a18" opacity=".4"/>
+
+  <!-- JEEP/CAR -->
+  <!-- Car body -->
+  <rect x="180" y="275" width="340" height="80" rx="12" fill="#4a8c2a"/>
+  <!-- Car top/cabin -->
+  <rect x="220" y="228" width="230" height="55" rx="10" fill="#3a7022"/>
+  <!-- Roll bar -->
+  <rect x="225" y="220" width="8" height="60" rx="3" fill="#5a9030"/>
+  <rect x="437" y="220" width="8" height="60" rx="3" fill="#5a9030"/>
+  <rect x="225" y="220" width="220" height="8" rx="3" fill="#5a9030"/>
+  <!-- Windshield -->
+  <rect x="233" y="235" width="100" height="42" rx="5" fill="#a0d4e8" opacity=".6"/>
+  <!-- Back window -->
+  <rect x="340" y="235" width="92" height="42" rx="5" fill="#a0d4e8" opacity=".6"/>
+  <!-- Windows reflection -->
+  <path d="M238 240 Q255 235 270 238" fill="none" stroke="white" stroke-width="2" opacity=".4"/>
+  <!-- Wheels -->
+  <circle cx="250" cy="360" r="42" fill="#2a2a2a"/>
+  <circle cx="250" cy="360" r="30" fill="#3a3a3a"/>
+  <circle cx="250" cy="360" r="16" fill="#555"/>
+  <circle cx="450" cy="360" r="42" fill="#2a2a2a"/>
+  <circle cx="450" cy="360" r="30" fill="#3a3a3a"/>
+  <circle cx="450" cy="360" r="16" fill="#555"/>
+  <!-- Jeep details -->
+  <rect x="182" y="295" width="338" height="8" rx="3" fill="#3a7022"/>
+  <!-- Headlights -->
+  <rect x="183" y="280" width="30" height="20" rx="5" fill="#fff8c0"/>
+  <rect x="487" y="280" width="30" height="20" rx="5" fill="#fff8c0"/>
+  <!-- Grill -->
+  <rect x="185" y="305" width="28" height="36" rx="4" fill="#2a5a18"/>
+  <line x1="190" y1="310" x2="208" y2="310" stroke="#3a7022" stroke-width="2"/>
+  <line x1="190" y1="318" x2="208" y2="318" stroke="#3a7022" stroke-width="2"/>
+  <line x1="190" y1="326" x2="208" y2="326" stroke="#3a7022" stroke-width="2"/>
+  <line x1="190" y1="334" x2="208" y2="334" stroke="#3a7022" stroke-width="2"/>
+
+  <!-- THE LION (right side of jeep, extremely close, looking in) -->
+  <!-- Lion body -->
+  <ellipse cx="590" cy="330" rx="90" ry="55" fill="#d4962a"/>
+  <!-- Lion paw on window ledge -->
+  <ellipse cx="508" cy="280" rx="32" ry="18" fill="#c8882a"/>
+  <!-- Paw pads -->
+  <ellipse cx="502" cy="285" rx="7" ry="5" fill="#b07820" opacity=".6"/>
+  <ellipse cx="516" cy="288" rx="7" ry="5" fill="#b07820" opacity=".6"/>
+  <ellipse cx="508" cy="290" rx="7" ry="5" fill="#b07820" opacity=".6"/>
+  <!-- Claws -->
+  <path d="M499 290 Q497 298 500 295" fill="none" stroke="#888" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M508 293 Q507 301 510 298" fill="none" stroke="#888" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M518 291 Q519 299 516 296" fill="none" stroke="#888" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Lion neck/mane -->
+  <circle cx="598" cy="275" rx="65" ry="62" fill="#8B5E18"/>
+  <circle cx="598" cy="275" r="60" fill="#8B5E18"/>
+  <!-- Mane fluffy texture -->
+  <circle cx="555" cy="248" r="20" fill="#7a5010"/>
+  <circle cx="540" cy="270" r="18" fill="#8B5E18"/>
+  <circle cx="548" cy="298" r="20" fill="#7a5010"/>
+  <circle cx="560" cy="318" r="18" fill="#8B5E18"/>
+  <circle cx="638" cy="248" r="20" fill="#7a5010"/>
+  <circle cx="655" cy="270" r="18" fill="#8B5E18"/>
+  <circle cx="648" cy="300" r="20" fill="#7a5010"/>
+  <circle cx="630" cy="320" r="18" fill="#8B5E18"/>
+  <circle cx="595" cy="232" r="18" fill="#7a5010"/>
+  <!-- Lion face -->
+  <circle cx="598" cy="275" r="48" fill="#d4962a"/>
+  <!-- Nose -->
+  <ellipse cx="598" cy="288" rx="12" ry="8" fill="#c07820"/>
+  <ellipse cx="598" cy="286" rx="9" ry="6" fill="#b06818"/>
+  <!-- Nostrils -->
+  <ellipse cx="592" cy="288" rx="3" ry="2" fill="#8B5010"/>
+  <ellipse cx="604" cy="288" rx="3" ry="2" fill="#8B5010"/>
+  <!-- Whisker spots -->
+  <circle cx="572" cy="283" r="2.5" fill="#b07820"/>
+  <circle cx="575" cy="292" r="2.5" fill="#b07820"/>
+  <circle cx="624" cy="283" r="2.5" fill="#b07820"/>
+  <circle cx="621" cy="292" r="2.5" fill="#b07820"/>
+  <!-- Whiskers -->
+  <line x1="580" y1="285" x2="548" y2="282" stroke="#e8d8a8" stroke-width="1.5"/>
+  <line x1="580" y1="290" x2="546" y2="293" stroke="#e8d8a8" stroke-width="1.5"/>
+  <line x1="616" y1="285" x2="648" y2="282" stroke="#e8d8a8" stroke-width="1.5"/>
+  <line x1="616" y1="290" x2="650" y2="293" stroke="#e8d8a8" stroke-width="1.5"/>
+  <!-- Lion eyes (friendly/curious) -->
+  <circle cx="578" cy="262" r="14" fill="#d4a030"/>
+  <circle cx="618" cy="262" r="14" fill="#d4a030"/>
+  <ellipse cx="578" cy="262" rx="7" ry="12" fill="#1a0a00"/>
+  <ellipse cx="618" cy="262" rx="7" ry="12" fill="#1a0a00"/>
+  <circle cx="575" cy="258" r="3" fill="white"/>
+  <circle cx="615" cy="258" r="3" fill="white"/>
+  <!-- Ears -->
+  <path d="M548 238 Q540 218 558 222 Q562 232 560 240 Z" fill="#d4962a"/>
+  <path d="M648 238 Q656 218 638 222 Q634 232 636 240 Z" fill="#d4962a"/>
+  <path d="M550 238 Q543 222 558 224 Q560 232 558 239 Z" fill="#8B5010"/>
+  <path d="M646 238 Q653 222 638 224 Q636 232 638 239 Z" fill="#8B5010"/>
+  <!-- Big grin (friendly but terrifying) -->
+  <path d="M575 298 Q598 315 621 298 Q598 325 575 298 Z" fill="#8B4040"/>
+  <!-- Teeth -->
+  <rect x="583" y="298" width="10" height="12" rx="3" fill="white"/>
+  <rect x="597" y="298" width="10" height="12" rx="3" fill="white"/>
+  <path d="M580 298 Q576 310 582 298 Z" fill="white"/>
+  <path d="M616 298 Q620 310 614 298 Z" fill="white"/>
+  <!-- Tongue -->
+  <path d="M585 312 Q598 322 611 312 Q605 328 598 325 Q591 328 585 312 Z" fill="#e05a7a"/>
+
+  <!-- TIM (in jeep, left seat, frozen smile) -->
+  <!-- Body -->
+  <rect x="248" y="240" width="46" height="45" rx="8" fill="#4a8c2a"/>
+  <!-- Frozen smile arms -->
+  <ellipse cx="241" cy="262" rx="10" ry="8" fill="#E8B08A"/>
+  <ellipse cx="302" cy="262" rx="10" ry="8" fill="#E8B08A"/>
+  <!-- Head -->
+  <circle cx="271" cy="232" r="24" fill="#E8B08A"/>
+  <!-- Hair -->
+  <path d="M250 225 Q252 207 271 204 Q290 207 292 225" fill="#C4965A"/>
+  <!-- Eyes (wide, fixed, terrified but maintaining smile) -->
+  <circle cx="261" cy="228" r="7" fill="white"/>
+  <circle cx="281" cy="228" r="7" fill="white"/>
+  <circle cx="262" cy="229" r="4.5" fill="#1a1a1a"/>
+  <circle cx="282" cy="229" r="4.5" fill="#1a1a1a"/>
+  <circle cx="263" cy="227" r="1.5" fill="white"/>
+  <circle cx="283" cy="227" r="1.5" fill="white"/>
+  <!-- Forced huge grin -->
+  <path d="M260 242 Q271 252 282 242 Q271 255 260 242 Z" fill="#8B4040"/>
+  <rect x="262" y="242" width="18" height="8" rx="2" fill="#8B4040"/>
+  <!-- Sweat drop -->
+  <circle cx="293" cy="228" r="4" fill="#7dd4f8"/>
+  <!-- Stiff waving hand (fake casual) -->
+  <path d="M301 262 Q312 252 315 242" fill="none" stroke="#E8B08A" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- AMY (in jeep, right seat, same frozen smile) -->
+  <!-- Body -->
+  <rect x="390" y="240" width="44" height="45" rx="8" fill="#c04060"/>
+  <!-- Head -->
+  <circle cx="412" cy="232" r="24" fill="#F5C5A3"/>
+  <!-- Dark hair -->
+  <ellipse cx="412" cy="218" rx="25" ry="17" fill="#2C1810"/>
+  <path d="M388 224 Q381 238 383 256 Q392 252 391 240 Q390 228 390 226 Z" fill="#2C1810"/>
+  <path d="M436 224 Q443 238 441 256 Q432 252 433 240 Q434 228 434 226 Z" fill="#2C1810"/>
+  <!-- Same wide-eyed terrified smile -->
+  <circle cx="402" cy="230" r="7" fill="white"/>
+  <circle cx="422" cy="230" r="7" fill="white"/>
+  <circle cx="403" cy="231" r="4.5" fill="#1a1a1a"/>
+  <circle cx="423" cy="231" r="4.5" fill="#1a1a1a"/>
+  <circle cx="404" cy="229" r="1.5" fill="white"/>
+  <circle cx="424" cy="229" r="1.5" fill="white"/>
+  <!-- Forced grin -->
+  <path d="M400 244 Q412 254 424 244 Q412 257 400 244 Z" fill="#8B4040"/>
+  <rect x="402" y="244" width="20" height="8" rx="2" fill="#8B4040"/>
+  <!-- Sweat drop -->
+  <circle cx="435" cy="230" r="4" fill="#7dd4f8"/>
+  <!-- Also stiff waving -->
+  <path d="M437 255 Q448 245 451 234" fill="none" stroke="#F5C5A3" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Dust cloud from fast stop -->
+  <ellipse cx="175" cy="370" rx="60" ry="20" fill="#c87820" opacity=".4"/>
+
+  <text x="400" y="490" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#fff8d0" opacity=".9">Op safari – een beetje te dichtbij 🦁</text>
+</svg>

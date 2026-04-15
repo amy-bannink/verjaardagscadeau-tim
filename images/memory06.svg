@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="jungle6" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a4a0a"/>
+      <stop offset="100%" stop-color="#2a6e14"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#jungle6)"/>
+
+  <!-- Background foliage -->
+  <ellipse cx="0" cy="200" rx="120" ry="180" fill="#1e5a0e" opacity=".8"/>
+  <ellipse cx="800" cy="180" rx="130" ry="190" fill="#1e5a0e" opacity=".8"/>
+  <ellipse cx="200" cy="50" rx="100" ry="80" fill="#2a7018"/>
+  <ellipse cx="600" cy="40" rx="120" ry="85" fill="#2a7018"/>
+  <ellipse cx="400" cy="30" rx="150" ry="70" fill="#1e5a0e"/>
+
+  <!-- Giant leaves -->
+  <!-- Left cluster -->
+  <path d="M80 120 Q40 80 20 150 Q60 170 80 120 Z" fill="#3a8c22"/>
+  <path d="M50 200 Q10 160 0 230 Q40 250 50 200 Z" fill="#2a7018"/>
+  <path d="M120 80 Q90 30 150 60 Q155 100 120 80 Z" fill="#4a9c2a"/>
+  <!-- Right cluster -->
+  <path d="M720 120 Q760 80 780 150 Q740 170 720 120 Z" fill="#3a8c22"/>
+  <path d="M750 200 Q790 160 800 230 Q760 250 750 200 Z" fill="#2a7018"/>
+  <path d="M680 80 Q710 30 650 60 Q645 100 680 80 Z" fill="#4a9c2a"/>
+  <!-- Middle top leaves -->
+  <path d="M300 10 Q270 50 320 70 Q340 40 300 10 Z" fill="#3a8c22"/>
+  <path d="M500 10 Q530 50 480 70 Q460 40 500 10 Z" fill="#3a8c22"/>
+
+  <!-- Vines hanging -->
+  <path d="M150 0 Q145 80 155 160 Q150 200 145 250" fill="none" stroke="#2a6e14" stroke-width="5" stroke-linecap="round"/>
+  <path d="M650 0 Q655 80 645 160 Q650 200 655 250" fill="none" stroke="#2a6e14" stroke-width="5" stroke-linecap="round"/>
+  <path d="M350 0 Q345 60 355 120" fill="none" stroke="#2a6e14" stroke-width="4" stroke-linecap="round"/>
+  <path d="M450 0 Q455 60 445 120" fill="none" stroke="#2a6e14" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Jungle floor -->
+  <ellipse cx="400" cy="540" rx="500" ry="120" fill="#1a4a0a"/>
+  <!-- Ferns and ground plants -->
+  <path d="M100 460 Q80 420 120 410 Q110 440 130 445 Q115 450 100 460 Z" fill="#2a7018"/>
+  <path d="M140 465 Q120 425 160 415 Q150 445 170 450 Q155 455 140 465 Z" fill="#3a8c22"/>
+  <path d="M620 460 Q640 420 600 410 Q610 440 590 445 Q605 450 620 460 Z" fill="#2a7018"/>
+  <path d="M670 465 Q690 425 650 415 Q660 445 640 450 Q655 455 670 465 Z" fill="#3a8c22"/>
+  <!-- Ground mushrooms -->
+  <ellipse cx="200" cy="460" rx="15" ry="6" fill="#8B5E2A"/>
+  <ellipse cx="200" cy="452" rx="20" ry="12" fill="#e05a2a"/>
+  <circle cx="194" cy="450" r="3" fill="white"/><circle cx="200" cy="448" r="2" fill="white"/><circle cx="207" cy="451" r="2.5" fill="white"/>
+
+  <!-- Berry bush center -->
+  <ellipse cx="400" cy="380" rx="55" ry="40" fill="#2a7018"/>
+  <ellipse cx="380" cy="360" rx="40" ry="30" fill="#3a8c22"/>
+  <ellipse cx="420" cy="355" rx="38" ry="28" fill="#2a7018"/>
+  <!-- Berries on bush -->
+  <circle cx="385" cy="355" r="6" fill="#cc2222"/>
+  <circle cx="398" cy="350" r="6" fill="#cc2222"/>
+  <circle cx="412" cy="352" r="6" fill="#cc2222"/>
+  <circle cx="424" cy="358" r="6" fill="#cc2222"/>
+  <circle cx="376" cy="365" r="5" fill="#cc2222"/>
+  <circle cx="392" cy="362" r="5" fill="#cc2222"/>
+  <circle cx="408" cy="360" r="5" fill="#cc2222"/>
+  <!-- Shine on berries -->
+  <circle cx="383" cy="353" r="2" fill="white" opacity=".5"/>
+  <circle cx="396" cy="348" r="2" fill="white" opacity=".5"/>
+  <circle cx="410" cy="350" r="2" fill="white" opacity=".5"/>
+
+  <!-- TIM (left, holding berries, suspicious look) -->
+  <!-- Body -->
+  <rect x="220" y="275" width="58" height="90" rx="12" fill="#5c8a3c"/>
+  <!-- Torn shirt detail -->
+  <path d="M220 280 L228 295 L222 310" fill="none" stroke="#4a7030" stroke-width="2"/>
+  <!-- Backpack straps -->
+  <line x1="220" y1="285" x2="210" y2="330" stroke="#8B5E2A" stroke-width="5"/>
+  <line x1="278" y1="285" x2="288" y2="330" stroke="#8B5E2A" stroke-width="5"/>
+  <!-- Arms -->
+  <rect x="192" y="280" width="30" height="55" rx="11" fill="#5c8a3c"/>
+  <rect x="278" y="280" width="30" height="55" rx="11" fill="#5c8a3c"/>
+  <!-- Left hand holding berries -->
+  <ellipse cx="207" cy="338" rx="14" ry="10" fill="#E8B08A"/>
+  <!-- Berries in hand -->
+  <circle cx="200" cy="334" r="4.5" fill="#cc2222"/>
+  <circle cx="208" cy="332" r="4.5" fill="#cc2222"/>
+  <circle cx="215" cy="335" r="4.5" fill="#cc2222"/>
+  <!-- Right hand scratching head -->
+  <ellipse cx="293" cy="268" rx="13" ry="9" fill="#E8B08A"/>
+  <!-- Legs/pants -->
+  <rect x="226" y="360" width="22" height="80" rx="10" fill="#4a6a30"/>
+  <rect x="252" y="360" width="22" height="80" rx="10" fill="#4a6a30"/>
+  <!-- Boots -->
+  <ellipse cx="237" cy="442" rx="16" ry="8" fill="#4a3020"/>
+  <ellipse cx="263" cy="442" rx="16" ry="8" fill="#4a3020"/>
+  <!-- Head -->
+  <circle cx="249" cy="255" r="30" fill="#E8B08A"/>
+  <!-- Hair (messy/sweaty) -->
+  <path d="M222 247 Q224 224 249 221 Q274 224 276 247" fill="#C4965A"/>
+  <rect x="220" y="232" width="58" height="16" rx="8" fill="#C4965A"/>
+  <!-- Sweat -->
+  <circle cx="278" cy="255" r="3" fill="#7dd4f8"/>
+  <circle cx="284" cy="265" r="2" fill="#7dd4f8"/>
+  <!-- Eyes (squinting suspiciously at berries) -->
+  <path d="M238 252 Q249 249 260 252" fill="none" stroke="#555" stroke-width="3"/>
+  <!-- Raised eyebrow -->
+  <path d="M260 246 Q270 243 277 246" fill="none" stroke="#C4965A" stroke-width="2.5"/>
+  <!-- Uncertain expression -->
+  <path d="M238 267 Q249 272 260 268" fill="none" stroke="#8B5E52" stroke-width="2" stroke-linecap="round"/>
+  <!-- Question mark thought bubble -->
+  <circle cx="288" cy="225" r="18" fill="white" opacity=".85"/>
+  <circle cx="278" cy="238" r="5" fill="white" opacity=".85"/>
+  <circle cx="272" cy="245" r="3" fill="white" opacity=".85"/>
+  <text x="283" y="231" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="bold" fill="#c9a000">?</text>
+
+  <!-- AMY (right, holding berries, also uncertain) -->
+  <!-- Body -->
+  <rect x="478" y="278" width="54" height="86" rx="12" fill="#c04060"/>
+  <!-- Arms -->
+  <rect x="450" y="283" width="30" height="52" rx="11" fill="#c04060"/>
+  <rect x="532" y="283" width="30" height="52" rx="11" fill="#c04060"/>
+  <!-- Left hand holding berries up to inspect -->
+  <ellipse cx="465" cy="307" rx="13" ry="9" fill="#F5C5A3"/>
+  <!-- Berries in hand -->
+  <circle cx="459" cy="303" r="4" fill="#cc2222"/>
+  <circle cx="467" cy="301" r="4" fill="#cc2222"/>
+  <circle cx="473" cy="304" r="4" fill="#cc2222"/>
+  <!-- Right hand on hip -->
+  <ellipse cx="547" cy="338" rx="13" ry="9" fill="#F5C5A3"/>
+  <!-- Legs -->
+  <rect x="484" y="360" width="20" height="78" rx="10" fill="#a03050"/>
+  <rect x="508" y="360" width="20" height="78" rx="10" fill="#a03050"/>
+  <!-- Boots -->
+  <ellipse cx="494" cy="440" rx="15" ry="8" fill="#4a3020"/>
+  <ellipse cx="518" cy="440" rx="15" ry="8" fill="#4a3020"/>
+  <!-- Head -->
+  <circle cx="505" cy="257" r="28" fill="#F5C5A3"/>
+  <!-- Long dark hair (messy) -->
+  <ellipse cx="505" cy="243" rx="29" ry="19" fill="#2C1810"/>
+  <path d="M478 250 Q470 268 472 295 Q480 292 479 278 Q479 263 480 253 Z" fill="#2C1810"/>
+  <path d="M532 250 Q540 268 538 295 Q530 292 531 278 Q531 263 530 253 Z" fill="#2C1810"/>
+  <!-- A leaf stuck in hair -->
+  <path d="M538 246 Q555 232 550 252 Q542 250 538 246 Z" fill="#3a8c22"/>
+  <!-- Eyes looking at berries skeptically -->
+  <circle cx="496" cy="255" r="4.5" fill="#444"/>
+  <circle cx="514" cy="255" r="4.5" fill="#444"/>
+  <circle cx="497" cy="254" r="1.5" fill="white"/>
+  <circle cx="515" cy="254" r="1.5" fill="white"/>
+  <!-- One eyebrow raised -->
+  <path d="M493 248 Q505 245 517 248" fill="none" stroke="#2C1810" stroke-width="2.5"/>
+  <!-- Uncertain expression -->
+  <path d="M494 268 Q505 274 516 268" fill="none" stroke="#8B5E52" stroke-width="2" stroke-linecap="round"/>
+  <!-- Thought bubble with skull -->
+  <circle cx="540" cy="228" r="16" fill="white" opacity=".85"/>
+  <circle cx="527" cy="240" r="5" fill="white" opacity=".85"/>
+  <circle cx="521" cy="247" r="3" fill="white" opacity=".85"/>
+  <text x="540" y="234" text-anchor="middle" font-family="sans-serif" font-size="18">☠️</text>
+
+  <!-- Bird watching from branch -->
+  <path d="M600 160 Q680 140 750 170" fill="none" stroke="#5c3a1e" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="612" cy="152" r="9" fill="#e05a2a"/>
+  <path d="M605 154 L600 162 L610 160 Z" fill="#e09040"/>
+  <circle cx="609" cy="150" r="2.5" fill="#1a1a1a"/>
+
+  <text x="400" y="485" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c8f0a0" opacity=".9">Dag 3: de bessen waren verdacht 🌿</text>
+</svg>

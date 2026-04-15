@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <radialGradient id="bg1" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#0d1b4b"/>
+      <stop offset="100%" stop-color="#000510"/>
+    </radialGradient>
+  </defs>
+  <!-- Space -->
+  <rect width="800" height="500" fill="url(#bg1)"/>
+  <!-- Stars -->
+  <circle cx="30" cy="20" r="1.5" fill="white" opacity=".9"/>
+  <circle cx="80" cy="55" r="1" fill="white" opacity=".8"/>
+  <circle cx="140" cy="18" r="2" fill="white"/>
+  <circle cx="220" cy="42" r="1" fill="white" opacity=".9"/>
+  <circle cx="310" cy="28" r="1.5" fill="white"/>
+  <circle cx="420" cy="12" r="1" fill="white" opacity=".7"/>
+  <circle cx="500" cy="38" r="2" fill="white"/>
+  <circle cx="580" cy="22" r="1" fill="white" opacity=".8"/>
+  <circle cx="660" cy="48" r="1.5" fill="white"/>
+  <circle cx="750" cy="15" r="1" fill="white" opacity=".9"/>
+  <circle cx="100" cy="120" r="1" fill="white" opacity=".6"/>
+  <circle cx="200" cy="95" r="1.5" fill="white"/>
+  <circle cx="370" cy="75" r="1" fill="white" opacity=".8"/>
+  <circle cx="480" cy="130" r="1" fill="white" opacity=".7"/>
+  <circle cx="620" cy="105" r="1.5" fill="white"/>
+  <circle cx="720" cy="140" r="1" fill="white" opacity=".6"/>
+  <circle cx="50" cy="180" r="1" fill="white" opacity=".7"/>
+  <circle cx="330" cy="155" r="1" fill="white" opacity=".8"/>
+  <circle cx="700" cy="170" r="1.5" fill="white"/>
+  <circle cx="760" cy="85" r="1" fill="white" opacity=".9"/>
+  <!-- Earth -->
+  <circle cx="680" cy="90" r="62" fill="#1e5f8a"/>
+  <ellipse cx="660" cy="75" rx="28" ry="18" fill="#2e7a4a" opacity=".85"/>
+  <ellipse cx="695" cy="100" rx="22" ry="13" fill="#2e7a4a" opacity=".7"/>
+  <ellipse cx="670" cy="110" rx="15" ry="8" fill="#2e7a4a" opacity=".5"/>
+  <circle cx="680" cy="90" r="62" fill="none" stroke="#6ab3d4" stroke-width="4" opacity=".25"/>
+  <ellipse cx="660" cy="62" rx="18" ry="8" fill="white" opacity=".4"/>
+  <!-- Moon surface -->
+  <ellipse cx="400" cy="640" rx="600" ry="260" fill="#c8bfa8"/>
+  <ellipse cx="160" cy="430" rx="38" ry="14" fill="#b5ac98"/>
+  <ellipse cx="590" cy="455" rx="28" ry="11" fill="#b5ac98"/>
+  <ellipse cx="700" cy="410" rx="18" ry="7" fill="#b5ac98"/>
+  <!-- Flag -->
+  <rect x="370" y="295" width="1" height="1" fill="transparent"/>
+  <line x1="370" y1="210" x2="370" y2="395" stroke="#aaa" stroke-width="3"/>
+  <rect x="370" y="210" width="55" height="38" rx="3" fill="#F5C518"/>
+  <text x="374" y="234" font-family="sans-serif" font-size="22">🌍</text>
+
+  <!-- TIM (left, no helmet, embarrassed) -->
+  <!-- Legs -->
+  <rect x="218" y="358" width="26" height="58" rx="10" fill="#ccc"/>
+  <rect x="250" y="358" width="26" height="58" rx="10" fill="#ccc"/>
+  <!-- Boots -->
+  <ellipse cx="231" cy="418" rx="19" ry="9" fill="#888"/>
+  <ellipse cx="263" cy="418" rx="19" ry="9" fill="#888"/>
+  <!-- Body (spacesuit) -->
+  <rect x="208" y="268" width="84" height="95" rx="18" fill="#e0e0e0"/>
+  <!-- Logo on suit -->
+  <circle cx="250" cy="305" r="12" fill="#F5C518" opacity=".7"/>
+  <!-- Arms -->
+  <rect x="178" y="273" width="32" height="65" rx="13" fill="#e0e0e0"/>
+  <rect x="290" y="273" width="32" height="65" rx="13" fill="#e0e0e0"/>
+  <!-- Gloves -->
+  <ellipse cx="194" cy="340" rx="16" ry="11" fill="#aaa"/>
+  <ellipse cx="306" cy="340" rx="16" ry="11" fill="#aaa"/>
+  <!-- Neck ring -->
+  <ellipse cx="250" cy="270" rx="26" ry="11" fill="#d0d0d0"/>
+  <!-- Head -->
+  <circle cx="250" cy="240" r="33" fill="#E8B08A"/>
+  <!-- Short blond hair -->
+  <path d="M220 230 Q222 208 250 205 Q278 208 280 230" fill="#C4965A"/>
+  <rect x="218" y="215" width="64" height="16" rx="8" fill="#C4965A"/>
+  <!-- Eyes -->
+  <circle cx="238" cy="238" r="4.5" fill="#555"/>
+  <circle cx="262" cy="238" r="4.5" fill="#555"/>
+  <circle cx="239" cy="237" r="1.5" fill="white"/>
+  <circle cx="263" cy="237" r="1.5" fill="white"/>
+  <!-- Embarrassed sweat -->
+  <text x="282" y="225" font-family="sans-serif" font-size="18">💦</text>
+  <!-- Mouth (nervous smile) -->
+  <path d="M236 255 Q250 263 264 255" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Blush -->
+  <ellipse cx="226" cy="250" rx="10" ry="6" fill="#ff8888" opacity=".35"/>
+  <ellipse cx="274" cy="250" rx="10" ry="6" fill="#ff8888" opacity=".35"/>
+
+  <!-- AMY (right, holding helmet, smug) -->
+  <!-- Legs -->
+  <rect x="458" y="358" width="26" height="58" rx="10" fill="#ccc"/>
+  <rect x="490" y="358" width="26" height="58" rx="10" fill="#ccc"/>
+  <!-- Boots -->
+  <ellipse cx="471" cy="418" rx="19" ry="9" fill="#888"/>
+  <ellipse cx="503" cy="418" rx="19" ry="9" fill="#888"/>
+  <!-- Body -->
+  <rect x="448" y="268" width="84" height="95" rx="18" fill="#e0e0e0"/>
+  <circle cx="490" cy="305" r="12" fill="#F5C518" opacity=".7"/>
+  <!-- Arms -->
+  <rect x="418" y="273" width="32" height="65" rx="13" fill="#e0e0e0"/>
+  <rect x="530" y="273" width="32" height="65" rx="13" fill="#e0e0e0"/>
+  <!-- Left glove holding helmet -->
+  <ellipse cx="434" cy="340" rx="16" ry="11" fill="#aaa"/>
+  <ellipse cx="546" cy="340" rx="16" ry="11" fill="#aaa"/>
+  <!-- Helmet held at side -->
+  <circle cx="415" cy="370" r="30" fill="#e8e8e8" opacity=".75"/>
+  <circle cx="415" cy="370" r="24" fill="none" stroke="#ccc" stroke-width="2"/>
+  <path d="M402 358 Q415 348 428 358" fill="none" stroke="white" stroke-width="3" opacity=".5"/>
+  <!-- Neck ring -->
+  <ellipse cx="490" cy="270" rx="26" ry="11" fill="#d0d0d0"/>
+  <!-- Helmet on head -->
+  <circle cx="490" cy="238" r="40" fill="#e8e8e8" opacity=".65"/>
+  <!-- Head inside -->
+  <circle cx="490" cy="238" r="31" fill="#F5C5A3"/>
+  <!-- Dark hair -->
+  <path d="M461 228 Q463 203 490 200 Q517 203 519 228" fill="#2C1810"/>
+  <ellipse cx="490" cy="205" rx="29" ry="17" fill="#2C1810"/>
+  <!-- Side hair wisps -->
+  <path d="M461 225 Q455 238 458 252" fill="none" stroke="#2C1810" stroke-width="7" stroke-linecap="round"/>
+  <path d="M519 225 Q525 238 522 252" fill="none" stroke="#2C1810" stroke-width="7" stroke-linecap="round"/>
+  <!-- Visor shine -->
+  <path d="M468 222 Q482 210 508 218" fill="none" stroke="white" stroke-width="3" opacity=".45"/>
+  <!-- Eyes (smug) -->
+  <path d="M478 234 Q483 231 488 234" fill="none" stroke="#555" stroke-width="2"/>
+  <path d="M492 234 Q497 231 502 234" fill="none" stroke="#555" stroke-width="2"/>
+  <!-- Smug smile -->
+  <path d="M480 250 Q490 260 500 253" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Title -->
+  <text x="400" y="475" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#c8c0a8" opacity=".8">Maanvakantie 2033 🌕</text>
+</svg>

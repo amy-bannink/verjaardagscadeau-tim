@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a7abf"/>
+      <stop offset="55%" stop-color="#1563a0"/>
+      <stop offset="100%" stop-color="#0d3d6e"/>
+    </linearGradient>
+    <linearGradient id="sky4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff8c42"/>
+      <stop offset="100%" stop-color="#ffc87a"/>
+    </linearGradient>
+  </defs>
+  <!-- Sunset sky -->
+  <rect width="800" height="260" fill="url(#sky4)"/>
+  <!-- Clouds -->
+  <ellipse cx="100" cy="80" rx="70" ry="30" fill="white" opacity=".6"/>
+  <ellipse cx="130" cy="72" rx="50" ry="28" fill="white" opacity=".6"/>
+  <ellipse cx="650" cy="90" rx="80" ry="32" fill="white" opacity=".5"/>
+  <ellipse cx="680" cy="82" rx="55" ry="26" fill="white" opacity=".5"/>
+  <!-- Sun setting -->
+  <circle cx="660" cy="50" r="45" fill="#ffdb4d" opacity=".9"/>
+  <!-- Ocean -->
+  <rect x="0" y="240" width="800" height="260" fill="url(#ocean)"/>
+  <!-- Waves -->
+  <path d="M0 260 Q50 250 100 260 Q150 270 200 260 Q250 250 300 260 Q350 270 400 260 Q450 250 500 260 Q550 270 600 260 Q650 250 700 260 Q750 270 800 260 L800 280 L0 280 Z" fill="#1e8ad4" opacity=".5"/>
+  <path d="M0 300 Q60 290 120 300 Q180 310 240 300 Q300 290 360 300 Q420 310 480 300 Q540 290 600 300 Q660 310 720 300 Q760 293 800 300 L800 315 L0 315 Z" fill="#1e8ad4" opacity=".3"/>
+
+  <!-- SHIP DECK -->
+  <rect x="80" y="200" width="640" height="40" rx="6" fill="#8B5E2A"/>
+  <rect x="80" y="196" width="640" height="10" rx="4" fill="#a07038"/>
+  <!-- Wood planks -->
+  <line x1="180" y1="200" x2="180" y2="240" stroke="#7a4e20" stroke-width="2" opacity=".5"/>
+  <line x1="280" y1="200" x2="280" y2="240" stroke="#7a4e20" stroke-width="2" opacity=".5"/>
+  <line x1="380" y1="200" x2="380" y2="240" stroke="#7a4e20" stroke-width="2" opacity=".5"/>
+  <line x1="480" y1="200" x2="480" y2="240" stroke="#7a4e20" stroke-width="2" opacity=".5"/>
+  <line x1="580" y1="200" x2="580" y2="240" stroke="#7a4e20" stroke-width="2" opacity=".5"/>
+  <!-- Rope railings -->
+  <line x1="90" y1="185" x2="710" y2="185" stroke="#c8a060" stroke-width="3"/>
+  <line x1="90" y1="175" x2="710" y2="175" stroke="#c8a060" stroke-width="2" opacity=".6"/>
+  <!-- Railing posts -->
+  <rect x="120" y="170" width="6" height="30" rx="2" fill="#a07038"/>
+  <rect x="240" y="170" width="6" height="30" rx="2" fill="#a07038"/>
+  <rect x="360" y="170" width="6" height="30" rx="2" fill="#a07038"/>
+  <rect x="480" y="170" width="6" height="30" rx="2" fill="#a07038"/>
+  <rect x="600" y="170" width="6" height="30" rx="2" fill="#a07038"/>
+  <rect x="680" y="170" width="6" height="30" rx="2" fill="#a07038"/>
+  <!-- Ship wheel -->
+  <circle cx="640" cy="155" r="35" fill="none" stroke="#8B5E2A" stroke-width="5"/>
+  <circle cx="640" cy="155" r="8" fill="#8B5E2A"/>
+  <line x1="640" y1="120" x2="640" y2="190" stroke="#8B5E2A" stroke-width="4"/>
+  <line x1="605" y1="155" x2="675" y2="155" stroke="#8B5E2A" stroke-width="4"/>
+  <line x1="615" y1="130" x2="665" y2="180" stroke="#8B5E2A" stroke-width="3"/>
+  <line x1="615" y1="180" x2="665" y2="130" stroke="#8B5E2A" stroke-width="3"/>
+  <!-- Mast -->
+  <rect x="395" y="20" width="10" height="185" fill="#6b4420"/>
+  <!-- Sail -->
+  <path d="M405 25 L530 80 L530 160 L405 160 Z" fill="#f0e8d0" opacity=".95"/>
+  <!-- Sail cross -->
+  <line x1="405" y1="90" x2="530" y2="90" stroke="#c8a060" stroke-width="2" opacity=".5"/>
+  <!-- Skull and crossbones on sail -->
+  <circle cx="468" cy="80" r="18" fill="#333" opacity=".7"/>
+  <circle cx="462" cy="76" r="5" fill="white" opacity=".9"/>
+  <circle cx="474" cy="76" r="5" fill="white" opacity=".9"/>
+  <path d="M460 86 Q468 91 476 86" fill="white" opacity=".8"/>
+  <line x1="454" y1="104" x2="482" y2="116" stroke="#333" stroke-width="4" opacity=".7"/>
+  <line x1="482" y1="104" x2="454" y2="116" stroke="#333" stroke-width="4" opacity=".7"/>
+  <!-- Flag -->
+  <rect x="405" y="22" width="40" height="28" rx="2" fill="#1a1a1a"/>
+  <circle cx="425" cy="30" r="6" fill="white"/>
+  <line x1="420" y1="36" x2="418" y2="46" stroke="white" stroke-width="2"/>
+  <line x1="430" y1="36" x2="432" y2="46" stroke="white" stroke-width="2"/>
+  <line x1="416" y1="42" x2="434" y2="42" stroke="white" stroke-width="2"/>
+
+  <!-- TIM (left, pirate captain) -->
+  <!-- Coat -->
+  <rect x="200" y="100" width="65" height="100" rx="10" fill="#1a3a6e"/>
+  <!-- Coat lapels -->
+  <path d="M200 100 L232 120 L232 100 Z" fill="#c9a000"/>
+  <path d="M265 100 L233 120 L233 100 Z" fill="#c9a000"/>
+  <!-- Buttons -->
+  <circle cx="232" cy="135" r="4" fill="#F5C518"/>
+  <circle cx="232" cy="153" r="4" fill="#F5C518"/>
+  <circle cx="232" cy="171" r="4" fill="#F5C518"/>
+  <!-- Belt -->
+  <rect x="200" y="190" width="65" height="10" rx="3" fill="#8B5E2A"/>
+  <rect x="226" y="188" width="14" height="14" rx="2" fill="#c9a000"/>
+  <!-- Sword at side -->
+  <line x1="198" y1="160" x2="190" y2="215" stroke="#c0c0c0" stroke-width="5"/>
+  <rect x="183" y="156" width="20" height="8" rx="3" fill="#c9a000"/>
+  <!-- Arm -->
+  <rect x="265" y="105" width="26" height="60" rx="10" fill="#1a3a6e"/>
+  <ellipse cx="278" cy="168" rx="13" ry="9" fill="#E8B08A"/>
+  <!-- Legs/pants -->
+  <rect x="206" y="200" width="24" height="70" rx="10" fill="#1a2a50"/>
+  <rect x="236" y="200" width="24" height="70" rx="10" fill="#1a2a50"/>
+  <!-- Boots -->
+  <ellipse cx="218" cy="272" rx="17" ry="9" fill="#3a2010"/>
+  <ellipse cx="248" cy="272" rx="17" ry="9" fill="#3a2010"/>
+  <!-- Head -->
+  <circle cx="232" cy="80" r="30" fill="#E8B08A"/>
+  <!-- Pirate hat -->
+  <ellipse cx="232" cy="55" rx="36" ry="10" fill="#1a1a1a"/>
+  <path d="M196 55 Q232 28 268 55 Z" fill="#1a1a1a"/>
+  <!-- Hat skull -->
+  <circle cx="232" cy="38" r="8" fill="white"/>
+  <circle cx="228" cy="35" r="2.5" fill="#1a1a1a"/>
+  <circle cx="236" cy="35" r="2.5" fill="#1a1a1a"/>
+  <path d="M227 42 Q232 46 237 42" fill="white"/>
+  <!-- Eyepatch -->
+  <circle cx="222" cy="76" r="9" fill="#1a1a1a"/>
+  <line x1="213" y1="72" x2="231" y2="70" stroke="#1a1a1a" stroke-width="3"/>
+  <!-- Eye (visible) -->
+  <circle cx="244" cy="78" r="5" fill="#444"/>
+  <circle cx="245" cy="77" r="1.5" fill="white"/>
+  <!-- Smirk -->
+  <path d="M224 90 Q233 97 242 92" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Beard stubble -->
+  <ellipse cx="232" cy="94" rx="14" ry="6" fill="#b07040" opacity=".3"/>
+
+  <!-- AMY (right, fierce pirate) -->
+  <!-- Coat -->
+  <rect x="490" y="100" width="60" height="100" rx="10" fill="#8B1a1a"/>
+  <!-- Gold trim -->
+  <path d="M490 100 L520 118 L520 100 Z" fill="#c9a000"/>
+  <path d="M550 100 L520 118 L520 100 Z" fill="#c9a000"/>
+  <circle cx="520" cy="138" r="4" fill="#F5C518"/>
+  <circle cx="520" cy="158" r="4" fill="#F5C518"/>
+  <!-- Belt -->
+  <rect x="490" y="190" width="60" height="10" rx="3" fill="#8B5E2A"/>
+  <rect x="513" y="188" width="14" height="14" rx="2" fill="#c9a000"/>
+  <!-- Sword pointing forward confidently -->
+  <line x1="555" y1="145" x2="600" y2="130" stroke="#c0c0c0" stroke-width="5"/>
+  <rect x="548" y="138" width="18" height="7" rx="3" fill="#c9a000"/>
+  <!-- Arms -->
+  <rect x="550" y="108" width="25" height="55" rx="10" fill="#8B1a1a"/>
+  <ellipse cx="562" cy="165" rx="12" ry="8" fill="#F5C5A3"/>
+  <!-- Legs/pants -->
+  <rect x="496" y="200" width="22" height="68" rx="10" fill="#5a1010"/>
+  <rect x="524" y="200" width="22" height="68" rx="10" fill="#5a1010"/>
+  <!-- Boots -->
+  <ellipse cx="507" cy="270" rx="17" ry="9" fill="#3a2010"/>
+  <ellipse cx="535" cy="270" rx="17" ry="9" fill="#3a2010"/>
+  <!-- Head -->
+  <circle cx="520" cy="78" r="28" fill="#F5C5A3"/>
+  <!-- Long dark hair blowing in wind -->
+  <ellipse cx="520" cy="63" rx="28" ry="18" fill="#2C1810"/>
+  <path d="M493 72 Q480 85 476 108 Q486 110 488 92 Q490 78 494 72 Z" fill="#2C1810"/>
+  <path d="M547 72 Q570 80 585 65 Q578 58 568 70 Q558 76 548 73 Z" fill="#2C1810"/>
+  <!-- Pirate hat (tilted) -->
+  <ellipse cx="524" cy="50" rx="33" ry="9" fill="#1a1a1a" transform="rotate(-8 524 50)"/>
+  <path d="M492 52 Q524 26 556 52 Z" fill="#1a1a1a" transform="rotate(-8 524 52)"/>
+  <!-- Feather in hat -->
+  <path d="M555 35 Q568 20 572 30 Q565 32 558 40" fill="#e05a7a"/>
+  <!-- Eyes (fierce) -->
+  <circle cx="512" cy="76" r="4.5" fill="#444"/>
+  <circle cx="528" cy="76" r="4.5" fill="#444"/>
+  <circle cx="513" cy="75" r="1.5" fill="white"/>
+  <circle cx="529" cy="75" r="1.5" fill="white"/>
+  <!-- Eyebrow raised -->
+  <path d="M509 69 Q520 66 529 69" fill="none" stroke="#2C1810" stroke-width="2.5"/>
+  <!-- Confident smile -->
+  <path d="M510 88 Q520 97 530 90" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+
+  <text x="400" y="490" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#ffd080" opacity=".9">Onze carrière als piraten 🏴‍☠️</text>
+</svg>

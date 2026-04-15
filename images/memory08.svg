@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="fog8" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a5060"/>
+      <stop offset="100%" stop-color="#8090a8"/>
+    </linearGradient>
+    <linearGradient id="castle8" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a3d48"/>
+      <stop offset="100%" stop-color="#52566a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#fog8)"/>
+
+  <!-- Moon -->
+  <circle cx="680" cy="70" r="45" fill="#e8e8d0" opacity=".8"/>
+  <circle cx="668" cy="60" r="18" fill="#d0d0b8" opacity=".5"/>
+  <!-- Moon glow -->
+  <circle cx="680" cy="70" r="70" fill="#e8e8d0" opacity=".08"/>
+
+  <!-- Fog layers -->
+  <ellipse cx="400" cy="380" rx="600" ry="80" fill="white" opacity=".12"/>
+  <ellipse cx="200" cy="420" rx="350" ry="60" fill="white" opacity=".10"/>
+  <ellipse cx="650" cy="400" rx="300" ry="55" fill="white" opacity=".08"/>
+  <ellipse cx="400" cy="490" rx="600" ry="70" fill="white" opacity=".15"/>
+
+  <!-- Castle silhouette background -->
+  <!-- Main tower -->
+  <rect x="320" y="60" width="160" height="350" fill="url(#castle8)"/>
+  <!-- Tower battlements -->
+  <rect x="310" y="48" width="30" height="28" rx="3" fill="#3a3d48"/>
+  <rect x="352" y="48" width="30" height="28" rx="3" fill="#3a3d48"/>
+  <rect x="394" y="48" width="30" height="28" rx="3" fill="#3a3d48"/>
+  <rect x="436" y="48" width="30" height="28" rx="3" fill="#3a3d48"/>
+  <!-- Left tower -->
+  <rect x="100" y="120" width="120" height="290" fill="#3a3d48"/>
+  <!-- Left tower battlements -->
+  <rect x="92" y="108" width="22" height="24" rx="2" fill="#2e313c"/>
+  <rect x="120" y="108" width="22" height="24" rx="2" fill="#2e313c"/>
+  <rect x="148" y="108" width="22" height="24" rx="2" fill="#2e313c"/>
+  <rect x="176" y="108" width="22" height="24" rx="2" fill="#2e313c"/>
+  <!-- Right tower -->
+  <rect x="580" y="140" width="110" height="270" fill="#3a3d48"/>
+  <!-- Right battlements -->
+  <rect x="572" y="128" width="22" height="22" rx="2" fill="#2e313c"/>
+  <rect x="598" y="128" width="22" height="22" rx="2" fill="#2e313c"/>
+  <rect x="624" y="128" width="22" height="22" rx="2" fill="#2e313c"/>
+  <rect x="650" y="128" width="22" height="22" rx="2" fill="#2e313c"/>
+  <!-- Connecting walls -->
+  <rect x="220" y="200" width="100" height="210" fill="#42455a"/>
+  <rect x="480" y="220" width="100" height="190" fill="#42455a"/>
+  <!-- Gate arch -->
+  <path d="M340 410 L340 320 Q400 290 460 320 L460 410 Z" fill="#1a1d28"/>
+  <!-- Portcullis bars -->
+  <line x1="358" y1="320" x2="358" y2="410" stroke="#2a2d38" stroke-width="4"/>
+  <line x1="378" y1="316" x2="378" y2="410" stroke="#2a2d38" stroke-width="4"/>
+  <line x1="398" y1="314" x2="398" y2="410" stroke="#2a2d38" stroke-width="4"/>
+  <line x1="418" y1="316" x2="418" y2="410" stroke="#2a2d38" stroke-width="4"/>
+  <line x1="438" y1="320" x2="438" y2="410" stroke="#2a2d38" stroke-width="4"/>
+  <line x1="345" y1="350" x2="455" y2="350" stroke="#2a2d38" stroke-width="3"/>
+  <line x1="345" y1="375" x2="455" y2="375" stroke="#2a2d38" stroke-width="3"/>
+  <!-- Castle windows (glowing yellow) -->
+  <rect x="358" y="120" width="28" height="38" rx="14" fill="#F5C518" opacity=".6"/>
+  <rect x="414" y="120" width="28" height="38" rx="14" fill="#F5C518" opacity=".5"/>
+  <rect x="122" y="160" width="22" height="32" rx="11" fill="#F5C518" opacity=".4"/>
+  <rect x="152" y="160" width="22" height="32" rx="11" fill="#F5C518" opacity=".5"/>
+  <rect x="595" y="175" width="20" height="30" rx="10" fill="#F5C518" opacity=".4"/>
+  <!-- Tower flag -->
+  <line x1="400" y1="55" x2="400" y2="15" stroke="#888" stroke-width="3"/>
+  <path d="M400 15 L440 25 L400 35 Z" fill="#8B1a1a"/>
+
+  <!-- Ground/cobblestones -->
+  <rect x="0" y="420" width="800" height="80" fill="#2a2e38"/>
+  <!-- Cobblestone pattern -->
+  <ellipse cx="50" cy="440" rx="30" ry="12" fill="#333744" opacity=".7"/>
+  <ellipse cx="130" cy="435" rx="35" ry="11" fill="#333744" opacity=".6"/>
+  <ellipse cx="210" cy="443" rx="28" ry="11" fill="#333744" opacity=".7"/>
+  <ellipse cx="290" cy="437" rx="33" ry="12" fill="#333744" opacity=".6"/>
+  <ellipse cx="370" cy="443" rx="30" ry="12" fill="#333744" opacity=".7"/>
+  <ellipse cx="450" cy="437" rx="32" ry="11" fill="#333744" opacity=".6"/>
+  <ellipse cx="530" cy="443" rx="28" ry="12" fill="#333744" opacity=".7"/>
+  <ellipse cx="610" cy="437" rx="35" ry="11" fill="#333744" opacity=".6"/>
+  <ellipse cx="690" cy="443" rx="30" ry="12" fill="#333744" opacity=".7"/>
+  <ellipse cx="765" cy="437" rx="28" ry="11" fill="#333744" opacity=".6"/>
+
+  <!-- TIM as knight (full armor, left) -->
+  <!-- Legs/greaves -->
+  <rect x="202" y="340" width="24" height="80" rx="8" fill="#8a9aaa"/>
+  <rect x="230" y="340" width="24" height="80" rx="8" fill="#8a9aaa"/>
+  <!-- Knee plates -->
+  <ellipse cx="214" cy="348" rx="14" ry="10" fill="#a0b0c0"/>
+  <ellipse cx="242" cy="348" rx="14" ry="10" fill="#a0b0c0"/>
+  <!-- Boots/sabatons -->
+  <ellipse cx="214" cy="422" rx="18" ry="9" fill="#6a7a8a"/>
+  <ellipse cx="242" cy="422" rx="18" ry="9" fill="#6a7a8a"/>
+  <!-- Body/breastplate -->
+  <rect x="194" y="240" width="70" height="105" rx="10" fill="#8a9aaa"/>
+  <!-- Breastplate details -->
+  <ellipse cx="229" cy="270" rx="20" ry="25" fill="#9ab0c0"/>
+  <line x1="229" y1="248" x2="229" y2="342" stroke="#7a8a9a" stroke-width="2.5"/>
+  <!-- Pauldrons (shoulder armor) -->
+  <ellipse cx="194" cy="248" rx="22" ry="14" fill="#9ab0c0"/>
+  <ellipse cx="264" cy="248" rx="22" ry="14" fill="#9ab0c0"/>
+  <!-- Shield arm (left) -->
+  <rect x="158" y="252" width="28" height="70" rx="10" fill="#8a9aaa"/>
+  <!-- Shield -->
+  <path d="M130 260 L130 310 Q130 340 155 352 Q180 340 180 310 L180 260 Z" fill="#c0a030"/>
+  <path d="M142 268 L142 308 Q142 330 155 340 Q168 330 168 308 L168 268 Z" fill="#8B1a1a"/>
+  <!-- Cross on shield -->
+  <rect x="150" y="278" width="10" height="40" rx="2" fill="#F5C518"/>
+  <rect x="140" y="296" width="30" height="10" rx="2" fill="#F5C518"/>
+  <!-- Sword arm (right) -->
+  <rect x="272" y="252" width="26" height="70" rx="10" fill="#8a9aaa"/>
+  <!-- Sword -->
+  <line x1="298" y1="240" x2="298" y2="160" stroke="#c0c8d0" stroke-width="7" stroke-linecap="round"/>
+  <rect x="284" y="238" width="28" height="8" rx="3" fill="#c9a000"/>
+  <circle cx="298" cy="248" r="6" fill="#8B5E2A"/>
+  <!-- Helmet -->
+  <ellipse cx="229" cy="218" rx="34" ry="28" fill="#8a9aaa"/>
+  <rect x="196" y="200" width="66" height="18" rx="5" fill="#9ab0c0"/>
+  <!-- Visor slit (closed) -->
+  <rect x="210" y="220" width="38" height="7" rx="3" fill="#2a2e38"/>
+  <!-- Plume on helmet -->
+  <path d="M229 190 Q240 165 248 155 Q253 165 245 178 Q238 188 229 190 Z" fill="#8B1a1a"/>
+  <!-- Shivering indication (frost breath) -->
+  <path d="M212 235 Q220 228 228 235" fill="none" stroke="#c8e8f8" stroke-width="1.5" opacity=".6"/>
+  <text x="165" y="445" text-anchor="middle" font-family="sans-serif" font-size="18">🥶</text>
+
+  <!-- AMY as princess (right) -->
+  <!-- Long dress -->
+  <path d="M520 310 Q500 360 490 420 L580 420 Q570 360 550 310 Z" fill="#8B1a8B"/>
+  <!-- Dress skirt fuller -->
+  <path d="M490 390 Q480 420 485 430 L585 430 Q590 420 580 390 Z" fill="#7a1a7a"/>
+  <!-- Dress details -->
+  <line x1="510" y1="315" x2="503" y2="418" stroke="#9a2a9a" stroke-width="1.5"/>
+  <line x1="525" y1="313" x2="522" y2="420" stroke="#9a2a9a" stroke-width="1.5"/>
+  <line x1="535" y1="313" x2="535" y2="420" stroke="#9a2a9a" stroke-width="1.5"/>
+  <line x1="548" y1="315" x2="548" y2="418" stroke="#9a2a9a" stroke-width="1.5"/>
+  <!-- Bodice -->
+  <rect x="512" y="248" width="46" height="65" rx="10" fill="#c030c0"/>
+  <!-- Gold trim on bodice -->
+  <line x1="512" y1="260" x2="558" y2="260" stroke="#c9a000" stroke-width="2.5"/>
+  <line x1="512" y1="275" x2="558" y2="275" stroke="#c9a000" stroke-width="2"/>
+  <!-- Belt -->
+  <rect x="512" y="305" width="46" height="10" rx="4" fill="#c9a000"/>
+  <!-- Arms -->
+  <rect x="486" y="255" width="28" height="55" rx="11" fill="#c030c0"/>
+  <rect x="556" y="255" width="28" height="55" rx="11" fill="#c030c0"/>
+  <!-- Hands (arms crossed, cold) -->
+  <ellipse cx="500" cy="312" rx="13" ry="9" fill="#F5C5A3"/>
+  <ellipse cx="570" cy="312" rx="13" ry="9" fill="#F5C5A3"/>
+  <!-- Head -->
+  <circle cx="535" cy="230" r="29" fill="#F5C5A3"/>
+  <!-- Long dark hair -->
+  <ellipse cx="535" cy="215" rx="30" ry="20" fill="#2C1810"/>
+  <path d="M507 222 Q498 240 500 272 Q510 268 509 252 Q508 238 508 226 Z" fill="#2C1810"/>
+  <path d="M563 222 Q572 240 570 272 Q560 268 561 252 Q562 238 562 226 Z" fill="#2C1810"/>
+  <!-- Crown/tiara -->
+  <path d="M510 213 L515 200 L520 213 L525 198 L530 213 L535 196 L540 213 L545 198 L550 213 L555 200 L560 213 Z" fill="#c9a000"/>
+  <!-- Crown gems -->
+  <circle cx="520" cy="207" r="3" fill="#cc2222"/>
+  <circle cx="535" cy="203" r="4" fill="#5588ff"/>
+  <circle cx="550" cy="207" r="3" fill="#cc2222"/>
+  <!-- Eyes (unimpressed, cold) -->
+  <circle cx="526" cy="228" r="4.5" fill="#444"/>
+  <circle cx="544" cy="228" r="4.5" fill="#444"/>
+  <circle cx="527" cy="227" r="1.5" fill="white"/>
+  <circle cx="545" cy="227" r="1.5" fill="white"/>
+  <!-- Unimpressed flat mouth -->
+  <line x1="525" y1="242" x2="545" y2="242" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Frost breath -->
+  <path d="M525 244 Q530 237 536 244" fill="none" stroke="#c8e8f8" stroke-width="1.5" opacity=".6"/>
+  <text x="575" y="445" text-anchor="middle" font-family="sans-serif" font-size="18">🥶</text>
+
+  <text x="400" y="490" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c8d8e8" opacity=".9">Ridders in de Middeleeuwen — koud ⚔️</text>
+</svg>

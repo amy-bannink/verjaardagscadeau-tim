@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <radialGradient id="marsbg" cx="50%" cy="80%" r="70%">
+      <stop offset="0%" stop-color="#c0401a"/>
+      <stop offset="100%" stop-color="#5a1a0a"/>
+    </radialGradient>
+    <radialGradient id="marsglow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a0a00" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#0a0408" stop-opacity=".6"/>
+    </radialGradient>
+  </defs>
+  <!-- Mars sky (dark) -->
+  <rect width="800" height="500" fill="#0a0408"/>
+  <!-- Stars -->
+  <circle cx="30" cy="25" r="1.5" fill="white" opacity=".8"/>
+  <circle cx="90" cy="15" r="1" fill="white" opacity=".9"/>
+  <circle cx="150" cy="40" r="1.5" fill="white" opacity=".7"/>
+  <circle cx="230" cy="20" r="1" fill="white" opacity=".8"/>
+  <circle cx="300" cy="35" r="2" fill="white" opacity=".7"/>
+  <circle cx="370" cy="15" r="1" fill="white" opacity=".9"/>
+  <circle cx="460" cy="28" r="1.5" fill="white" opacity=".8"/>
+  <circle cx="540" cy="12" r="1" fill="white" opacity=".7"/>
+  <circle cx="610" cy="38" r="2" fill="white" opacity=".8"/>
+  <circle cx="680" cy="22" r="1" fill="white" opacity=".9"/>
+  <circle cx="750" cy="40" r="1.5" fill="white" opacity=".7"/>
+  <circle cx="110" cy="100" r="1" fill="white" opacity=".6"/>
+  <circle cx="200" cy="80" r="1.5" fill="white" opacity=".7"/>
+  <circle cx="420" cy="75" r="1" fill="white" opacity=".8"/>
+  <circle cx="580" cy="95" r="1.5" fill="white" opacity=".6"/>
+  <circle cx="720" cy="85" r="1" fill="white" opacity=".7"/>
+  <circle cx="50" cy="155" r="1" fill="white" opacity=".5"/>
+  <circle cx="350" cy="130" r="1" fill="white" opacity=".6"/>
+  <circle cx="660" cy="145" r="1" fill="white" opacity=".5"/>
+
+  <!-- Earth visible in Mars sky -->
+  <circle cx="680" cy="90" r="42" fill="#1e5f8a"/>
+  <ellipse cx="662" cy="76" rx="22" ry="15" fill="#2e7a4a" opacity=".85"/>
+  <ellipse cx="696" cy="100" rx="18" ry="11" fill="#2e7a4a" opacity=".7"/>
+  <ellipse cx="672" cy="108" rx="12" ry="7" fill="#2e7a4a" opacity=".5"/>
+  <circle cx="680" cy="90" r="42" fill="none" stroke="#6ab3d4" stroke-width="3" opacity=".3"/>
+  <ellipse cx="665" cy="72" rx="14" ry="6" fill="white" opacity=".35"/>
+  <!-- "Home" label -->
+  <text x="680" y="145" text-anchor="middle" font-family="sans-serif" font-size="11" fill="white" opacity=".5">thuis</text>
+  <line x1="680" y1="132" x2="680" y2="140" stroke="white" stroke-width="1" opacity=".4"/>
+
+  <!-- Phobos (Mars moon) small -->
+  <ellipse cx="150" cy="55" rx="10" ry="7" fill="#9a8a78" opacity=".7"/>
+
+  <!-- Mars horizon glow -->
+  <ellipse cx="400" cy="300" rx="500" ry="80" fill="#c0401a" opacity=".3"/>
+
+  <!-- Mars surface/ground -->
+  <ellipse cx="400" cy="560" rx="600" ry="250" fill="url(#marsbg)"/>
+  <rect x="0" y="340" width="800" height="160" fill="#b03818"/>
+  <!-- Surface texture/craters -->
+  <ellipse cx="100" cy="380" rx="55" ry="20" fill="#a83010" opacity=".6"/>
+  <ellipse cx="88" cy="376" rx="42" ry="15" fill="#c04020" opacity=".4"/>
+  <ellipse cx="630" cy="400" rx="65" ry="22" fill="#a83010" opacity=".5"/>
+  <ellipse cx="618" cy="396" rx="50" ry="16" fill="#c04020" opacity=".4"/>
+  <ellipse cx="350" cy="430" rx="35" ry="12" fill="#a83010" opacity=".5"/>
+  <!-- Rocks -->
+  <ellipse cx="50" cy="360" rx="22" ry="12" fill="#8B3010" opacity=".8"/>
+  <ellipse cx="730" cy="355" rx="28" ry="14" fill="#8B3010" opacity=".8"/>
+  <ellipse cx="550" cy="355" rx="18" ry="10" fill="#8B3010" opacity=".7"/>
+  <ellipse cx="200" cy="360" rx="15" ry="8" fill="#8B3010" opacity=".7"/>
+  <!-- Distant Mars landscape -->
+  <path d="M0 300 Q100 270 180 285 Q280 260 360 275 Q460 255 540 270 Q640 248 720 262 Q760 258 800 265 L800 340 L0 340 Z" fill="#a03018" opacity=".8"/>
+
+  <!-- TIM (left, in spacesuit, looking at phone - no signal) -->
+  <!-- Legs/suit legs -->
+  <rect x="230" y="320" width="25" height="70" rx="10" fill="#ddd"/>
+  <rect x="260" y="320" width="25" height="70" rx="10" fill="#ddd"/>
+  <!-- Boots -->
+  <ellipse cx="242" cy="392" rx="20" ry="10" fill="#888"/>
+  <ellipse cx="273" cy="392" rx="20" ry="10" fill="#888"/>
+  <!-- Suit body -->
+  <rect x="220" y="225" width="78" height="100" rx="18" fill="#e0e0e0"/>
+  <!-- Suit logo -->
+  <circle cx="259" cy="265" r="13" fill="#F5C518" opacity=".7"/>
+  <!-- Arms (arms slightly raised, shrugging) -->
+  <rect x="192" y="232" width="30" height="68" rx="13" fill="#e0e0e0" transform="rotate(5 192 266)"/>
+  <rect x="298" y="232" width="30" height="68" rx="13" fill="#e0e0e0" transform="rotate(-5 298 266)"/>
+  <!-- Gloves -->
+  <ellipse cx="207" cy="302" rx="16" ry="11" fill="#aaa" transform="rotate(5 207 302)"/>
+  <ellipse cx="314" cy="302" rx="16" ry="11" fill="#aaa" transform="rotate(-5 314 302)"/>
+  <!-- Phone held up high in one hand -->
+  <!-- Tim's right arm raised holding phone -->
+  <rect x="305" y="200" width="26" height="68" rx="12" fill="#e0e0e0" transform="rotate(-30 305 234)"/>
+  <ellipse cx="328" cy="192" rx="14" ry="10" fill="#aaa" transform="rotate(-30 328 192)"/>
+  <!-- Phone -->
+  <rect x="338" y="158" width="20" height="35" rx="4" fill="#1a1a2a" transform="rotate(-25 348 175)"/>
+  <!-- Phone screen (no signal) -->
+  <rect x="340" y="162" width="16" height="26" rx="2" fill="#2a2a3a" transform="rotate(-25 348 175)"/>
+  <!-- No signal bars (X) -->
+  <text x="348" y="178" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#ff4444" transform="rotate(-25 348 178)">✕</text>
+  <!-- Signal waves (crossed out) -->
+  <path d="M365 148 Q375 140 385 148" fill="none" stroke="#ff4444" stroke-width="2" opacity=".8" transform="rotate(-25 375 148)"/>
+  <line x1="362" y1="144" x2="380" y2="158" stroke="#ff4444" stroke-width="2" opacity=".8"/>
+  <!-- Neck ring -->
+  <ellipse cx="259" cy="227" rx="28" ry="12" fill="#d0d0d0"/>
+  <!-- Helmet -->
+  <circle cx="259" cy="196" r="38" fill="#e0e0e0" opacity=".7"/>
+  <circle cx="259" cy="196" r="32" fill="#E8B08A"/>
+  <!-- Short hair inside helmet -->
+  <path d="M230 186 Q232 163 259 160 Q286 163 288 186" fill="#C4965A"/>
+  <rect x="228" y="171" width="62" height="16" rx="8" fill="#C4965A"/>
+  <!-- Visor shine -->
+  <path d="M237 180 Q251 168 278 175" fill="none" stroke="white" stroke-width="3" opacity=".45"/>
+  <!-- Eyes (frustrated) -->
+  <path d="M246 193 Q259 190 272 193" fill="none" stroke="#555" stroke-width="3"/>
+  <!-- Frown -->
+  <path d="M247 208 Q259 202 271 208" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Eyebrows furrowed -->
+  <path d="M244 187 Q259 183 274 187" fill="none" stroke="#C4965A" stroke-width="3"/>
+  <!-- Speech bubble -->
+  <rect x="148" y="128" width="115" height="42" rx="8" fill="white" opacity=".9"/>
+  <circle cx="195" cy="173" r="5" fill="white" opacity=".9"/>
+  <circle cx="190" cy="183" r="3" fill="white" opacity=".9"/>
+  <text x="205" y="146" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#555">geen wifi</text>
+  <text x="205" y="160" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#cc2222" font-weight="bold">ONACCEPTABEL</text>
+  <text x="205" y="168" text-anchor="middle" font-family="sans-serif" font-size="14">😤</text>
+
+  <!-- AMY (right, staring into distance, existential) -->
+  <!-- Legs -->
+  <rect x="490" y="320" width="25" height="70" rx="10" fill="#ddd"/>
+  <rect x="520" y="320" width="25" height="70" rx="10" fill="#ddd"/>
+  <!-- Boots -->
+  <ellipse cx="502" cy="392" rx="20" ry="10" fill="#888"/>
+  <ellipse cx="533" cy="392" rx="20" ry="10" fill="#888"/>
+  <!-- Suit body -->
+  <rect x="480" y="228" width="75" height="98" rx="18" fill="#e0e0e0"/>
+  <circle cx="517" cy="267" r="13" fill="#F5C518" opacity=".7"/>
+  <!-- Arms (one hand on hip, one at side) -->
+  <rect x="452" y="235" width="30" height="66" rx="12" fill="#e0e0e0"/>
+  <rect x="555" y="235" width="28" height="62" rx="12" fill="#e0e0e0"/>
+  <ellipse cx="467" cy="304" rx="15" ry="10" fill="#aaa"/>
+  <ellipse cx="569" cy="300" rx="15" ry="10" fill="#aaa"/>
+  <!-- Neck ring -->
+  <ellipse cx="517" cy="230" rx="27" ry="12" fill="#d0d0d0"/>
+  <!-- Helmet -->
+  <circle cx="517" cy="198" r="37" fill="#e0e0e0" opacity=".7"/>
+  <circle cx="517" cy="198" r="31" fill="#F5C5A3"/>
+  <!-- Dark hair inside -->
+  <ellipse cx="517" cy="183" rx="31" ry="20" fill="#2C1810"/>
+  <path d="M488 190 Q480 204 482 224 Q492 220 491 208 Q490 197 491 193 Z" fill="#2C1810"/>
+  <path d="M546 190 Q554 204 552 224 Q542 220 543 208 Q544 197 543 193 Z" fill="#2C1810"/>
+  <!-- Visor shine -->
+  <path d="M496 182 Q510 170 537 178" fill="none" stroke="white" stroke-width="3" opacity=".45"/>
+  <!-- Eyes (vacant stare into horizon) -->
+  <circle cx="507" cy="196" r="5" fill="#444"/>
+  <circle cx="527" cy="196" r="5" fill="#444"/>
+  <circle cx="508" cy="195" r="2" fill="white"/>
+  <circle cx="528" cy="195" r="2" fill="white"/>
+  <!-- Contemplative expression -->
+  <line x1="507" y1="210" x2="527" y2="210" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Thought bubble (philosophical) -->
+  <circle cx="548" cy="165" r="5" fill="white" opacity=".88"/>
+  <circle cx="558" cy="155" r="4" fill="white" opacity=".88"/>
+  <rect x="560" y="120" width="130" height="44" rx="8" fill="white" opacity=".9"/>
+  <text x="625" y="136" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#555">stel je voor dat</text>
+  <text x="625" y="148" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#555">hier ook HEMA is</text>
+  <text x="625" y="160" text-anchor="middle" font-family="sans-serif" font-size="13">🤔</text>
+
+  <!-- Mars rover in background -->
+  <rect x="160" y="315" width="65" height="35" rx="6" fill="#8B5010" opacity=".6"/>
+  <circle cx="175" cy="353" r="10" fill="#666" opacity=".6"/>
+  <circle cx="213" cy="353" r="10" fill="#666" opacity=".6"/>
+  <rect x="178" y="308" width="35" height="12" rx="3" fill="#c9a000" opacity=".5"/>
+  <!-- Solar panels on rover -->
+  <rect x="158" y="303" width="22" height="14" rx="2" fill="#2244aa" opacity=".6"/>
+  <rect x="205" y="303" width="22" height="14" rx="2" fill="#2244aa" opacity=".6"/>
+
+  <!-- Dust devil in distance -->
+  <path d="M650 270 Q648 255 652 240 Q660 235 664 250 Q660 265 652 275" fill="none" stroke="#c04020" stroke-width="3" opacity=".4"/>
+  <ellipse cx="655" cy="268" rx="12" ry="5" fill="#c04020" opacity=".3"/>
+
+  <text x="400" y="490" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#ff9966" opacity=".9">Eerste mensen op Mars 🔴</text>
+</svg>

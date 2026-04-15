@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="tomb" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8922a"/>
+      <stop offset="100%" stop-color="#7a4e10"/>
+    </linearGradient>
+    <linearGradient id="wall5" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a1008"/>
+      <stop offset="40%" stop-color="#3d2810"/>
+      <stop offset="100%" stop-color="#1a1008"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#wall5)"/>
+
+  <!-- Stone wall texture -->
+  <rect x="0" y="0" width="800" height="500" fill="none" stroke="#2a1808" stroke-width="30"/>
+  <!-- Wall blocks -->
+  <line x1="0" y1="80" x2="800" y2="80" stroke="#251508" stroke-width="3" opacity=".5"/>
+  <line x1="0" y1="160" x2="800" y2="160" stroke="#251508" stroke-width="3" opacity=".5"/>
+  <line x1="0" y1="240" x2="800" y2="240" stroke="#251508" stroke-width="3" opacity=".3"/>
+  <line x1="0" y1="320" x2="800" y2="320" stroke="#251508" stroke-width="3" opacity=".3"/>
+  <line x1="0" y1="400" x2="800" y2="400" stroke="#251508" stroke-width="3" opacity=".3"/>
+  <!-- Vertical block lines -->
+  <line x1="100" y1="0" x2="100" y2="80" stroke="#251508" stroke-width="2" opacity=".4"/>
+  <line x1="260" y1="0" x2="260" y2="80" stroke="#251508" stroke-width="2" opacity=".4"/>
+  <line x1="420" y1="0" x2="420" y2="80" stroke="#251508" stroke-width="2" opacity=".4"/>
+  <line x1="580" y1="0" x2="580" y2="80" stroke="#251508" stroke-width="2" opacity=".4"/>
+  <line x1="180" y1="80" x2="180" y2="160" stroke="#251508" stroke-width="2" opacity=".4"/>
+  <line x1="340" y1="80" x2="340" y2="160" stroke="#251508" stroke-width="2" opacity=".4"/>
+  <line x1="500" y1="80" x2="500" y2="160" stroke="#251508" stroke-width="2" opacity=".4"/>
+  <line x1="660" y1="80" x2="660" y2="160" stroke="#251508" stroke-width="2" opacity=".4"/>
+
+  <!-- Torches on walls -->
+  <rect x="55" y="100" width="10" height="25" rx="3" fill="#8B5E2A"/>
+  <ellipse cx="60" cy="98" rx="8" ry="12" fill="#ff8c00" opacity=".9"/>
+  <ellipse cx="60" cy="93" rx="5" ry="8" fill="#ffdd00" opacity=".8"/>
+  <circle cx="60" cy="88" r="4" fill="white" opacity=".6"/>
+  <!-- torch glow -->
+  <ellipse cx="60" cy="100" rx="40" ry="30" fill="#ff8c00" opacity=".08"/>
+
+  <rect x="735" y="100" width="10" height="25" rx="3" fill="#8B5E2A"/>
+  <ellipse cx="740" cy="98" rx="8" ry="12" fill="#ff8c00" opacity=".9"/>
+  <ellipse cx="740" cy="93" rx="5" ry="8" fill="#ffdd00" opacity=".8"/>
+  <circle cx="740" cy="88" r="4" fill="white" opacity=".6"/>
+  <ellipse cx="740" cy="100" rx="40" ry="30" fill="#ff8c00" opacity=".08"/>
+
+  <!-- Hieroglyphs left wall -->
+  <text x="28" y="200" font-family="sans-serif" font-size="20" fill="#c8922a" opacity=".7">𓀀</text>
+  <text x="28" y="230" font-family="sans-serif" font-size="18" fill="#c8922a" opacity=".6">𓁹</text>
+  <text x="28" y="258" font-family="sans-serif" font-size="16" fill="#c8922a" opacity=".5">𓃀</text>
+  <text x="28" y="284" font-family="sans-serif" font-size="18" fill="#c8922a" opacity=".6">𓆣</text>
+  <!-- Hieroglyphs right wall -->
+  <text x="752" y="200" font-family="sans-serif" font-size="20" fill="#c8922a" opacity=".7">𓀭</text>
+  <text x="752" y="230" font-family="sans-serif" font-size="18" fill="#c8922a" opacity=".6">𓂀</text>
+  <text x="752" y="258" font-family="sans-serif" font-size="16" fill="#c8922a" opacity=".5">𓇯</text>
+  <text x="752" y="284" font-family="sans-serif" font-size="18" fill="#c8922a" opacity=".6">𓁿</text>
+
+  <!-- Floor -->
+  <rect x="0" y="430" width="800" height="70" fill="#2a1808"/>
+  <line x1="0" y1="430" x2="800" y2="430" stroke="#c8922a" stroke-width="3" opacity=".4"/>
+  <!-- Floor tiles -->
+  <line x1="200" y1="430" x2="200" y2="500" stroke="#1a0e04" stroke-width="2"/>
+  <line x1="400" y1="430" x2="400" y2="500" stroke="#1a0e04" stroke-width="2"/>
+  <line x1="600" y1="430" x2="600" y2="500" stroke="#1a0e04" stroke-width="2"/>
+  <line x1="0" y1="465" x2="800" y2="465" stroke="#1a0e04" stroke-width="2"/>
+
+  <!-- TIM's throne (left) -->
+  <rect x="120" y="290" width="150" height="140" rx="5" fill="#8B5E2A"/>
+  <rect x="120" y="290" width="150" height="15" rx="4" fill="#c9a000"/>
+  <rect x="120" y="415" width="150" height="15" rx="4" fill="#c9a000"/>
+  <!-- Throne back -->
+  <rect x="135" y="220" width="120" height="75" rx="5" fill="#8B5E2A"/>
+  <rect x="135" y="220" width="120" height="12" rx="4" fill="#c9a000"/>
+  <!-- Sun disk on throne back -->
+  <circle cx="195" cy="250" r="20" fill="#c9a000"/>
+  <circle cx="195" cy="250" r="14" fill="#F5C518"/>
+  <!-- Armrests -->
+  <rect x="120" y="310" width="20" height="60" rx="5" fill="#a07038"/>
+  <rect x="250" y="310" width="20" height="60" rx="5" fill="#a07038"/>
+
+  <!-- AMY's throne (right) -->
+  <rect x="530" y="290" width="150" height="140" rx="5" fill="#8B5E2A"/>
+  <rect x="530" y="290" width="150" height="15" rx="4" fill="#c9a000"/>
+  <rect x="530" y="415" width="150" height="15" rx="4" fill="#c9a000"/>
+  <rect x="545" y="220" width="120" height="75" rx="5" fill="#8B5E2A"/>
+  <rect x="545" y="220" width="120" height="12" rx="4" fill="#c9a000"/>
+  <circle cx="605" cy="250" r="20" fill="#c9a000"/>
+  <circle cx="605" cy="250" r="14" fill="#F5C518"/>
+  <rect x="530" y="310" width="20" height="60" rx="5" fill="#a07038"/>
+  <rect x="660" y="310" width="20" height="60" rx="5" fill="#a07038"/>
+
+  <!-- TIM as pharaoh (seated) -->
+  <!-- Kilt/skirt -->
+  <path d="M172 355 L215 355 L220 430 L167 430 Z" fill="#F5C518"/>
+  <!-- White shirt/shendyt lines -->
+  <line x1="178" y1="360" x2="175" y2="425" stroke="#e0b000" stroke-width="1.5"/>
+  <line x1="188" y1="358" x2="186" y2="425" stroke="#e0b000" stroke-width="1.5"/>
+  <line x1="198" y1="358" x2="197" y2="425" stroke="#e0b000" stroke-width="1.5"/>
+  <line x1="208" y1="358" x2="210" y2="425" stroke="#e0b000" stroke-width="1.5"/>
+  <!-- Collar -->
+  <ellipse cx="194" cy="310" rx="35" ry="15" fill="#1a5a8a"/>
+  <!-- Collar beads -->
+  <circle cx="165" cy="310" r="4" fill="#F5C518"/>
+  <circle cx="175" cy="304" r="4" fill="#e05a7a"/>
+  <circle cx="185" cy="300" r="4" fill="#F5C518"/>
+  <circle cx="194" cy="298" r="4" fill="#e05a7a"/>
+  <circle cx="203" cy="300" r="4" fill="#F5C518"/>
+  <circle cx="213" cy="304" r="4" fill="#e05a7a"/>
+  <circle cx="223" cy="310" r="4" fill="#F5C518"/>
+  <!-- Body torso -->
+  <rect x="168" y="310" width="52" height="48" rx="5" fill="#E8B08A"/>
+  <!-- Arms on armrests -->
+  <rect x="128" y="320" width="42" height="16" rx="6" fill="#E8B08A"/>
+  <rect x="218" y="320" width="42" height="16" rx="6" fill="#E8B08A"/>
+  <!-- Head -->
+  <circle cx="194" cy="278" r="32" fill="#E8B08A"/>
+  <!-- Nemes headdress (pharaoh cloth) -->
+  <path d="M163 268 Q163 248 194 245 Q225 248 225 268 L228 295 Q218 300 194 302 Q170 300 160 295 Z" fill="#1a5a8a"/>
+  <!-- Headdress stripes -->
+  <line x1="165" y1="258" x2="164" y2="292" stroke="#F5C518" stroke-width="2.5" opacity=".7"/>
+  <line x1="172" y1="254" x2="170" y2="298" stroke="#F5C518" stroke-width="2.5" opacity=".7"/>
+  <line x1="216" y1="254" x2="218" y2="298" stroke="#F5C518" stroke-width="2.5" opacity=".7"/>
+  <line x1="223" y1="258" x2="224" y2="292" stroke="#F5C518" stroke-width="2.5" opacity=".7"/>
+  <!-- Uraeus snake on forehead -->
+  <path d="M186 248 Q192 238 198 248" fill="none" stroke="#c9a000" stroke-width="3"/>
+  <circle cx="192" cy="237" r="5" fill="#c9a000"/>
+  <!-- Kohl eyes -->
+  <path d="M178 275 L190 274 L182 278 Z" fill="#1a1a1a"/>
+  <circle cx="183" cy="275" r="4" fill="#1a1a1a"/>
+  <circle cx="184" cy="274" r="1.5" fill="white"/>
+  <path d="M200 275 L212 274 L206 278 Z" fill="#1a1a1a"/>
+  <circle cx="205" cy="275" r="4" fill="#1a1a1a"/>
+  <circle cx="206" cy="274" r="1.5" fill="white"/>
+  <!-- Bored expression -->
+  <path d="M184 290 Q194 293 204 290" fill="none" stroke="#8B5E52" stroke-width="2" stroke-linecap="round"/>
+  <!-- Crook & flail -->
+  <path d="M135 315 Q138 280 145 275 Q152 280 148 315" fill="none" stroke="#c9a000" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="145" cy="272" r="6" fill="#c9a000"/>
+  <line x1="140" y1="315" x2="148" y2="315" stroke="#c9a000" stroke-width="3"/>
+
+  <!-- AMY as pharaoh (seated) -->
+  <!-- Kilt -->
+  <path d="M582,355 L625,355 L630,430 L577,430 Z" fill="#e05a7a"/>
+  <!-- Collar -->
+  <ellipse cx="603" cy="310" rx="35" ry="15" fill="#c9a000"/>
+  <circle cx="575" cy="310" r="4" fill="#e05a7a"/>
+  <circle cx="585" cy="304" r="4" fill="#1a5a8a"/>
+  <circle cx="595" cy="300" r="4" fill="#e05a7a"/>
+  <circle cx="603" cy="298" r="4" fill="#1a5a8a"/>
+  <circle cx="611" cy="300" r="4" fill="#e05a7a"/>
+  <circle cx="621" cy="304" r="4" fill="#1a5a8a"/>
+  <circle cx="631" cy="310" r="4" fill="#e05a7a"/>
+  <!-- Body -->
+  <rect x="578" y="310" width="50" height="48" rx="5" fill="#F5C5A3"/>
+  <!-- Arms on armrests -->
+  <rect x="538" y="320" width="42" height="16" rx="6" fill="#F5C5A3"/>
+  <rect x="628" y="320" width="42" height="16" rx="6" fill="#F5C5A3"/>
+  <!-- Head -->
+  <circle cx="603" cy="278" r="30" fill="#F5C5A3"/>
+  <!-- Nemes headdress -->
+  <path d="M574 268 Q574 248 603 245 Q632 248 632 268 L635 295 Q625 300 603 302 Q581 300 571 295 Z" fill="#c9a000"/>
+  <!-- Headdress stripes blue -->
+  <line x1="576" y1="258" x2="575" y2="292" stroke="#1a5a8a" stroke-width="2.5" opacity=".7"/>
+  <line x1="583" y1="254" x2="581" y2="298" stroke="#1a5a8a" stroke-width="2.5" opacity=".7"/>
+  <line x1="623" y1="254" x2="625" y2="298" stroke="#1a5a8a" stroke-width="2.5" opacity=".7"/>
+  <line x1="630" y1="258" x2="631" y2="292" stroke="#1a5a8a" stroke-width="2.5" opacity=".7"/>
+  <!-- Uraeus -->
+  <path d="M595 248 Q601 238 607 248" fill="none" stroke="#F5C518" stroke-width="3"/>
+  <circle cx="601" cy="237" r="5" fill="#F5C518"/>
+  <!-- Kohl eyes -->
+  <path d="M588 275 L600 274 L592 278 Z" fill="#1a1a1a"/>
+  <circle cx="593" cy="275" r="4" fill="#1a1a1a"/>
+  <circle cx="594" cy="274" r="1.5" fill="white"/>
+  <path d="M606 275 L618 274 L612 278 Z" fill="#1a1a1a"/>
+  <circle cx="613" cy="275" r="4" fill="#1a1a1a"/>
+  <circle cx="614" cy="274" r="1.5" fill="white"/>
+  <!-- Regal smile -->
+  <path d="M592 290 Q602 297 613 292" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Dark hair visible at sides -->
+  <path d="M575 270 Q568 285 570 305" fill="none" stroke="#2C1810" stroke-width="7" stroke-linecap="round"/>
+  <path d="M631 270 Q638 285 636 305" fill="none" stroke="#2C1810" stroke-width="7" stroke-linecap="round"/>
+  <!-- Scepter -->
+  <line x1="667" y1="295" x2="653" y2="360" stroke="#c9a000" stroke-width="5" stroke-linecap="round"/>
+  <path d="M660 294 Q670 282 677 292 Q672 300 663 296 Z" fill="#c9a000"/>
+
+  <text x="400" y="490" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c8922a" opacity=".9">Als farao's in het oude Egypte 🏺</text>
+</svg>

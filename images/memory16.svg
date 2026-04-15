@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="arena" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2a8a"/>
+      <stop offset="100%" stop-color="#2a4a9a"/>
+    </linearGradient>
+    <radialGradient id="spotlight16" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#fff8d0" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#1a2a8a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#arena)"/>
+  <rect width="800" height="500" fill="url(#spotlight16)"/>
+
+  <!-- Stadium seating (empty) -->
+  <!-- Stands left -->
+  <rect x="0" y="0" width="130" height="400" fill="#1a2050" opacity=".8"/>
+  <line x1="0" y1="50" x2="130" y2="50" stroke="#232860" stroke-width="2"/>
+  <line x1="0" y1="100" x2="130" y2="100" stroke="#232860" stroke-width="2"/>
+  <line x1="0" y1="150" x2="130" y2="150" stroke="#232860" stroke-width="2"/>
+  <line x1="0" y1="200" x2="130" y2="200" stroke="#232860" stroke-width="2"/>
+  <line x1="0" y1="250" x2="130" y2="250" stroke="#232860" stroke-width="2"/>
+  <line x1="0" y1="300" x2="130" y2="300" stroke="#232860" stroke-width="2"/>
+  <line x1="0" y1="350" x2="130" y2="350" stroke="#232860" stroke-width="2"/>
+  <!-- Seat dots (empty orange seats) -->
+  <circle cx="20" cy="25" r="6" fill="#e06020" opacity=".7"/>
+  <circle cx="45" cy="25" r="6" fill="#e06020" opacity=".7"/>
+  <circle cx="70" cy="25" r="6" fill="#e06020" opacity=".7"/>
+  <circle cx="95" cy="25" r="6" fill="#e06020" opacity=".7"/>
+  <circle cx="20" cy="75" r="6" fill="#e06020" opacity=".6"/>
+  <circle cx="45" cy="75" r="6" fill="#e06020" opacity=".6"/>
+  <circle cx="70" cy="75" r="6" fill="#e06020" opacity=".6"/>
+  <circle cx="95" cy="75" r="6" fill="#e06020" opacity=".6"/>
+  <circle cx="20" cy="125" r="6" fill="#e06020" opacity=".5"/>
+  <circle cx="45" cy="125" r="6" fill="#e06020" opacity=".5"/>
+  <circle cx="70" cy="125" r="6" fill="#e06020" opacity=".5"/>
+  <circle cx="95" cy="125" r="6" fill="#e06020" opacity=".5"/>
+  <!-- Right stands -->
+  <rect x="670" y="0" width="130" height="400" fill="#1a2050" opacity=".8"/>
+  <line x1="670" y1="50" x2="800" y2="50" stroke="#232860" stroke-width="2"/>
+  <line x1="670" y1="100" x2="800" y2="100" stroke="#232860" stroke-width="2"/>
+  <line x1="670" y1="150" x2="800" y2="150" stroke="#232860" stroke-width="2"/>
+  <line x1="670" y1="200" x2="800" y2="200" stroke="#232860" stroke-width="2"/>
+  <line x1="670" y1="250" x2="800" y2="250" stroke="#232860" stroke-width="2"/>
+  <line x1="670" y1="300" x2="800" y2="300" stroke="#232860" stroke-width="2"/>
+  <circle cx="685" cy="25" r="6" fill="#e06020" opacity=".7"/>
+  <circle cx="710" cy="25" r="6" fill="#e06020" opacity=".7"/>
+  <circle cx="735" cy="25" r="6" fill="#e06020" opacity=".7"/>
+  <circle cx="760" cy="25" r="6" fill="#e06020" opacity=".7"/>
+  <circle cx="685" cy="75" r="6" fill="#e06020" opacity=".6"/>
+  <circle cx="710" cy="75" r="6" fill="#e06020" opacity=".6"/>
+  <circle cx="735" cy="75" r="6" fill="#e06020" opacity=".6"/>
+  <circle cx="760" cy="75" r="6" fill="#e06020" opacity=".6"/>
+
+  <!-- Arena floor -->
+  <rect x="130" y="340" width="540" height="160" fill="#2a5a18"/>
+  <!-- Court lines -->
+  <ellipse cx="400" cy="420" rx="120" ry="60" fill="none" stroke="white" stroke-width="2" opacity=".4"/>
+  <line x1="400" y1="340" x2="400" y2="500" stroke="white" stroke-width="2" opacity=".4"/>
+  <line x1="130" y1="420" x2="670" y2="420" stroke="white" stroke-width="2" opacity=".3"/>
+  <!-- Center circle -->
+  <circle cx="400" cy="420" r="30" fill="none" stroke="white" stroke-width="2" opacity=".4"/>
+
+  <!-- Confetti EVERYWHERE -->
+  <!-- Yellow confetti -->
+  <rect x="160" y="100" width="12" height="6" rx="2" fill="#F5C518" opacity=".9" transform="rotate(25 160 100)"/>
+  <rect x="220" y="60" width="10" height="5" rx="2" fill="#F5C518" opacity=".8" transform="rotate(-15 220 60)"/>
+  <rect x="310" y="40" width="14" height="6" rx="2" fill="#F5C518" opacity=".9" transform="rotate(40 310 40)"/>
+  <rect x="480" y="55" width="12" height="5" rx="2" fill="#F5C518" opacity=".8" transform="rotate(-30 480 55)"/>
+  <rect x="570" y="80" width="10" height="6" rx="2" fill="#F5C518" opacity=".9" transform="rotate(20 570 80)"/>
+  <rect x="640" y="110" width="14" height="5" rx="2" fill="#F5C518" opacity=".8" transform="rotate(-40 640 110)"/>
+  <!-- Red confetti -->
+  <rect x="185" y="150" width="11" height="5" rx="2" fill="#ff3344" opacity=".8" transform="rotate(-20 185 150)"/>
+  <rect x="260" y="90" width="13" height="6" rx="2" fill="#ff3344" opacity=".9" transform="rotate(35 260 90)"/>
+  <rect x="380" y="70" width="10" height="5" rx="2" fill="#ff3344" opacity=".8" transform="rotate(-25 380 70)"/>
+  <rect x="520" y="120" width="12" height="6" rx="2" fill="#ff3344" opacity=".9" transform="rotate(15 520 120)"/>
+  <rect x="600" y="145" width="11" height="5" rx="2" fill="#ff3344" opacity=".8" transform="rotate(-35 600 145)"/>
+  <!-- Blue confetti -->
+  <rect x="200" y="200" width="12" height="5" rx="2" fill="#4488ff" opacity=".9" transform="rotate(30 200 200)"/>
+  <rect x="350" y="130" width="10" height="6" rx="2" fill="#4488ff" opacity=".8" transform="rotate(-20 350 130)"/>
+  <rect x="450" y="160" width="13" height="5" rx="2" fill="#4488ff" opacity=".9" transform="rotate(45 450 160)"/>
+  <rect x="590" y="190" width="11" height="6" rx="2" fill="#4488ff" opacity=".8" transform="rotate(-15 590 190)"/>
+  <!-- Green confetti -->
+  <rect x="175" y="260" width="12" height="5" rx="2" fill="#44cc44" opacity=".8" transform="rotate(-30 175 260)"/>
+  <rect x="290" y="170" width="10" height="6" rx="2" fill="#44cc44" opacity=".9" transform="rotate(20 290 170)"/>
+  <rect x="500" y="200" width="13" height="5" rx="2" fill="#44cc44" opacity=".8" transform="rotate(-40 500 200)"/>
+  <rect x="625" y="240" width="11" height="6" rx="2" fill="#44cc44" opacity=".9" transform="rotate(25 625 240)"/>
+  <!-- Pink circles -->
+  <circle cx="240" cy="130" r="5" fill="#ff88cc" opacity=".8"/>
+  <circle cx="420" cy="95" r="4" fill="#ff88cc" opacity=".9"/>
+  <circle cx="540" cy="155" r="5" fill="#ff88cc" opacity=".8"/>
+  <circle cx="330" cy="220" r="4" fill="#F5C518" opacity=".8"/>
+  <circle cx="460" cy="240" r="5" fill="#ff3344" opacity=".8"/>
+  <!-- Streamers -->
+  <path d="M280 60 Q290 100 282 140 Q274 180 285 220" fill="none" stroke="#F5C518" stroke-width="3" opacity=".6"/>
+  <path d="M520 50 Q514 90 525 130 Q535 170 525 210" fill="none" stroke="#ff3344" stroke-width="3" opacity=".6"/>
+  <path d="M160,200 Q170,240 162,280" fill="none" stroke="#4488ff" stroke-width="3" opacity=".5"/>
+  <path d="M638,180 Q630,220 640,260" fill="none" stroke="#44cc44" stroke-width="3" opacity=".5"/>
+
+  <!-- GIANT TROPHY -->
+  <!-- Trophy base -->
+  <rect x="330" y="420" width="140" height="20" rx="5" fill="#c9a000"/>
+  <rect x="342" y="405" width="116" height="22" rx="4" fill="#F5C518"/>
+  <!-- Stem -->
+  <rect x="385" y="340" width="30" height="70" rx="5" fill="#c9a000"/>
+  <!-- Trophy cup -->
+  <path d="M320 260 Q310 300 320 340 Q350 360 400 362 Q450 360 480 340 Q490 300 480 260 Q450 248 400 246 Q350 248 320 260 Z" fill="#F5C518"/>
+  <!-- Trophy shine/detail -->
+  <path d="M340 275 Q370 268 400 270 Q430 268 460 275" fill="none" stroke="#c9a000" stroke-width="2.5" opacity=".5"/>
+  <path d="M330 310 Q360 303 400 305 Q440 303 470 310" fill="none" stroke="#c9a000" stroke-width="2" opacity=".4"/>
+  <!-- Trophy handles -->
+  <path d="M323 295 Q290 295 288 315 Q288 335 323 330" fill="none" stroke="#c9a000" stroke-width="8" stroke-linecap="round"/>
+  <path d="M477 295 Q510 295 512 315 Q512 335 477 330" fill="none" stroke="#c9a000" stroke-width="8" stroke-linecap="round"/>
+  <!-- Trophy engraving -->
+  <text x="400" y="308" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#c9a000">🏆</text>
+  <text x="400" y="340" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c9a000" font-weight="bold">WINNAARS</text>
+  <!-- Trophy gleam -->
+  <path d="M348 263 Q362 255 376 260" fill="none" stroke="white" stroke-width="3" opacity=".5"/>
+
+  <!-- TIM (left, holding trophy handle, confused but triumphant) -->
+  <!-- Legs -->
+  <rect x="215" y="355" width="22" height="78" rx="9" fill="#1a3a8a"/>
+  <rect x="241" y="355" width="22" height="78" rx="9" fill="#1a3a8a"/>
+  <!-- Shoes -->
+  <ellipse cx="226" cy="435" rx="16" ry="8" fill="#1a1a1a"/>
+  <ellipse cx="252" cy="435" rx="16" ry="8" fill="#1a1a1a"/>
+  <!-- Body/smart clothes (for event) -->
+  <rect x="206" y="258" width="66" height="102" rx="12" fill="#1a3a8a"/>
+  <!-- Tie -->
+  <path d="M237 262 L242 285 L237 308 L232 285 Z" fill="#F5C518"/>
+  <!-- Arms reaching to hold trophy -->
+  <rect x="206" y="268" width="30" height="58" rx="12" fill="#1a3a8a"/>
+  <!-- Hand on trophy handle area -->
+  <ellipse cx="221" cy="332" rx="13" ry="9" fill="#E8B08A"/>
+  <!-- Fingers gripping -->
+  <rect x="213" y="325" width="6" height="14" rx="3" fill="#E8B08A"/>
+  <rect x="221" y="323" width="6" height="15" rx="3" fill="#E8B08A"/>
+  <rect x="229" y="325" width="6" height="14" rx="3" fill="#E8B08A"/>
+  <!-- Other arm up celebrating -->
+  <path d="M272 268 Q290 255 302 240 Q290 232 282 244 Q274 256 272 265 Z" fill="#1a3a8a"/>
+  <ellipse cx="308" cy="234" rx="12" ry="9" fill="#E8B08A" transform="rotate(20 308 234)"/>
+  <!-- Head -->
+  <circle cx="239" cy="240" r="28" fill="#E8B08A"/>
+  <!-- Hair -->
+  <path d="M214 232 Q216 212 239 209 Q262 212 264 232" fill="#C4965A"/>
+  <rect x="212" y="217" width="54" height="15" rx="8" fill="#C4965A"/>
+  <!-- Eyes (confused but smiling) -->
+  <circle cx="228" cy="238" r="4.5" fill="#444"/>
+  <circle cx="250" cy="238" r="4.5" fill="#444"/>
+  <circle cx="229" cy="237" r="1.5" fill="white"/>
+  <circle cx="251" cy="237" r="1.5" fill="white"/>
+  <!-- Raised eyebrow (confused) -->
+  <path d="M225 231 Q237 227 249 231" fill="none" stroke="#C4965A" stroke-width="2"/>
+  <!-- Big smile anyway -->
+  <path d="M227 253 Q239 263 251 253" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Thought bubble "waarvoor?" -->
+  <circle cx="263" cy="210" r="5" fill="white" opacity=".85"/>
+  <circle cx="272" cy="202" r="4" fill="white" opacity=".85"/>
+  <rect x="278" y="182" width="90" height="28" rx="8" fill="white" opacity=".88"/>
+  <text x="323" y="195" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">niemand</text>
+  <text x="323" y="205" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">weet waarvan 🤔</text>
+
+  <!-- AMY (right, holding other trophy handle, same) -->
+  <!-- Legs -->
+  <rect x="545" y="355" width="22" height="78" rx="9" fill="#c04060"/>
+  <rect x="571" y="355" width="22" height="78" rx="9" fill="#c04060"/>
+  <!-- Shoes -->
+  <ellipse cx="556" cy="435" rx="16" ry="8" fill="#1a1a1a"/>
+  <ellipse cx="582" cy="435" rx="16" ry="8" fill="#1a1a1a"/>
+  <!-- Body/dress -->
+  <rect x="537" y="262" width="62" height="98" rx="12" fill="#c04060"/>
+  <!-- Gold belt -->
+  <rect x="537" y="348" width="62" height="12" rx="5" fill="#c9a000"/>
+  <!-- Arms -->
+  <rect x="497" y="268" width="28" height="55" rx="12" fill="#c04060" transform="rotate(15 497 295)"/>
+  <!-- Hand on trophy handle -->
+  <ellipse cx="480" cy="330" rx="13" ry="9" fill="#F5C5A3"/>
+  <rect x="473" y="323" width="6" height="14" rx="3" fill="#F5C5A3"/>
+  <rect x="481" y="321" width="6" height="15" rx="3" fill="#F5C5A3"/>
+  <rect x="489" y="323" width="6" height="14" rx="3" fill="#F5C5A3"/>
+  <!-- Other arm up -->
+  <path d="M599,268 Q617,255 629,240 Q617,232 609,244 Q601,256 599,265 Z" fill="#c04060"/>
+  <ellipse cx="634" cy="236" rx="12" ry="9" fill="#F5C5A3" transform="rotate(-20 634 236)"/>
+  <!-- Head -->
+  <circle cx="568" cy="243" r="27" fill="#F5C5A3"/>
+  <!-- Dark hair -->
+  <ellipse cx="568" cy="229" rx="28" ry="18" fill="#2C1810"/>
+  <path d="M542 236 Q534 250 536 272 Q546 268 545 255 Q544 242 544 238 Z" fill="#2C1810"/>
+  <path d="M594 236 Q602 250 600 272 Q590 268 591 255 Q592 242 592 238 Z" fill="#2C1810"/>
+  <!-- Eyes (same confused/triumphant) -->
+  <circle cx="558" cy="241" r="4.5" fill="#444"/>
+  <circle cx="578" cy="241" r="4.5" fill="#444"/>
+  <circle cx="559" cy="240" r="1.5" fill="white"/>
+  <circle cx="579" cy="240" r="1.5" fill="white"/>
+  <path d="M555 234 Q567 230 579 234" fill="none" stroke="#2C1810" stroke-width="2"/>
+  <!-- Smile -->
+  <path d="M556 256 Q568 266 580 256" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Thought bubble -->
+  <circle cx="592" cy="213" r="5" fill="white" opacity=".85"/>
+  <circle cx="600" cy="204" r="4" fill="white" opacity=".85"/>
+  <rect x="604" y="182" width="95" height="28" rx="8" fill="white" opacity=".88"/>
+  <text x="651" y="195" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">neem ik</text>
+  <text x="651" y="206" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">hem gewoon mee 😅</text>
+
+  <text x="400" y="490" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#F5C518" opacity=".9">Worldchampions – niemand weet waarvan 🏆</text>
+</svg>

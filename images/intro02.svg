@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="sky02" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#87CEEB"/>
+      <stop offset="100%" stop-color="#c8e8f8"/>
+    </linearGradient>
+    <linearGradient id="grass02" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5cb85c"/>
+      <stop offset="100%" stop-color="#3a8a3a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="500" fill="url(#sky02)"/>
+  <!-- Ground -->
+  <rect x="0" y="350" width="800" height="150" fill="url(#grass02)"/>
+  <!-- Clouds -->
+  <ellipse cx="120" cy="80" rx="55" ry="30" fill="white" opacity=".85"/>
+  <ellipse cx="160" cy="68" rx="40" ry="28" fill="white" opacity=".85"/>
+  <ellipse cx="80" cy="72" rx="38" ry="22" fill="white" opacity=".85"/>
+  <ellipse cx="620" cy="65" rx="50" ry="26" fill="white" opacity=".8"/>
+  <ellipse cx="660" cy="55" rx="35" ry="24" fill="white" opacity=".8"/>
+  <ellipse cx="580" cy="60" rx="32" ry="20" fill="white" opacity=".8"/>
+
+  <!-- === WALIBI ROLLERCOASTER (left side) === -->
+  <!-- Track structure -->
+  <path d="M30 330 L80 200 L160 200 L200 260 L240 200 L310 200 L340 330" fill="none" stroke="#8B4513" stroke-width="8"/>
+  <path d="M30 338 L80 208 L160 208 L200 268 L240 208 L310 208 L340 338" fill="none" stroke="#8B4513" stroke-width="4" opacity=".5"/>
+  <!-- Support beams -->
+  <line x1="80" y1="200" x2="80" y2="340" stroke="#8B4513" stroke-width="5"/>
+  <line x1="160" y1="200" x2="160" y2="340" stroke="#8B4513" stroke-width="5"/>
+  <line x1="240" y1="200" x2="240" y2="340" stroke="#8B4513" stroke-width="5"/>
+  <line x1="310" y1="200" x2="310" y2="340" stroke="#8B4513" stroke-width="5"/>
+  <line x1="120" y1="200" x2="100" y2="340" stroke="#8B4513" stroke-width="3" opacity=".6"/>
+  <line x1="200" y1="200" x2="200" y2="340" stroke="#8B4513" stroke-width="3" opacity=".6"/>
+  <line x1="280" y1="200" x2="290" y2="340" stroke="#8B4513" stroke-width="3" opacity=".6"/>
+  <!-- Coaster car on track (top of first hill) -->
+  <rect x="72" y="186" width="52" height="22" rx="6" fill="#F5C518"/>
+  <rect x="72" y="186" width="52" height="10" rx="4" fill="#c9a000"/>
+  <!-- People in car - Tim (screaming, arms up) -->
+  <!-- Tim head -->
+  <circle cx="88" cy="182" r="10" fill="#E8B08A"/>
+  <path d="M80 177 Q88 170 96 177" fill="#C4965A"/>
+  <!-- Screaming mouth -->
+  <path d="M83 186 Q88 191 93 186" fill="#cc3300" stroke="#cc3300" stroke-width="1"/>
+  <!-- Arms up -->
+  <line x1="80" y1="186" x2="70" y2="172" stroke="#E8B08A" stroke-width="4" stroke-linecap="round"/>
+  <line x1="96" y1="186" x2="106" y2="172" stroke="#E8B08A" stroke-width="4" stroke-linecap="round"/>
+  <!-- Amy head -->
+  <circle cx="112" cy="182" r="10" fill="#F5C5A3"/>
+  <path d="M102 177 Q112 168 122 177 L122 195 Q112 190 102 195 Z" fill="#2C1810"/>
+  <!-- Amy laughing -->
+  <path d="M106 186 Q112 192 118 186" fill="#cc3300" stroke="#cc3300" stroke-width="1"/>
+  <!-- Arms up -->
+  <line x1="104" y1="186" x2="94" y2="172" stroke="#F5C5A3" stroke-width="4" stroke-linecap="round"/>
+  <line x1="120" y1="186" x2="130" y2="172" stroke="#F5C5A3" stroke-width="4" stroke-linecap="round"/>
+  <!-- Speed lines -->
+  <line x1="68" y1="188" x2="50" y2="185" stroke="#F5C518" stroke-width="2" opacity=".7"/>
+  <line x1="68" y1="194" x2="48" y2="194" stroke="#F5C518" stroke-width="2" opacity=".5"/>
+  <!-- WALIBI sign -->
+  <rect x="30" y="160" width="90" height="28" rx="6" fill="#F5C518"/>
+  <text x="75" y="179" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">WALIBI</text>
+
+  <!-- === AIRBNB HOUSE (center) === -->
+  <!-- House -->
+  <rect x="340" y="260" width="130" height="100" rx="5" fill="#fff8e8"/>
+  <rect x="340" y="258" width="130" height="8" rx="2" fill="#e0c87a"/>
+  <!-- Roof -->
+  <polygon points="330,260 405,190 480,260" fill="#c0401a"/>
+  <polygon points="330,260 340,260 340,256" fill="#a03010"/>
+  <polygon points="470,260 480,260 480,256" fill="#a03010"/>
+  <!-- Chimney -->
+  <rect x="435" y="200" width="20" height="40" fill="#8B3010"/>
+  <!-- Door -->
+  <rect x="388" y="305" width="34" height="55" rx="6" fill="#8B4513"/>
+  <circle cx="419" cy="333" r="3" fill="#F5C518"/>
+  <!-- Windows -->
+  <rect x="353" y="280" width="35" height="30" rx="4" fill="#b8e4f8"/>
+  <line x1="370" y1="280" x2="370" y2="310" stroke="#88b8d0" stroke-width="1.5"/>
+  <line x1="353" y1="295" x2="388" y2="295" stroke="#88b8d0" stroke-width="1.5"/>
+  <rect x="422" y="280" width="35" height="30" rx="4" fill="#b8e4f8"/>
+  <line x1="439" y1="280" x2="439" y2="310" stroke="#88b8d0" stroke-width="1.5"/>
+  <line x1="422" y1="295" x2="457" y2="295" stroke="#88b8d0" stroke-width="1.5"/>
+  <!-- Airbnb logo above door -->
+  <circle cx="405" cy="295" r="10" fill="#ff5a5f"/>
+  <text x="405" y="299" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">★</text>
+  <!-- Garden path -->
+  <path d="M390 360 Q405 375 405 360 Q405 375 420 360" fill="none" stroke="#d4b483" stroke-width="5"/>
+  <!-- Flowers -->
+  <circle cx="350" cy="358" r="6" fill="#ff4466"/>
+  <circle cx="350" cy="358" r="3" fill="#F5C518"/>
+  <circle cx="460" cy="358" r="6" fill="#cc44ff"/>
+  <circle cx="460" cy="358" r="3" fill="#F5C518"/>
+  <circle cx="340" cy="352" r="5" fill="#44cc66"/>
+  <circle cx="470" cy="352" r="5" fill="#44aaff"/>
+  <!-- "Onze Airbnb" label -->
+  <rect x="355" y="238" width="100" height="20" rx="4" fill="white" opacity=".85"/>
+  <text x="405" y="252" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ff5a5f">Onze Airbnb ★</text>
+
+  <!-- === DINNER TABLE (right side) === -->
+  <!-- Table -->
+  <ellipse cx="645" cy="340" rx="100" ry="30" fill="#8B5010"/>
+  <rect x="545" y="315" width="200" height="28" rx="5" fill="#a0620a"/>
+  <!-- Table cloth -->
+  <ellipse cx="645" cy="312" rx="96" ry="26" fill="#fff0e0"/>
+  <!-- Plates -->
+  <circle cx="610" cy="308" r="20" fill="white" stroke="#ddd" stroke-width="2"/>
+  <circle cx="610" cy="308" r="14" fill="#f8f0e0"/>
+  <circle cx="680" cy="308" r="20" fill="white" stroke="#ddd" stroke-width="2"/>
+  <circle cx="680" cy="308" r="14" fill="#f8f0e0"/>
+  <!-- Food on plates (fancy) -->
+  <circle cx="610" cy="308" r="7" fill="#c87830"/>
+  <circle cx="680" cy="308" r="7" fill="#5a8a3a"/>
+  <!-- Wine glasses -->
+  <path d="M598 294 Q600 280 598 270 L606 270 Q604 280 606 294 Z" fill="none" stroke="#ddd" stroke-width="2"/>
+  <ellipse cx="602" cy="269" rx="8" ry="4" fill="#ff9999" opacity=".7"/>
+  <path d="M668 294 Q670 280 668 270 L676 270 Q674 280 676 294 Z" fill="none" stroke="#ddd" stroke-width="2"/>
+  <ellipse cx="672" cy="269" rx="8" ry="4" fill="#ff9999" opacity=".7"/>
+  <!-- Candles on table -->
+  <rect x="637" y="285" width="6" height="20" rx="2" fill="#fff8e0" stroke="#ddd" stroke-width="1"/>
+  <path d="M638 284 Q640 278 642 284 Q641 287 638 284 Z" fill="#ff8800"/>
+  <rect x="650" y="285" width="6" height="20" rx="2" fill="#fff8e0" stroke="#ddd" stroke-width="1"/>
+  <path d="M651 284 Q653 278 655 284 Q654 287 651 284 Z" fill="#ff8800"/>
+  <!-- Table legs -->
+  <rect x="575" y="338" width="12" height="20" rx="3" fill="#7a4000"/>
+  <rect x="703" y="338" width="12" height="20" rx="3" fill="#7a4000"/>
+
+  <!-- Amy at table (left seat) -->
+  <circle cx="588" cy="278" r="16" fill="#F5C5A3"/>
+  <ellipse cx="588" cy="268" rx="17" ry="11" fill="#2C1810"/>
+  <path d="M572 272 Q569 290 572 305 Q580 302 580 292 Q580 282 580 274 Z" fill="#2C1810"/>
+  <path d="M604 272 Q607 290 604 305 Q596 302 596 292 Q596 282 596 274 Z" fill="#2C1810"/>
+  <!-- Amy smiling -->
+  <path d="M583 284 Q588 288 593 284" fill="none" stroke="#8B5E52" stroke-width="2" stroke-linecap="round"/>
+  <!-- Amy dress/body -->
+  <path d="M574 294 Q576 330 575 340 L601 340 Q600 330 602 294 Q595 300 588 298 Q581 300 574 294Z" fill="#cc44ff" opacity=".8"/>
+
+  <!-- Tim at table (right seat) -->
+  <circle cx="702" cy="278" r="16" fill="#E8B08A"/>
+  <path d="M688 272 Q690 262 702 260 Q714 262 716 272" fill="#C4965A"/>
+  <rect x="686" y="264" width="32" height="10" rx="5" fill="#C4965A"/>
+  <!-- Tim smiling -->
+  <path d="M697 284 Q702 289 707 284" fill="none" stroke="#8B5E52" stroke-width="2" stroke-linecap="round"/>
+  <!-- Tim shirt/body -->
+  <path d="M688 294 Q690 330 689 340 L715 340 Q714 330 716 294 Q709 300 702 298 Q695 300 688 294Z" fill="#4488ff" opacity=".8"/>
+
+  <!-- Speech bubble - Tim -->
+  <rect x="718" y="248" width="68" height="26" rx="6" fill="white" opacity=".9"/>
+  <circle cx="722" cy="274" r="4" fill="white" opacity=".9"/>
+  <text x="752" y="264" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">Proost! 🥂</text>
+
+  <!-- Belgian flag / Brussels flag small -->
+  <rect x="500" y="200" width="12" height="24" fill="#1a1a1a"/>
+  <rect x="512" y="200" width="12" height="24" fill="#F5C518"/>
+  <rect x="524" y="200" width="12" height="24" fill="#cc0000"/>
+  <line x1="506" y1="200" x2="506" y2="180" stroke="#888" stroke-width="2"/>
+  <!-- Brussels label -->
+  <text x="518" y="178" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1a1a1a">Brussel 🍫</text>
+
+  <!-- Bottom label -->
+  <text x="400" y="490" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#1a1a1a" opacity=".7">Het plan: Walibi 🎢 • Airbnb 🏠 • Verjaardagsdiner 🍽</text>
+</svg>

@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="hsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a8ad4"/>
+      <stop offset="60%" stop-color="#5bbcf0"/>
+      <stop offset="100%" stop-color="#a0d8f0"/>
+    </linearGradient>
+    <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0077b6"/>
+      <stop offset="100%" stop-color="#023e8a"/>
+    </linearGradient>
+    <linearGradient id="wave1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#48cae4"/>
+      <stop offset="100%" stop-color="#0077b6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="500" fill="url(#hsky)"/>
+  <!-- Sun -->
+  <circle cx="680" cy="90" r="52" fill="#ffdd44" opacity=".95"/>
+  <circle cx="680" cy="90" r="42" fill="#ffe566"/>
+  <!-- Sun glare -->
+  <ellipse cx="670" cy="78" rx="16" ry="8" fill="white" opacity=".3" transform="rotate(-30 670 78)"/>
+
+  <!-- Clouds -->
+  <ellipse cx="100" cy="70" rx="80" ry="32" fill="white" opacity=".8"/>
+  <ellipse cx="140" cy="58" rx="55" ry="28" fill="white" opacity=".8"/>
+  <ellipse cx="60" cy="65" rx="48" ry="22" fill="white" opacity=".7"/>
+  <ellipse cx="380" cy="55" rx="70" ry="26" fill="white" opacity=".7"/>
+  <ellipse cx="350" cy="46" rx="48" ry="22" fill="white" opacity=".6"/>
+  <ellipse cx="420" cy="50" rx="42" ry="20" fill="white" opacity=".6"/>
+
+  <!-- Ocean background -->
+  <rect x="0" y="220" width="800" height="280" fill="url(#ocean)"/>
+
+  <!-- Distant small waves -->
+  <path d="M0 240 Q60 232 120 240 Q180 248 240 240 Q300 232 360 240 Q420 248 480 240 Q540 232 600 240 Q660 248 720 240 Q760 234 800 240 L800 260 L0 260 Z" fill="#0096c7" opacity=".6"/>
+  <path d="M0 270 Q80 262 160 270 Q240 278 320 270 Q400 262 480 270 Q560 278 640 270 Q720 262 800 270 L800 290 L0 290 Z" fill="#0077b6" opacity=".5"/>
+
+  <!-- MAIN BIG WAVE (center-right) -->
+  <path d="M350 180 Q420 140 500 160 Q570 178 600 220 Q630 260 610 300 Q580 340 520 330 Q460 320 430 280 Q390 240 350 180 Z" fill="url(#wave1)" opacity=".9"/>
+  <!-- Wave curl/crest -->
+  <path d="M490 158 Q550 145 590 175 Q570 165 545 172 Q520 178 505 190 Q520 170 490 158 Z" fill="white" opacity=".85"/>
+  <!-- Wave foam top -->
+  <path d="M360 185 Q400 160 450 162 Q420 170 400 185 Q380 198 370 215 Q358 200 360 185 Z" fill="white" opacity=".7"/>
+  <!-- Underwater shimmer inside wave -->
+  <ellipse cx="490" cy="240" rx="60" ry="40" fill="#48cae4" opacity=".4"/>
+  <!-- Foam/spray at base of wave -->
+  <path d="M420 310 Q470 295 530 305 Q500 318 460 322 Q440 320 420 310 Z" fill="white" opacity=".6"/>
+
+  <!-- SECOND WAVE (left) -->
+  <path d="M0 250 Q60 220 130 235 Q180 248 200 290 Q180 320 120 315 Q60 308 20 280 Q-10 265 0 250 Z" fill="#0096c7" opacity=".8"/>
+  <path d="M50 230 Q100 215 140 228 Q110 225 90 238 Q80 248 78 260 Q60 242 50 230 Z" fill="white" opacity=".7"/>
+
+  <!-- Beach on the right side -->
+  <ellipse cx="780" cy="400" rx="120" ry="80" fill="#f5dfa0"/>
+  <rect x="660" y="360" width="140" height="140" fill="#f5dfa0"/>
+  <!-- Sand texture -->
+  <ellipse cx="730" cy="390" rx="30" ry="8" fill="#e8c870" opacity=".4"/>
+  <ellipse cx="770" cy="410" rx="20" ry="6" fill="#e8c870" opacity=".3"/>
+  <!-- Palm tree -->
+  <rect x="748" y="290" width="10" height="80" rx="4" fill="#8B5E2A"/>
+  <path d="M753 295 Q720 270 700 285 Q715 295 730 292 Q742 290 753 295 Z" fill="#2a7018"/>
+  <path d="M753 295 Q786 270 806 282 Q792 294 775 292 Q762 290 753 295 Z" fill="#3a8c22"/>
+  <path d="M753 295 Q740 258 752 242 Q760 256 760 272 Q760 284 753 295 Z" fill="#2a7018"/>
+  <path d="M753 295 Q770 258 762 244 Q756 258 754 272 Q752 284 753 295 Z" fill="#3a8c22"/>
+  <!-- Coconuts -->
+  <circle cx="747" cy="300" r="6" fill="#8B5E2A"/>
+  <circle cx="758" cy="298" r="6" fill="#7a4e1a"/>
+
+  <!-- TIM (on surfboard, wiping out, arms flailing) -->
+  <!-- Board -->
+  <ellipse cx="310" cy="315" rx="60" ry="12" fill="#ff4466" transform="rotate(-15 310 315)"/>
+  <ellipse cx="310" cy="313" rx="56" ry="9" fill="#ff6688" transform="rotate(-15 310 313)"/>
+  <!-- Tim falling off board, sideways -->
+  <!-- Body sideways -->
+  <rect x="275" y="270" width="65" height="45" rx="12" fill="#4488ff" transform="rotate(-40 275 295)"/>
+  <!-- Arms flailing up -->
+  <rect x="240" y="250" width="30" height="14" rx="7" fill="#E8B08A" transform="rotate(-60 255 257)"/>
+  <rect x="300" y="235" width="30" height="14" rx="7" fill="#E8B08A" transform="rotate(20 315 242)"/>
+  <!-- Head -->
+  <circle cx="270" cy="258" r="26" fill="#E8B08A"/>
+  <!-- Hair wet/messy -->
+  <path d="M248 250 Q250 232 270 229 Q290 232 292 250" fill="#C4965A"/>
+  <path d="M248 250 Q238 258 236 270" fill="none" stroke="#C4965A" stroke-width="6" stroke-linecap="round"/>
+  <!-- Water splashing on face -->
+  <circle cx="252" cy="258" r="3" fill="#7dd4f8"/>
+  <circle cx="260" cy="246" r="2" fill="#7dd4f8"/>
+  <circle cx="290" cy="252" r="2" fill="#7dd4f8"/>
+  <!-- Eyes wide open (panic) -->
+  <circle cx="261" cy="256" r="5" fill="white"/>
+  <circle cx="262" cy="257" r="3" fill="#444"/>
+  <circle cx="279" cy="255" r="5" fill="white"/>
+  <circle cx="280" cy="256" r="3" fill="#444"/>
+  <!-- Open mouth (aaaah) -->
+  <path d="M260 268 Q270 275 280 268 Q270 278 260 268 Z" fill="#cc3300"/>
+  <!-- Speech bubble -->
+  <rect x="188" y="208" width="80" height="32" rx="8" fill="white" opacity=".9"/>
+  <circle cx="235" cy="242" r="5" fill="white" opacity=".9"/>
+  <text x="228" y="222" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#cc2222">AAAAAAH</text>
+  <text x="228" y="234" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#555">dit was fout</text>
+  <!-- Water splash around Tim -->
+  <path d="M245 295 Q230 278 240 268" fill="none" stroke="white" stroke-width="3" opacity=".7"/>
+  <path d="M330 295 Q348 278 338 265" fill="none" stroke="white" stroke-width="3" opacity=".7"/>
+  <ellipse cx="295" cy="305" rx="40" ry="12" fill="white" opacity=".5"/>
+
+  <!-- AMY (on surfboard, riding the wave confidently) -->
+  <!-- Board -->
+  <ellipse cx="530" cy="248" rx="62" ry="13" fill="#F5C518" transform="rotate(-8 530 248)"/>
+  <ellipse cx="530" cy="246" rx="58" ry="10" fill="#ffe566" transform="rotate(-8 530 246)"/>
+  <!-- Amy standing on board, arms out for balance -->
+  <!-- Legs bent (surf stance) -->
+  <rect x="512" y="210" width="16" height="40" rx="7" fill="#cc44ff" transform="rotate(5 520 230)"/>
+  <rect x="532" y="210" width="16" height="40" rx="7" fill="#cc44ff" transform="rotate(10 540 230)"/>
+  <!-- Body -->
+  <rect x="506" y="175" width="52" height="42" rx="11" fill="#cc44ff"/>
+  <!-- Arms stretched wide for balance -->
+  <rect x="468" y="182" width="40" height="14" rx="7" fill="#F5C5A3" transform="rotate(-10 488 189)"/>
+  <rect x="558" y="180" width="40" height="14" rx="7" fill="#F5C5A3" transform="rotate(8 578 187)"/>
+  <!-- Head -->
+  <circle cx="532" cy="162" r="26" fill="#F5C5A3"/>
+  <!-- Long dark hair blown by wind -->
+  <ellipse cx="532" cy="148" rx="27" ry="17" fill="#2C1810"/>
+  <path d="M508 154 Q495 142 480 135 Q488 128 500 135 Q510 142 510 150 Z" fill="#2C1810"/>
+  <path d="M556 154 Q572 140 590 132 Q598 138 590 146 Q578 150 558 154 Z" fill="#2C1810"/>
+  <!-- Eyes (focused, exhilarated) -->
+  <circle cx="524" cy="160" r="4.5" fill="#444"/>
+  <circle cx="540" cy="160" r="4.5" fill="#444"/>
+  <circle cx="525" cy="159" r="1.5" fill="white"/>
+  <circle cx="541" cy="159" r="1.5" fill="white"/>
+  <!-- Big grin -->
+  <path d="M522 172 Q532 180 542 172" fill="none" stroke="#8B5E52" stroke-width="3" stroke-linecap="round"/>
+  <!-- Thought bubble -->
+  <circle cx="556" cy="138" r="4" fill="white" opacity=".88"/>
+  <circle cx="565" cy="128" r="3" fill="white" opacity=".88"/>
+  <rect x="568" y="106" width="100" height="30" rx="7" fill="white" opacity=".9"/>
+  <text x="618" y="120" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#555">dit is makkelijk</text>
+  <text x="618" y="131" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#0077b6" font-weight="bold">🤙 hé Tim?</text>
+
+  <!-- Sea birds -->
+  <path d="M160 120 Q170 112 180 120" fill="none" stroke="#888" stroke-width="2"/>
+  <path d="M190 100 Q200 92 210 100" fill="none" stroke="#888" stroke-width="2"/>
+  <path d="M550 95 Q560 87 570 95" fill="none" stroke="#888" stroke-width="2"/>
+
+  <text x="400" y="490" text-anchor="middle" font-family="sans-serif" font-size="14" fill="white" opacity=".9">Surfen op Hawaï 🏄 2028</text>
+</svg>

@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="kitchen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8e8e0"/>
+      <stop offset="100%" stop-color="#d0d0c8"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#kitchen)"/>
+  <!-- Kitchen tiles background -->
+  <rect x="0" y="0" width="800" height="200" fill="#f0f0e8"/>
+  <!-- Tile grid -->
+  <line x1="0" y1="50" x2="800" y2="50" stroke="#d8d8d0" stroke-width="2"/>
+  <line x1="0" y1="100" x2="800" y2="100" stroke="#d8d8d0" stroke-width="2"/>
+  <line x1="0" y1="150" x2="800" y2="150" stroke="#d8d8d0" stroke-width="2"/>
+  <line x1="0" y1="200" x2="800" y2="200" stroke="#c8c8c0" stroke-width="3"/>
+  <line x1="80" y1="0" x2="80" y2="200" stroke="#d8d8d0" stroke-width="2"/>
+  <line x1="160" y1="0" x2="160" y2="200" stroke="#d8d8d0" stroke-width="2"/>
+  <line x1="240" y1="0" x2="240" y2="200" stroke="#d8d8d0" stroke-width="2"/>
+  <line x1="320" y1="0" x2="320" y2="200" stroke="#d8d8d0" stroke-width="2"/>
+  <line x1="400" y1="0" x2="400" y2="200" stroke="#d8d8d0" stroke-width="2"/>
+  <line x1="480" y1="0" x2="480" y2="200" stroke="#d8d8d0" stroke-width="2"/>
+  <line x1="560" y1="0" x2="560" y2="200" stroke="#d8d8d0" stroke-width="2"/>
+  <line x1="640" y1="0" x2="640" y2="200" stroke="#d8d8d0" stroke-width="2"/>
+  <line x1="720" y1="0" x2="720" y2="200" stroke="#d8d8d0" stroke-width="2"/>
+  <!-- Kitchen counter -->
+  <rect x="0" y="400" width="800" height="100" fill="#8B5E2A"/>
+  <rect x="0" y="396" width="800" height="12" rx="3" fill="#a07038"/>
+  <!-- Counter surface -->
+  <rect x="0" y="380" width="800" height="25" fill="#c8a060"/>
+  <!-- Stove/oven -->
+  <rect x="200" y="290" width="180" height="100" rx="5" fill="#555"/>
+  <rect x="205" y="295" width="170" height="90" rx="4" fill="#444"/>
+  <!-- Burners -->
+  <circle cx="260" cy="325" r="22" fill="#333"/>
+  <circle cx="260" cy="325" r="16" fill="#555"/>
+  <circle cx="260" cy="325" r="8" fill="#333"/>
+  <circle cx="340" cy="325" r="22" fill="#333"/>
+  <circle cx="340" cy="325" r="16" fill="#555"/>
+  <circle cx="340" cy="325" r="8" fill="#333"/>
+  <!-- Flames on burners (cooking chaotically) -->
+  <path d="M250 305 Q256 290 260 302 Q264 288 270 305 Q268 315 260 318 Q252 315 250 305 Z" fill="#ff6600" opacity=".9"/>
+  <path d="M254 308 Q258 296 260 305 Q262 296 266 308 Q264 314 260 316 Q256 314 254 308 Z" fill="#ffcc00" opacity=".8"/>
+  <path d="M330 305 Q336 290 340 302 Q344 288 350 305 Q348 315 340 318 Q332 315 330 305 Z" fill="#ff6600" opacity=".9"/>
+  <path d="M334 308 Q338 296 340 305 Q342 296 346 308 Q344 314 340 316 Q336 314 334 308 Z" fill="#ffcc00" opacity=".8"/>
+  <!-- Splattered mess on wall -->
+  <ellipse cx="100" cy="130" rx="30" ry="20" fill="#cc4444" opacity=".5" transform="rotate(15 100 130)"/>
+  <ellipse cx="130" cy="95" rx="15" ry="10" fill="#cc4444" opacity=".4"/>
+  <circle cx="155" cy="140" r="8" fill="#cc4444" opacity=".4"/>
+  <ellipse cx="680" cy="110" rx="25" ry="18" fill="#44aa44" opacity=".4" transform="rotate(-10 680 110)"/>
+  <circle cx="660" cy="138" r="6" fill="#44aa44" opacity=".3"/>
+  <!-- Hanging pots -->
+  <line x1="50" y1="0" x2="50" y2="80" stroke="#888" stroke-width="3"/>
+  <ellipse cx="50" cy="95" rx="25" ry="18" fill="#777"/>
+  <ellipse cx="50" cy="80" rx="22" ry="6" fill="#888"/>
+  <line x1="130" y1="0" x2="130" y2="70" stroke="#888" stroke-width="3"/>
+  <ellipse cx="130" cy="85" rx="22" ry="15" fill="#666"/>
+  <line x1="670" y1="0" x2="670" y2="75" stroke="#888" stroke-width="3"/>
+  <ellipse cx="670" cy="90" rx="25" ry="18" fill="#777"/>
+  <!-- Smoke/steam -->
+  <path d="M260 300 Q255 280 260 265 Q265 252 260 240" fill="none" stroke="#c0c0c0" stroke-width="5" stroke-linecap="round" opacity=".5"/>
+  <path d="M340 300 Q345 278 340 262 Q335 248 342 235" fill="none" stroke="#c0c0c0" stroke-width="5" stroke-linecap="round" opacity=".5"/>
+
+  <!-- THE DISH (center, on counter) -->
+  <!-- Plate -->
+  <ellipse cx="400" cy="388" rx="65" ry="20" fill="white"/>
+  <ellipse cx="400" cy="384" rx="60" ry="18" fill="#f8f8f8"/>
+  <!-- The mysterious, awful dish -->
+  <!-- Green blob -->
+  <ellipse cx="390" cy="378" rx="30" ry="20" fill="#6aaa22" opacity=".9"/>
+  <!-- Brown lumps -->
+  <circle cx="380" cy="372" r="12" fill="#8B5E2A"/>
+  <circle cx="404" cy="368" r="10" fill="#7a4e1a"/>
+  <!-- Purple mysterious sauce -->
+  <path d="M360 375 Q390 365 420 375 Q410 385 390 385 Q370 385 360 375 Z" fill="#8B2288" opacity=".7"/>
+  <!-- Something on a stick -->
+  <line x1="408" y1="375" x2="415" y2="345" stroke="#8B5E2A" stroke-width="3"/>
+  <circle cx="415" cy="342" r="8" fill="#ff4444"/>
+  <!-- Smell wavy lines -->
+  <path d="M385 360 Q380 348 385 336 Q390 325 385 314" fill="none" stroke="#a0a880" stroke-width="2.5" stroke-linecap="round" opacity=".6"/>
+  <path d="M400 358 Q396 345 400 332 Q404 320 400 308" fill="none" stroke="#a0a880" stroke-width="2.5" stroke-linecap="round" opacity=".6"/>
+  <path d="M415 360 Q420 347 415 334 Q410 322 415 311" fill="none" stroke="#a0a880" stroke-width="2.5" stroke-linecap="round" opacity=".6"/>
+
+  <!-- TIM (chef, left) -->
+  <!-- Legs -->
+  <rect x="215" y="350" width="22" height="50" rx="9" fill="#f0f0e8"/>
+  <rect x="241" y="350" width="22" height="50" rx="9" fill="#f0f0e8"/>
+  <!-- Shoes -->
+  <ellipse cx="226" cy="402" rx="16" ry="8" fill="#333"/>
+  <ellipse cx="252" cy="402" rx="16" ry="8" fill="#333"/>
+  <!-- Chef pants -->
+  <rect x="213" y="320" width="66" height="36" rx="5" fill="#f0f0e8"/>
+  <!-- Chef coat -->
+  <rect x="208" y="225" width="70" height="100" rx="10" fill="white"/>
+  <!-- Coat lapels/double breasted -->
+  <line x1="242" y1="228" x2="242" y2="322" stroke="#ddd" stroke-width="2"/>
+  <circle cx="233" cy="245" r="4" fill="#c0c0c0"/>
+  <circle cx="233" cy="262" r="4" fill="#c0c0c0"/>
+  <circle cx="233" cy="279" r="4" fill="#c0c0c0"/>
+  <circle cx="251" cy="245" r="4" fill="#c0c0c0"/>
+  <circle cx="251" cy="262" r="4" fill="#c0c0c0"/>
+  <circle cx="251" cy="279" r="4" fill="#c0c0c0"/>
+  <!-- Arms (presenting dish proudly/nervously) -->
+  <rect x="178" y="235" width="32" height="65" rx="11" fill="white"/>
+  <rect x="278" y="235" width="32" height="65" rx="11" fill="white"/>
+  <ellipse cx="194" cy="303" rx="14" ry="9" fill="#E8B08A"/>
+  <ellipse cx="294" cy="303" rx="14" ry="9" fill="#E8B08A"/>
+  <!-- Head -->
+  <circle cx="242" cy="202" r="30" fill="#E8B08A"/>
+  <!-- Tall chef hat -->
+  <rect x="220" y="155" width="44" height="55" rx="5" fill="white"/>
+  <rect x="218" y="168" width="48" height="12" rx="4" fill="#e8e8e8"/>
+  <!-- Hat crease -->
+  <path d="M228 162 Q242 155 256 162" fill="none" stroke="#e0e0e0" stroke-width="2"/>
+  <!-- Eyes (worried/sweaty) -->
+  <circle cx="232" cy="200" r="4.5" fill="#444"/>
+  <circle cx="252" cy="200" r="4.5" fill="#444"/>
+  <circle cx="233" cy="199" r="1.5" fill="white"/>
+  <circle cx="253" cy="199" r="1.5" fill="white"/>
+  <!-- Nervous smile -->
+  <path d="M231 214 Q242 221 253 214" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Sweat drop -->
+  <circle cx="264" cy="204" r="4" fill="#7dd4f8"/>
+  <!-- Stain on coat -->
+  <ellipse cx="218" cy="268" rx="8" ry="5" fill="#8B2288" opacity=".5" transform="rotate(20 218 268)"/>
+
+  <!-- AMY (chef, right) -->
+  <!-- Legs -->
+  <rect x="530" y="350" width="22" height="50" rx="9" fill="#f0f0e8"/>
+  <rect x="556" y="350" width="22" height="50" rx="9" fill="#f0f0e8"/>
+  <!-- Shoes -->
+  <ellipse cx="541" cy="402" rx="16" ry="8" fill="#333"/>
+  <ellipse cx="567" cy="402" rx="16" ry="8" fill="#333"/>
+  <!-- Chef pants -->
+  <rect x="528" y="320" width="52" height="36" rx="5" fill="#f0f0e8"/>
+  <!-- Chef coat -->
+  <rect x="522" y="228" width="64" height="98" rx="10" fill="white"/>
+  <line x1="554" y1="230" x2="554" y2="323" stroke="#ddd" stroke-width="2"/>
+  <circle cx="545" cy="245" r="4" fill="#c0c0c0"/>
+  <circle cx="545" cy="262" r="4" fill="#c0c0c0"/>
+  <circle cx="563" cy="245" r="4" fill="#c0c0c0"/>
+  <circle cx="563" cy="262" r="4" fill="#c0c0c0"/>
+  <!-- Sauce stain on coat -->
+  <ellipse cx="570" cy="275" rx="10" ry="7" fill="#cc4444" opacity=".5" transform="rotate(-15 570 275)"/>
+  <!-- Arms -->
+  <rect x="492" y="238" width="32" height="62" rx="11" fill="white"/>
+  <rect x="586" y="238" width="32" height="62" rx="11" fill="white"/>
+  <ellipse cx="508" cy="302" rx="13" ry="9" fill="#F5C5A3"/>
+  <ellipse cx="602" cy="302" rx="13" ry="9" fill="#F5C5A3"/>
+  <!-- Head -->
+  <circle cx="554" cy="205" r="28" fill="#F5C5A3"/>
+  <!-- Tall chef hat -->
+  <rect x="532" y="158" width="44" height="54" rx="5" fill="white"/>
+  <rect x="530" y="170" width="48" height="12" rx="4" fill="#e8e8e8"/>
+  <!-- Dark hair sticking out -->
+  <path d="M532 175 Q525 188 527 210" fill="none" stroke="#2C1810" stroke-width="7" stroke-linecap="round"/>
+  <path d="M576 175 Q583 188 581 210" fill="none" stroke="#2C1810" stroke-width="7" stroke-linecap="round"/>
+  <!-- Eyes (also worried, but trying to look confident) -->
+  <circle cx="544" cy="203" r="4.5" fill="#444"/>
+  <circle cx="564" cy="203" r="4.5" fill="#444"/>
+  <circle cx="545" cy="202" r="1.5" fill="white"/>
+  <circle cx="565" cy="202" r="1.5" fill="white"/>
+  <!-- Forced confident smile -->
+  <path d="M543 217 Q554 226 565 219" fill="none" stroke="#8B5E52" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Sweat -->
+  <circle cx="578" cy="205" r="3" fill="#7dd4f8"/>
+
+  <!-- FOOD CRITIC (right side, horrified) -->
+  <!-- Body -->
+  <rect x="672" y="280" width="50" height="100" rx="10" fill="#1a3a6e"/>
+  <!-- Tie -->
+  <path d="M697 280 L702 300 L697 320 L692 300 Z" fill="#cc2222"/>
+  <!-- Arms (hands on face in horror) -->
+  <rect x="650" y="290" width="24" height="50" rx="10" fill="#1a3a6e"/>
+  <rect x="722" y="290" width="24" height="50" rx="10" fill="#1a3a6e"/>
+  <ellipse cx="662" cy="248" rx="12" ry="10" fill="#E8B08A"/>
+  <ellipse cx="734" cy="248" rx="12" ry="10" fill="#E8B08A"/>
+  <!-- Hands over face in horror -->
+  <ellipse cx="697" cy="242" rx="20" ry="15" fill="#E8B08A" opacity=".4"/>
+  <!-- Legs -->
+  <rect x="678" y="375" width="18" height="55" rx="8" fill="#1a3a6e"/>
+  <rect x="700" y="375" width="18" height="55" rx="8" fill="#1a3a6e"/>
+  <!-- Shoes -->
+  <ellipse cx="687" cy="430" rx="15" ry="7" fill="#1a1a1a"/>
+  <ellipse cx="709" cy="430" rx="15" ry="7" fill="#1a1a1a"/>
+  <!-- Head (horrified critic) -->
+  <circle cx="697" cy="258" r="26" fill="#E8B08A"/>
+  <!-- Bald head with side hair -->
+  <path d="M674 260 Q673 245 680 242" fill="none" stroke="#8B5E2A" stroke-width="5" stroke-linecap="round"/>
+  <path d="M720 260 Q721 245 714 242" fill="none" stroke="#8B5E2A" stroke-width="5" stroke-linecap="round"/>
+  <!-- Monocle -->
+  <circle cx="708" cy="254" r="10" fill="none" stroke="#c9a000" stroke-width="2.5"/>
+  <line x1="718" y1="258" x2="724" y2="264" stroke="#c9a000" stroke-width="2"/>
+  <!-- Eyes (horrified, tears) -->
+  <circle cx="686" cy="254" r="5" fill="white"/>
+  <circle cx="687" cy="255" r="3" fill="#1a1a1a"/>
+  <circle cx="708" cy="252" r="5" fill="white"/>
+  <circle cx="709" cy="253" r="3" fill="#1a1a1a"/>
+  <!-- Tears of horror -->
+  <path d="M684 259 Q682 265 684 270" fill="none" stroke="#7dd4f8" stroke-width="2"/>
+  <path d="M710 257 Q712 263 710 268" fill="none" stroke="#7dd4f8" stroke-width="2"/>
+  <!-- Horror open mouth -->
+  <path d="M684 268 Q697 278 710 268 Q697 282 684 268 Z" fill="#8B4040"/>
+  <!-- Thought bubble "WHAT IS THIS" -->
+  <rect x="620" y="185" width="130" height="40" rx="8" fill="white" opacity=".92"/>
+  <circle cx="675" cy="228" r="5" fill="white" opacity=".92"/>
+  <circle cx="669" cy="237" r="3" fill="white" opacity=".92"/>
+  <text x="685" y="200" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#cc2222">WAT IS DIT</text>
+  <text x="685" y="215" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#666">voor eten?!</text>
+
+  <text x="400" y="490" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#555" opacity=".9">Ons sterrenrestaurant – één ster 👨‍🍳</text>
+</svg>
