@@ -84,6 +84,12 @@
       height: 100%;
       object-fit: contain;
     }
+    @media (max-width: 640px) {
+      .slide-img-wrap {
+        height: auto;
+        aspect-ratio: 8 / 5;
+      }
+    }
     /* Placeholder shown when image is missing */
     .slide-img-wrap .placeholder {
       display: flex;
