@@ -1006,38 +1006,52 @@
     }
 
     // ══════════════════════════════════════════
-    // HERINNERINGEN DATA
-    // Sorteer oudste eerst (= links op desktop)
+    // EENMALIGE MIGRATIE: hardcoded → Firestore
     // ══════════════════════════════════════════
-    const MEMORIES = [
+    const HARDCODED_MEMORIES = [
       {
-        id: 3,
         title: "Weekendje Gent",
         date: "7–8 februari 2026",
         sortDate: "2026-02-07",
+        dateType: "day",
         location: "Gent, België",
         description: "Een gezellig weekend door het historische centrum van Gent. Stroopwafels, kanalen en een heleboel gezelligheid.",
         images: ["images/bxl02.svg", "images/bxl01.svg"]
       },
       {
-        id: 2,
         title: "Dagje Efteling",
         date: "14 maart 2026",
         sortDate: "2026-03-14",
+        dateType: "day",
         location: "Kaatsheuvel, Nederland",
         description: null,
         images: ["images/bxl01.svg", "images/bxl02.svg"]
       },
       {
-        id: 1,
         title: "Brussel Weekend",
         date: "18–20 april 2026",
         sortDate: "2026-04-18",
+        dateType: "day",
         location: "Brussel, België",
         description: "Walibi voor de schreeuw-therapie, een knus Airbnb, en een heerlijk verjaardagsdiner. Niet slecht voor een weekend.",
         images: ["images/bxl01.svg", "images/bxl02.svg", "images/memory14.svg", "images/memory17.svg", "images/memory07.svg"]
       }
-    ].sort((a, b) => a.sortDate.localeCompare(b.sortDate)); // oldest first
+    ];
+
+    async function migrateHardcodedToFirestore() {
+      if (localStorage.getItem('hardcoded_migrated')) return;
+      const base = window.location.href.replace(/\/[^\/]*$/, '/');
+      for (const mem of HARDCODED_MEMORIES) {
+        // Zet relatieve paden om naar absolute URLs
+        const absImages = mem.images.map(src => new URL(src, base).href);
+        await saveMemoryToFirestore({ ...mem, images: absImages });
+      }
+      // Opruimen: oude localStorage velden niet meer nodig
+      localStorage.removeItem('deleted_memory_ids');
+      localStorage.removeItem('memory_overrides');
+      localStorage.removeItem('user_memories');
+      localStorage.setItem('hardcoded_migrated', '1');
+    }
 
     // ══════════════════════════════════════════
     // TIMELINE RENDERER
@@ -1047,14 +1061,8 @@
     function isMobile() { return window.innerWidth < 768; }
 
     function getAllMemories() {
-      const userMems  = JSON.parse(localStorage.getItem('user_memories')      || '[]'); // legacy
-      const fbMems    = JSON.parse(localStorage.getItem('fb_memories')        || '[]'); // Firestore cache
-      const deleted   = JSON.parse(localStorage.getItem('deleted_memory_ids') || '[]');
-      const overrides = JSON.parse(localStorage.getItem('memory_overrides')   || '{}');
-      const base = MEMORIES.map(m => overrides[m.id] ? { ...m, ...overrides[m.id] } : m);
-      return [...base, ...userMems, ...fbMems]
-        .filter(m => !deleted.includes(m.id))
-        .sort((a, b) => a.sortDate.localeCompare(b.sortDate));
+      const fbMems = JSON.parse(localStorage.getItem('fb_memories') || '[]');
+      return fbMems.sort((a, b) => a.sortDate.localeCompare(b.sortDate));
     }
 
     function renderTimeline() {
@@ -1141,8 +1149,8 @@
 
     // Initial render (from localStorage cache)
     renderTimeline();
-    // Sync from Firestore in background, re-renders when done
-    syncFromFirestore();
+    // Migrate hardcoded memories once, then sync from Firestore
+    migrateHardcodedToFirestore().then(() => syncFromFirestore());
 
     // ── Timeline arrow navigation (transform-based, no overflow clipping) ──
     function scrollTimeline(dir) {
@@ -1443,22 +1451,9 @@
 
     async function confirmDeleteMemory() {
       if (!confirm('Weet je zeker dat je deze herinnering wilt verwijderen?')) return;
-      const id = editingMemoryId;
-      const isHardcoded = MEMORIES.some(m => m.id === id);
-
-      if (isHardcoded) {
-        const deleted = JSON.parse(localStorage.getItem('deleted_memory_ids') || '[]');
-        if (!deleted.includes(id)) { deleted.push(id); localStorage.setItem('deleted_memory_ids', JSON.stringify(deleted)); }
-      } else {
-        const mem = getAllMemories().find(m => m.id === id);
-        if (mem && mem.firestoreId) {
-          await deleteFromFirestore(mem.firestoreId);
-        } else {
-          // Legacy localStorage memory
-          const userMems = JSON.parse(localStorage.getItem('user_memories') || '[]');
-          const idx = userMems.findIndex(m => m.id === id);
-          if (idx !== -1) { userMems.splice(idx, 1); localStorage.setItem('user_memories', JSON.stringify(userMems)); }
-        }
+      const mem = getAllMemories().find(m => m.id === editingMemoryId);
+      if (mem && mem.firestoreId) {
+        await deleteFromFirestore(mem.firestoreId);
       }
       closeAddModal();
       closeDetail();
@@ -1496,28 +1491,14 @@
 
       try {
         if (editingMemoryId !== null) {
-          const isHardcoded = MEMORIES.some(m => m.id === editingMemoryId);
-          if (isHardcoded) {
-            // Hardcoded memory: sla override op in localStorage
-            const overrides = JSON.parse(localStorage.getItem('memory_overrides') || '{}');
-            overrides[editingMemoryId] = { ...memData, id: editingMemoryId };
-            localStorage.setItem('memory_overrides', JSON.stringify(overrides));
-          } else {
-            // Firestore memory: update in Firestore
-            const mem = getAllMemories().find(m => m.id === editingMemoryId);
-            if (mem && mem.firestoreId) {
-              await saveMemoryToFirestore(memData, mem.firestoreId);
-              const cached = JSON.parse(localStorage.getItem('fb_memories') || '[]');
-              const idx = cached.findIndex(m => m.firestoreId === mem.firestoreId);
-              if (idx !== -1) cached[idx] = { ...cached[idx], ...memData };
-              localStorage.setItem('fb_memories', JSON.stringify(cached));
-            } else {
-              // Legacy localStorage memory
-              const userMems = JSON.parse(localStorage.getItem('user_memories') || '[]');
-              const idx = userMems.findIndex(m => m.id === editingMemoryId);
-              if (idx !== -1) { userMems[idx] = { ...userMems[idx], ...memData }; }
-              localStorage.setItem('user_memories', JSON.stringify(userMems));
-            }
+          // Update in Firestore
+          const mem = getAllMemories().find(m => m.id === editingMemoryId);
+          if (mem && mem.firestoreId) {
+            await saveMemoryToFirestore(memData, mem.firestoreId);
+            const cached = JSON.parse(localStorage.getItem('fb_memories') || '[]');
+            const idx = cached.findIndex(m => m.firestoreId === mem.firestoreId);
+            if (idx !== -1) cached[idx] = { ...cached[idx], ...memData };
+            localStorage.setItem('fb_memories', JSON.stringify(cached));
           }
           closeAddModal();
           closeDetail();
