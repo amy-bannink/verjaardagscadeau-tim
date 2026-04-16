@@ -48,19 +48,37 @@
     .back-btn:hover { background: var(--primary-light); border-color: var(--primary); }
     .topbar-title { font-size: 1rem; font-weight: 700; }
     .topbar-right { display: flex; align-items: center; gap: 10px; }
+    .user-menu { position: relative; }
     .user-badge {
       background: var(--primary-light); border: 1.5px solid var(--primary);
       border-radius: 50px; padding: 6px 14px;
       font-size: 0.85rem; font-weight: 600;
-    }
-    .logout-btn {
-      background: none; border: 1.5px solid var(--border);
-      border-radius: 50px; padding: 6px 14px;
-      font-size: 0.85rem; cursor: pointer;
-      color: var(--text-muted); font-family: inherit;
+      cursor: pointer; font-family: inherit;
       transition: background 0.15s;
     }
-    .logout-btn:hover { background: #fee; color: #cc2222; border-color: #cc2222; }
+    .user-badge:hover { background: var(--primary); }
+    .user-dropdown {
+      display: none; position: absolute;
+      top: calc(100% + 8px); right: 0;
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 4px 0;
+      min-width: 140px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      z-index: 200;
+    }
+    .user-dropdown.open { display: block; }
+    .user-dropdown button {
+      display: block; width: 100%;
+      text-align: left; padding: 9px 16px;
+      background: none; border: none;
+      font-size: 0.88rem; cursor: pointer;
+      color: #cc2222; font-family: inherit;
+      transition: background 0.1s;
+    }
+    .user-dropdown button:hover { background: #fee; }
+    @media (max-width: 600px) {
+      .back-btn-arrow { display: none; }
+    }
 
     /* ── Page ── */
     .page-content { max-width: 1200px; margin: 0 auto; padding: 40px 24px 120px; }
@@ -631,6 +649,10 @@
     @media (max-width: 767px) {
       #addModal { padding: 0; align-items: flex-end; }
       .add-box { border-radius: 20px 20px 0 0; max-height: 90vh; max-width: 100%; }
+      .btn-delete-icon { display: none; }
+      .btn-delete { padding: 8px 12px; font-size: 0.82rem; }
+      .btn-cancel  { padding: 8px 12px; font-size: 0.82rem; }
+      .btn-submit  { padding: 8px 14px; font-size: 0.82rem; }
     }
 
     /* Toast */
@@ -652,12 +674,16 @@
   <!-- Topbar -->
   <div class="topbar">
     <div class="topbar-left">
-      <button class="back-btn" onclick="window.location.href='./index.html'">← Terug</button>
+      <button class="back-btn" onclick="window.location.href='./index.html'"><span class="back-btn-arrow">← </span>Terug</button>
       <span class="topbar-title">Onze Herinneringen</span>
     </div>
     <div class="topbar-right">
-      <span class="user-badge" id="userBadge">👤 ...</span>
-      <button class="logout-btn" onclick="doLogout()">Uitloggen</button>
+      <div class="user-menu">
+        <button class="user-badge" id="userBadge" onclick="toggleUserMenu()">👤 ...</button>
+        <div class="user-dropdown" id="userDropdown">
+          <button onclick="doLogout()">Uitloggen</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -759,7 +785,7 @@
       </div>
 
       <div class="form-actions">
-        <button class="btn-delete" id="deleteMemBtn" onclick="confirmDeleteMemory()" style="display:none">🗑 Verwijderen</button>
+        <button class="btn-delete" id="deleteMemBtn" onclick="confirmDeleteMemory()" style="display:none"><span class="btn-delete-icon">🗑 </span>Verwijderen</button>
         <button class="btn-cancel" onclick="closeAddModal()">Annuleren</button>
         <button class="btn-submit" id="addSubmitBtn" onclick="submitMemory()">Opslaan ✓</button>
       </div>
@@ -782,6 +808,15 @@
       localStorage.removeItem('app_session');
       window.location.href = './index.html';
     }
+    function toggleUserMenu() {
+      document.getElementById('userDropdown').classList.toggle('open');
+    }
+    document.addEventListener('click', e => {
+      const menu = document.getElementById('userDropdown');
+      const badge = document.getElementById('userBadge');
+      if (!badge.contains(e.target) && !menu.contains(e.target))
+        menu.classList.remove('open');
+    });
 
     // ══════════════════════════════════════════
     // HERINNERINGEN DATA
