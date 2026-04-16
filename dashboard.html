@@ -688,6 +688,8 @@
     }
   </style>
   <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -858,6 +860,89 @@
     });
 
     // ══════════════════════════════════════════
+    // FIREBASE
+    // ══════════════════════════════════════════
+    const firebaseConfig = {
+      apiKey:            "AIzaSyAx_trMiq6hGAeBkLhvwJ0oSXyTbOXQPew",
+      authDomain:        "herinneringen-ae224.firebaseapp.com",
+      projectId:         "herinneringen-ae224",
+      storageBucket:     "herinneringen-ae224.firebasestorage.app",
+      messagingSenderId: "1046147337249",
+      appId:             "1:1046147337249:web:4686fe853a076eb766a760"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Compress image smaller for Firestore storage (max 800px, 75% quality)
+    function compressForStorage(dataUrl) {
+      return new Promise(resolve => {
+        const img = new Image();
+        img.onload = () => {
+          const maxW = 800;
+          let w = img.width, h = img.height;
+          if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', 0.75));
+        };
+        img.src = dataUrl;
+      });
+    }
+
+    // Save or update a memory in Firestore
+    async function saveMemoryToFirestore(memData, firestoreId = null) {
+      const storageImages = await Promise.all(memData.images.map(src =>
+        src.startsWith('images/') ? Promise.resolve(src) : compressForStorage(src)
+      ));
+      const doc = {
+        title:       memData.title,
+        date:        memData.date,
+        sortDate:    memData.sortDate,
+        dateType:    memData.dateType || 'day',
+        location:    memData.location,
+        description: memData.description || null,
+        images:      storageImages,
+        updatedBy:   session.name,
+        updatedAt:   firebase.firestore.FieldValue.serverTimestamp()
+      };
+      if (firestoreId) {
+        await db.collection('memories').doc(firestoreId).update(doc);
+        return firestoreId;
+      } else {
+        doc.createdBy = session.name;
+        doc.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+        const ref = await db.collection('memories').add(doc);
+        return ref.id;
+      }
+    }
+
+    // Load all memories from Firestore, cache locally, re-render
+    async function syncFromFirestore() {
+      try {
+        const snapshot = await db.collection('memories').get();
+        const fbMems = snapshot.docs.map(docSnap => ({
+          id:          'fb_' + docSnap.id,
+          firestoreId: docSnap.id,
+          ...docSnap.data()
+        }));
+        localStorage.setItem('fb_memories', JSON.stringify(fbMems));
+        renderTimeline();
+      } catch(e) {
+        console.warn('Firestore sync mislukt:', e);
+      }
+    }
+
+    // Delete a memory from Firestore + local cache
+    async function deleteFromFirestore(firestoreId) {
+      await db.collection('memories').doc(firestoreId).delete();
+      const cached = JSON.parse(localStorage.getItem('fb_memories') || '[]');
+      localStorage.setItem('fb_memories', JSON.stringify(
+        cached.filter(m => m.firestoreId !== firestoreId)
+      ));
+    }
+
+    // ══════════════════════════════════════════
     // HERINNERINGEN DATA
     // Sorteer oudste eerst (= links op desktop)
     // ══════════════════════════════════════════
@@ -899,11 +984,12 @@
     function isMobile() { return window.innerWidth < 768; }
 
     function getAllMemories() {
-      const userMems  = JSON.parse(localStorage.getItem('user_memories')      || '[]');
+      const userMems  = JSON.parse(localStorage.getItem('user_memories')      || '[]'); // legacy
+      const fbMems    = JSON.parse(localStorage.getItem('fb_memories')        || '[]'); // Firestore cache
       const deleted   = JSON.parse(localStorage.getItem('deleted_memory_ids') || '[]');
       const overrides = JSON.parse(localStorage.getItem('memory_overrides')   || '{}');
       const base = MEMORIES.map(m => overrides[m.id] ? { ...m, ...overrides[m.id] } : m);
-      return [...base, ...userMems]
+      return [...base, ...userMems, ...fbMems]
         .filter(m => !deleted.includes(m.id))
         .sort((a, b) => a.sortDate.localeCompare(b.sortDate));
     }
@@ -990,8 +1076,10 @@
       resizeTimer = setTimeout(renderTimeline, 150);
     });
 
-    // Initial render
+    // Initial render (from localStorage cache)
     renderTimeline();
+    // Sync from Firestore in background, re-renders when done
+    syncFromFirestore();
 
     // ── Timeline arrow navigation (transform-based, no overflow clipping) ──
     function scrollTimeline(dir) {
@@ -1268,18 +1356,24 @@
       }
     }
 
-    function confirmDeleteMemory() {
+    async function confirmDeleteMemory() {
       if (!confirm('Weet je zeker dat je deze herinnering wilt verwijderen?')) return;
       const id = editingMemoryId;
-      const userMems = JSON.parse(localStorage.getItem('user_memories') || '[]');
-      const idx = userMems.findIndex(m => m.id === id);
-      if (idx !== -1) {
-        userMems.splice(idx, 1);
-        localStorage.setItem('user_memories', JSON.stringify(userMems));
-      } else {
-        // Hardcoded memory — store deleted ID
+      const isHardcoded = MEMORIES.some(m => m.id === id);
+
+      if (isHardcoded) {
         const deleted = JSON.parse(localStorage.getItem('deleted_memory_ids') || '[]');
         if (!deleted.includes(id)) { deleted.push(id); localStorage.setItem('deleted_memory_ids', JSON.stringify(deleted)); }
+      } else {
+        const mem = getAllMemories().find(m => m.id === id);
+        if (mem && mem.firestoreId) {
+          await deleteFromFirestore(mem.firestoreId);
+        } else {
+          // Legacy localStorage memory
+          const userMems = JSON.parse(localStorage.getItem('user_memories') || '[]');
+          const idx = userMems.findIndex(m => m.id === id);
+          if (idx !== -1) { userMems.splice(idx, 1); localStorage.setItem('user_memories', JSON.stringify(userMems)); }
+        }
       }
       closeAddModal();
       closeDetail();
@@ -1287,7 +1381,7 @@
       showToast('Herinnering verwijderd.');
     }
 
-    function submitMemory() {
+    async function submitMemory() {
       const title    = document.getElementById('addTitle').value.trim();
       const location = document.getElementById('addLocation').value.trim();
       const dateVal  = addDateType === 'day'
@@ -1301,6 +1395,10 @@
       if (!location) { errEl.textContent = 'Vul een locatie in.'; errEl.style.display = 'block'; return; }
       errEl.style.display = 'none';
 
+      const submitBtn = document.getElementById('addSubmitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Opslaan... ⏳';
+
       const memData = {
         title,
         date:        formatDisplayDate(dateVal, addDateType),
@@ -1311,30 +1409,52 @@
         images:      [...stagedPhotos],
       };
 
-      if (editingMemoryId !== null) {
-        const isHardcoded = MEMORIES.some(m => m.id === editingMemoryId);
-        if (isHardcoded) {
-          const overrides = JSON.parse(localStorage.getItem('memory_overrides') || '{}');
-          overrides[editingMemoryId] = { ...memData, id: editingMemoryId };
-          localStorage.setItem('memory_overrides', JSON.stringify(overrides));
+      try {
+        if (editingMemoryId !== null) {
+          const isHardcoded = MEMORIES.some(m => m.id === editingMemoryId);
+          if (isHardcoded) {
+            // Hardcoded memory: sla override op in localStorage
+            const overrides = JSON.parse(localStorage.getItem('memory_overrides') || '{}');
+            overrides[editingMemoryId] = { ...memData, id: editingMemoryId };
+            localStorage.setItem('memory_overrides', JSON.stringify(overrides));
+          } else {
+            // Firestore memory: update in Firestore
+            const mem = getAllMemories().find(m => m.id === editingMemoryId);
+            if (mem && mem.firestoreId) {
+              await saveMemoryToFirestore(memData, mem.firestoreId);
+              const cached = JSON.parse(localStorage.getItem('fb_memories') || '[]');
+              const idx = cached.findIndex(m => m.firestoreId === mem.firestoreId);
+              if (idx !== -1) cached[idx] = { ...cached[idx], ...memData };
+              localStorage.setItem('fb_memories', JSON.stringify(cached));
+            } else {
+              // Legacy localStorage memory
+              const userMems = JSON.parse(localStorage.getItem('user_memories') || '[]');
+              const idx = userMems.findIndex(m => m.id === editingMemoryId);
+              if (idx !== -1) { userMems[idx] = { ...userMems[idx], ...memData }; }
+              localStorage.setItem('user_memories', JSON.stringify(userMems));
+            }
+          }
+          closeAddModal();
+          closeDetail();
+          renderTimeline();
+          showToast('Herinnering bijgewerkt! ✓');
         } else {
-          const userMems = JSON.parse(localStorage.getItem('user_memories') || '[]');
-          const idx = userMems.findIndex(m => m.id === editingMemoryId);
-          if (idx !== -1) { userMems[idx] = { ...userMems[idx], ...memData }; }
-          localStorage.setItem('user_memories', JSON.stringify(userMems));
+          // Nieuwe herinnering: opslaan in Firestore
+          const firestoreId = await saveMemoryToFirestore(memData);
+          const newMem = { id: 'fb_' + firestoreId, firestoreId, ...memData };
+          const cached = JSON.parse(localStorage.getItem('fb_memories') || '[]');
+          cached.push(newMem);
+          localStorage.setItem('fb_memories', JSON.stringify(cached));
+          closeAddModal();
+          renderTimeline();
+          showToast('Herinnering opgeslagen! 🎉');
         }
-        closeAddModal();
-        closeDetail();
-        renderTimeline();
-        showToast('Herinnering bijgewerkt! ✓');
-      } else {
-        const newMem = { id: Date.now(), ...memData, userAdded: true };
-        const saved = JSON.parse(localStorage.getItem('user_memories') || '[]');
-        saved.push(newMem);
-        localStorage.setItem('user_memories', JSON.stringify(saved));
-        closeAddModal();
-        renderTimeline();
-        showToast('Herinnering opgeslagen! 🎉');
+      } catch(e) {
+        console.error('Opslaan mislukt:', e);
+        errEl.textContent = 'Opslaan mislukt. Controleer je verbinding.';
+        errEl.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = editingMemoryId !== null ? 'Wijzigingen opslaan ✓' : 'Opslaan ✓';
       }
     }
 
