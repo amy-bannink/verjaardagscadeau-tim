@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <defs>
+    <radialGradient id="floor_glow" cx="50%" cy="100%" r="70%">
+      <stop offset="0%" stop-color="#7B1FA2" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#12005E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Dark club background -->
+  <rect width="300" height="400" fill="#0D0D2B"/>
+
+  <!-- Back wall subtle -->
+  <rect y="0" width="300" height="290" fill="#111135"/>
+
+  <!-- Colored spotlights from ceiling -->
+  <!-- Pink spot left -->
+  <path d="M60 0 L0 280 L120 280 Z" fill="#E91E8C" opacity=".07"/>
+  <!-- Yellow spot center -->
+  <path d="M150 0 L90 290 L210 290 Z" fill="#F5C518" opacity=".08"/>
+  <!-- Blue spot right -->
+  <path d="M240 0 L180 280 L300 280 Z" fill="#1565C0" opacity=".07"/>
+
+  <!-- Disco ball -->
+  <circle cx="150" cy="28" r="18" fill="#BDBDBD"/>
+  <!-- Disco facets -->
+  <g stroke="#999" stroke-width="1" fill="none">
+    <line x1="132" y1="28" x2="168" y2="28"/>
+    <line x1="150" y1="10" x2="150" y2="46"/>
+    <line x1="135" y1="14" x2="165" y2="42"/>
+    <line x1="165" y1="14" x2="135" y2="42"/>
+    <circle cx="150" cy="28" r="6" fill="#E0E0E0"/>
+  </g>
+  <!-- Disco string -->
+  <line x1="150" y1="0" x2="150" y2="10" stroke="#888" stroke-width="2"/>
+  <!-- Light beams from disco ball -->
+  <circle cx="45"  cy="145" r="6" fill="#E91E8C" opacity=".7"/>
+  <circle cx="255" cy="118" r="5" fill="#F5C518" opacity=".7"/>
+  <circle cx="20"  cy="220" r="4" fill="#29B6F6" opacity=".6"/>
+  <circle cx="275" cy="200" r="5" fill="#AB47BC" opacity=".6"/>
+  <circle cx="80"  cy="80"  r="4" fill="#F5C518" opacity=".5"/>
+  <circle cx="230" cy="85"  r="5" fill="#E91E8C" opacity=".5"/>
+  <circle cx="50"  cy="310" r="4" fill="#29B6F6" opacity=".5"/>
+  <circle cx="260" cy="305" r="4" fill="#E91E8C" opacity=".5"/>
+
+  <!-- Dance floor -->
+  <rect y="295" width="300" height="105" fill="#1A0050"/>
+  <!-- Floor tiles (checkerboard-ish) -->
+  <g opacity=".35">
+    <rect x="0"   y="295" width="50" height="50" fill="#4A148C"/>
+    <rect x="100" y="295" width="50" height="50" fill="#4A148C"/>
+    <rect x="200" y="295" width="50" height="50" fill="#4A148C"/>
+    <rect x="50"  y="345" width="50" height="55" fill="#4A148C"/>
+    <rect x="150" y="345" width="50" height="55" fill="#4A148C"/>
+    <rect x="250" y="345" width="50" height="55" fill="#4A148C"/>
+  </g>
+  <!-- Floor glow -->
+  <rect y="295" width="300" height="105" fill="url(#floor_glow)"/>
+
+  <!-- Music notes floating -->
+  <text x="22"  y="175" font-size="18" fill="#F5C518" opacity=".6">♪</text>
+  <text x="265" y="160" font-size="16" fill="#E91E8C" opacity=".6">♫</text>
+  <text x="40"  y="135" font-size="14" fill="#29B6F6" opacity=".5">♩</text>
+
+  <!-- === AMY (left, dancing) === -->
+  <!-- Legs (one forward, one back = dancing) -->
+  <path d="M78 280 L60 318" stroke="#F5C5A3" stroke-width="14" stroke-linecap="round"/>
+  <path d="M96 280 L108 320" stroke="#F5C5A3" stroke-width="14" stroke-linecap="round"/>
+  <!-- Shoes -->
+  <ellipse cx="57"  cy="322" rx="13" ry="6" fill="#C2185B"/>
+  <ellipse cx="110" cy="324" rx="13" ry="6" fill="#C2185B"/>
+  <!-- Body -->
+  <rect x="56" y="192" width="56" height="92" rx="10" fill="#E91E8C"/>
+  <!-- Left arm UP! (dancing) -->
+  <path d="M56 210 L30 162" stroke="#F5C5A3" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="27" cy="158" r="10" fill="#F5C5A3"/>
+  <!-- Right arm UP! -->
+  <path d="M112 210 L138 162" stroke="#F5C5A3" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="141" cy="158" r="10" fill="#F5C5A3"/>
+  <!-- Neck -->
+  <rect x="74" y="176" width="16" height="18" fill="#F5C5A3" rx="4"/>
+  <!-- Head -->
+  <circle cx="82" cy="156" r="28" fill="#F5C5A3"/>
+  <!-- Hair (flying = dancing) -->
+  <ellipse cx="82" cy="134" rx="28" ry="16" fill="#2C1810"/>
+  <path d="M55 150 Q42 140 38 125 Q50 128 56 142 Z" fill="#2C1810"/>
+  <path d="M109 150 Q122 138 130 120 Q116 126 110 140 Z" fill="#2C1810"/>
+  <!-- Eyes (excited, open wide) -->
+  <circle cx="73" cy="152" r="6"   fill="white"/>
+  <circle cx="91" cy="152" r="6"   fill="white"/>
+  <circle cx="74" cy="152" r="4"   fill="#1a1a1a"/>
+  <circle cx="92" cy="152" r="4"   fill="#1a1a1a"/>
+  <circle cx="75" cy="151" r="1.5" fill="white"/>
+  <circle cx="93" cy="151" r="1.5" fill="white"/>
+  <!-- Cheeks (flushed from dancing) -->
+  <ellipse cx="65" cy="164" rx="8" ry="6" fill="#ff7eb3" opacity=".5"/>
+  <ellipse cx="99" cy="164" rx="8" ry="6" fill="#ff7eb3" opacity=".5"/>
+  <!-- Big laugh/smile -->
+  <path d="M71 168 Q82 178 93 168" fill="#CC3366"/>
+  <path d="M72 168 Q82 174 92 168" fill="white"/>
+
+  <!-- === TIM (right, GIANT & MUSCULAR, dancing) === -->
+  <!-- Legs (dancing pose) -->
+  <path d="M200 272 L180 315" stroke="#E8B08A" stroke-width="22" stroke-linecap="round"/>
+  <path d="M244 272 L268 318" stroke="#E8B08A" stroke-width="22" stroke-linecap="round"/>
+  <!-- Shoes -->
+  <ellipse cx="177" cy="320" rx="18" ry="8" fill="#1A237E"/>
+  <ellipse cx="271" cy="323" rx="18" ry="8" fill="#1A237E"/>
+  <!-- MASSIVE torso -->
+  <rect x="172" y="176" width="98" height="100" rx="14" fill="#1565C0"/>
+  <!-- Pec bumps -->
+  <ellipse cx="196" cy="207" rx="20" ry="16" fill="#1976D2" opacity=".55"/>
+  <ellipse cx="248" cy="207" rx="20" ry="16" fill="#1976D2" opacity=".55"/>
+  <!-- GIANT left bicep UP! (arm raised for dancing) -->
+  <ellipse cx="150" cy="185" rx="26" ry="23" fill="#E8B08A"/>
+  <path d="M172 190 L128 135" stroke="#E8B08A" stroke-width="19" stroke-linecap="round"/>
+  <circle cx="124" cy="130" r="14" fill="#E8B08A"/>
+  <!-- GIANT right bicep UP! -->
+  <ellipse cx="292" cy="185" rx="26" ry="23" fill="#E8B08A"/>
+  <path d="M270 190 L310 135" stroke="#E8B08A" stroke-width="19" stroke-linecap="round"/>
+  <circle cx="313" cy="130" r="14" fill="#E8B08A"/>
+  <!-- Neck -->
+  <rect x="209" y="160" width="30" height="20" fill="#E8B08A" rx="5"/>
+  <!-- Head -->
+  <circle cx="224" cy="138" r="32" fill="#E8B08A"/>
+  <!-- Hair -->
+  <path d="M194 128 Q197 105 224 102 Q251 105 254 128" fill="#C4965A"/>
+  <rect x="193" y="116" width="62" height="18" rx="9" fill="#C4965A"/>
+  <!-- Eyes (excited) -->
+  <circle cx="213" cy="132" r="6.5" fill="white"/>
+  <circle cx="235" cy="132" r="6.5" fill="white"/>
+  <circle cx="214" cy="132" r="4.5" fill="#1a1a1a"/>
+  <circle cx="236" cy="132" r="4.5" fill="#1a1a1a"/>
+  <circle cx="215" cy="131" r="1.8" fill="white"/>
+  <circle cx="237" cy="131" r="1.8" fill="white"/>
+  <!-- Cheeks -->
+  <ellipse cx="207" cy="146" rx="9" ry="6" fill="#ffaaaa" opacity=".4"/>
+  <ellipse cx="241" cy="146" rx="9" ry="6" fill="#ffaaaa" opacity=".4"/>
+  <!-- Huge open grin -->
+  <path d="M212 155 Q224 168 236 155" fill="#8B2020"/>
+  <path d="M213 155 Q224 163 235 155" fill="white"/>
+
+  <!-- Speech bubble Amy -->
+  <rect x="2" y="60" width="86" height="40" rx="8" fill="white" opacity=".92"/>
+  <path d="M55,100 L48,114 L66,102 Z" fill="white" opacity=".92"/>
+  <text x="45" y="78" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#E91E8C">Kijk hier! 📸</text>
+  <text x="45" y="93" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">zeg kaasje!</text>
+
+  <!-- Speech bubble Tim -->
+  <rect x="194" y="50" width="100" height="40" rx="8" fill="white" opacity=".92"/>
+  <path d="M228,90 L222,104 L240,92 Z" fill="white" opacity=".92"/>
+  <text x="244" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1565C0">YESSS!! 🕺</text>
+  <text x="244" y="83" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">beste avond ooit!</text>
+
+  <!-- Caption -->
+  <rect x="0" y="370" width="300" height="30" fill="rgba(0,0,0,0.55)"/>
+  <text x="150" y="390" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="white">Dansen – april 2026 🕺</text>
+</svg>

@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <defs>
+    <linearGradient id="sky_t" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FF8F00"/>
+      <stop offset="55%" stop-color="#FFB300"/>
+      <stop offset="100%" stop-color="#FFE082"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="300" height="400" fill="url(#sky_t)"/>
+
+  <!-- Sun -->
+  <circle cx="252" cy="52" r="28" fill="#FF6F00" opacity=".88"/>
+  <g stroke="#FF6F00" stroke-width="3" stroke-linecap="round" opacity=".5">
+    <line x1="252" y1="14" x2="252" y2="6"/>
+    <line x1="252" y1="90" x2="252" y2="98"/>
+    <line x1="214" y1="52" x2="206" y2="52"/>
+    <line x1="290" y1="52" x2="298" y2="52"/>
+    <line x1="225" y1="25" x2="219" y2="19"/>
+    <line x1="279" y1="25" x2="285" y2="19"/>
+  </g>
+
+  <!-- Terrace floor -->
+  <rect y="315" width="300" height="85" fill="#C8A97E"/>
+  <line x1="0" y1="338" x2="300" y2="338" stroke="#B08C64" stroke-width="1.2"/>
+  <line x1="0" y1="362" x2="300" y2="362" stroke="#B08C64" stroke-width="1.2"/>
+  <line x1="75"  y1="315" x2="75"  y2="400" stroke="#B08C64" stroke-width="1"/>
+  <line x1="150" y1="315" x2="150" y2="400" stroke="#B08C64" stroke-width="1"/>
+  <line x1="225" y1="315" x2="225" y2="400" stroke="#B08C64" stroke-width="1"/>
+
+  <!-- Plant left -->
+  <rect x="12" y="272" width="12" height="45" fill="#795548"/>
+  <ellipse cx="18" cy="265" rx="20" ry="25" fill="#388E3C"/>
+  <ellipse cx="8"  cy="275" rx="14" ry="18" fill="#43A047"/>
+  <ellipse cx="28" cy="272" rx="14" ry="18" fill="#2E7D32"/>
+
+  <!-- Plant right -->
+  <rect x="276" y="275" width="12" height="42" fill="#795548"/>
+  <ellipse cx="282" cy="268" rx="18" ry="22" fill="#388E3C"/>
+  <ellipse cx="270" cy="277" rx="12" ry="16" fill="#43A047"/>
+  <ellipse cx="294" cy="274" rx="12" ry="16" fill="#2E7D32"/>
+
+  <!-- Table -->
+  <ellipse cx="150" cy="245" rx="52" ry="11" fill="#8D6E63"/>
+  <ellipse cx="150" cy="243" rx="52" ry="11" fill="#A1887F"/>
+  <rect x="144" y="254" width="12" height="64" fill="#795548"/>
+  <ellipse cx="150" cy="318" rx="32" ry="7" fill="#6D4C41"/>
+
+  <!-- Beer glass Tim -->
+  <rect x="172" y="219" width="19" height="25" fill="#FFC107" rx="2"/>
+  <rect x="170" y="217" width="23" height="7" fill="white" rx="4" opacity=".9"/>
+  <!-- handle -->
+  <path d="M191 223 Q200 223 200 228 Q200 233 191 233" fill="none" stroke="#E0A800" stroke-width="3"/>
+
+  <!-- Wine glass Amy -->
+  <polygon points="108,244 118,244 115,221 111,221" fill="#C2185B" opacity=".8"/>
+  <ellipse cx="113" cy="221" rx="8" ry="3.5" fill="#E91E8C" opacity=".7"/>
+  <rect x="111" y="244" width="4" height="4" fill="#880E4F"/>
+
+  <!-- === AMY (left) === -->
+  <!-- Legs -->
+  <path d="M74 282 L70 315" stroke="#F5C5A3" stroke-width="14" stroke-linecap="round"/>
+  <path d="M92 282 L96 315" stroke="#F5C5A3" stroke-width="14" stroke-linecap="round"/>
+  <!-- Shoes -->
+  <ellipse cx="68"  cy="319" rx="13" ry="6" fill="#880E4F"/>
+  <ellipse cx="98"  cy="319" rx="13" ry="6" fill="#880E4F"/>
+  <!-- Body -->
+  <rect x="54" y="197" width="56" height="88" rx="10" fill="#E91E8C"/>
+  <!-- Left arm down/relaxed -->
+  <path d="M54 220 L36 262" stroke="#F5C5A3" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="34" cy="265" r="10" fill="#F5C5A3"/>
+  <!-- Right arm reaching for glass -->
+  <path d="M110 218 L113 237" stroke="#F5C5A3" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="113" cy="240" r="10" fill="#F5C5A3"/>
+  <!-- Neck -->
+  <rect x="72" y="182" width="16" height="18" fill="#F5C5A3" rx="4"/>
+  <!-- Head -->
+  <circle cx="80" cy="162" r="28" fill="#F5C5A3"/>
+  <!-- Hair -->
+  <ellipse cx="80" cy="141" rx="28" ry="16" fill="#2C1810"/>
+  <path d="M53 158 Q48 174 50 197 Q59 190 58 176 Q58 165 60 157 Z" fill="#2C1810"/>
+  <path d="M107 158 Q112 174 110 197 Q101 190 102 176 Q102 165 100 157 Z" fill="#2C1810"/>
+  <!-- Eyes -->
+  <circle cx="72" cy="158" r="5.5" fill="white"/>
+  <circle cx="89" cy="158" r="5.5" fill="white"/>
+  <circle cx="73" cy="158" r="3.5" fill="#1a1a1a"/>
+  <circle cx="90" cy="158" r="3.5" fill="#1a1a1a"/>
+  <!-- Cheeks -->
+  <ellipse cx="64" cy="169" rx="7" ry="5" fill="#ffaaaa" opacity=".45"/>
+  <ellipse cx="96" cy="169" rx="7" ry="5" fill="#ffaaaa" opacity=".45"/>
+  <!-- Smile -->
+  <path d="M70 173 Q80 182 90 173" fill="#CC3366"/>
+  <path d="M71 173 Q80 179 89 173" fill="white"/>
+
+  <!-- === TIM (right, VERY MUSCULAR) === -->
+  <!-- Legs (thick) -->
+  <path d="M204 278 L198 315" stroke="#E8B08A" stroke-width="20" stroke-linecap="round"/>
+  <path d="M242 278 L248 315" stroke="#E8B08A" stroke-width="20" stroke-linecap="round"/>
+  <!-- Shoes -->
+  <ellipse cx="196" cy="320" rx="17" ry="7" fill="#333"/>
+  <ellipse cx="250" cy="320" rx="17" ry="7" fill="#333"/>
+  <!-- MASSIVE torso -->
+  <rect x="178" y="183" width="90" height="100" rx="12" fill="#1565C0"/>
+  <!-- Pec bumps -->
+  <ellipse cx="200" cy="213" rx="18" ry="14" fill="#1976D2" opacity=".55"/>
+  <ellipse cx="246" cy="213" rx="18" ry="14" fill="#1976D2" opacity=".55"/>
+  <!-- GIANT left bicep -->
+  <ellipse cx="158" cy="208" rx="24" ry="21" fill="#E8B08A"/>
+  <path d="M178 215 L150 255" stroke="#E8B08A" stroke-width="17" stroke-linecap="round"/>
+  <circle cx="148" cy="258" r="13" fill="#E8B08A"/>
+  <!-- GIANT right bicep (arm reaching toward table/drink) -->
+  <ellipse cx="288" cy="208" rx="24" ry="21" fill="#E8B08A"/>
+  <path d="M268 212 L178 232" stroke="#E8B08A" stroke-width="17" stroke-linecap="round"/>
+  <circle cx="176" cy="233" r="13" fill="#E8B08A"/>
+  <!-- Neck -->
+  <rect x="208" y="166" width="28" height="20" fill="#E8B08A" rx="5"/>
+  <!-- Head -->
+  <circle cx="222" cy="144" r="31" fill="#E8B08A"/>
+  <!-- Hair blond -->
+  <path d="M193 135 Q196 112 222 109 Q248 112 251 135" fill="#C4965A"/>
+  <rect x="192" y="122" width="60" height="18" rx="9" fill="#C4965A"/>
+  <!-- Eyes -->
+  <circle cx="211" cy="138" r="6"   fill="white"/>
+  <circle cx="233" cy="138" r="6"   fill="white"/>
+  <circle cx="212" cy="138" r="3.8" fill="#1a1a1a"/>
+  <circle cx="234" cy="138" r="3.8" fill="#1a1a1a"/>
+  <circle cx="213" cy="137" r="1.5" fill="white"/>
+  <circle cx="235" cy="137" r="1.5" fill="white"/>
+  <!-- Cheeks -->
+  <ellipse cx="205" cy="150" rx="8" ry="5" fill="#ffaaaa" opacity=".4"/>
+  <ellipse cx="239" cy="150" rx="8" ry="5" fill="#ffaaaa" opacity=".4"/>
+  <!-- Big smile -->
+  <path d="M210 158 Q222 170 234 158" fill="#8B2020"/>
+  <path d="M211 158 Q222 165 233 158" fill="white"/>
+
+  <!-- Speech bubble Amy -->
+  <rect x="4" y="88" width="86" height="38" rx="8" fill="white" opacity=".93"/>
+  <path d="M58,126 L52,138 L70,128 Z" fill="white" opacity=".93"/>
+  <text x="47" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e91e8c">Proost! 🥂</text>
+  <text x="47" y="120" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">op ons mooie weekend!</text>
+
+  <!-- Speech bubble Tim -->
+  <rect x="192" y="68" width="102" height="38" rx="8" fill="white" opacity=".93"/>
+  <path d="M222,106 L216,118 L234,108 Z" fill="white" opacity=".93"/>
+  <text x="243" y="85" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1565c0">Kaaaaas!! 😄</text>
+  <text x="243" y="100" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">herinneringen maken!</text>
+
+  <!-- Caption -->
+  <rect x="0" y="370" width="300" height="30" fill="rgba(0,0,0,0.45)"/>
+  <text x="150" y="390" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="white">Terras – april 2026 ☀️</text>
+</svg>
