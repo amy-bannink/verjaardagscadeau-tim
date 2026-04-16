@@ -99,14 +99,15 @@
     /* ══════════════════════════════════
        DESKTOP TIMELINE (horizontal)
     ══════════════════════════════════ */
-    .timeline-nav { position: relative; }
-    .timeline-scroll {
-      overflow-x: scroll;
-      padding-bottom: 0;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+    .timeline-nav {
+      position: relative;
+      overflow-x: clip; /* clips horizontal only — vertical stays visible */
     }
-    .timeline-scroll::-webkit-scrollbar { display: none; }
+    .timeline-scroll { overflow: visible; }
+    .timeline-track {
+      transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
 
     .timeline-arrow {
       position: absolute;
@@ -125,8 +126,8 @@
     }
     .timeline-arrow:hover { background: var(--primary-light); border-color: var(--primary); }
     .timeline-arrow:disabled { opacity: 0.25; cursor: default; }
-    .timeline-arrow.prev { left: -21px; }
-    .timeline-arrow.next { right: -21px; }
+    .timeline-arrow.prev { left: 4px; }
+    .timeline-arrow.next { right: 4px; }
     @media (max-width: 767px) { .timeline-arrow { display: none; } }
 
     .timeline-track {
@@ -263,7 +264,7 @@
        MOBILE TIMELINE (vertical)
     ══════════════════════════════════ */
     @media (max-width: 767px) {
-      .timeline-scroll { overflow-x: visible; }
+      .timeline-scroll { overflow: visible; }
 
       .timeline-track {
         flex-direction: column;
@@ -832,6 +833,8 @@
     function renderTimeline() {
       const track = document.getElementById('timelineTrack');
       track.innerHTML = '';
+      tlOffset = 0;
+      track.style.transform = 'translateX(0)';
 
       const mobile  = isMobile();
       const allMems = getAllMemories();
@@ -924,23 +927,27 @@
     // Initial render
     renderTimeline();
 
-    // ── Timeline arrow navigation ──
+    // ── Timeline arrow navigation (transform-based, no overflow clipping) ──
+    let tlOffset = 0;
+
     function scrollTimeline(dir) {
-      const el = document.getElementById('timelineScroll');
-      el.scrollBy({ left: dir * 250, behavior: 'smooth' });
-      setTimeout(updateTimelineArrows, 320);
+      const nav   = document.querySelector('.timeline-nav');
+      const track = document.getElementById('timelineTrack');
+      const max   = Math.max(0, track.scrollWidth - nav.clientWidth + 80);
+      tlOffset = Math.max(0, Math.min(max, tlOffset + dir * 260));
+      track.style.transform = `translateX(-${tlOffset}px)`;
+      updateTimelineArrows();
     }
 
     function updateTimelineArrows() {
-      const el   = document.getElementById('timelineScroll');
-      const prev = document.getElementById('timelinePrev');
-      const next = document.getElementById('timelineNext');
-      if (!el || !prev || !next) return;
-      prev.disabled = el.scrollLeft <= 0;
-      next.disabled = el.scrollLeft >= el.scrollWidth - el.clientWidth - 2;
+      const nav   = document.querySelector('.timeline-nav');
+      const track = document.getElementById('timelineTrack');
+      if (!nav || !track) return;
+      const max = Math.max(0, track.scrollWidth - nav.clientWidth + 80);
+      document.getElementById('timelinePrev').disabled = tlOffset <= 0;
+      document.getElementById('timelineNext').disabled = tlOffset >= max;
     }
 
-    document.getElementById('timelineScroll').addEventListener('scroll', updateTimelineArrows);
     updateTimelineArrows();
 
     // ══════════════════════════════════════════
