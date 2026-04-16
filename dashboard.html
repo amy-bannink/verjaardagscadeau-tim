@@ -489,6 +489,32 @@
     .detail-thumb.active { opacity: 1; border-color: var(--primary); }
     .detail-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+    /* ── No photos placeholder ── */
+    .no-photos-placeholder {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 14px;
+      margin: 20px 24px 8px;
+      padding: 36px 20px;
+      border: 2px dashed var(--border);
+      border-radius: 16px;
+      color: var(--text-muted);
+      background: var(--surface);
+    }
+    .no-photos-placeholder p {
+      margin: 0; font-size: 0.88rem; text-align: center; line-height: 1.5;
+    }
+    .no-photos-add-btn {
+      display: flex; align-items: center; gap: 7px;
+      background: none; border: 1.5px solid var(--border);
+      border-radius: 50px; padding: 8px 18px;
+      font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; color: var(--text-muted);
+      font-family: inherit;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .no-photos-add-btn:hover { background: var(--primary-light); border-color: var(--primary); color: var(--text); }
+    .no-photos-add-btn svg { flex-shrink: 0; }
+
     /* ── All photos grid ── */
     .detail-all-heading {
       padding: 4px 24px 10px;
@@ -744,6 +770,17 @@
         </div>
       </div>
       <div class="detail-desc" id="detailDesc"></div>
+
+      <!-- No photos placeholder -->
+      <div class="no-photos-placeholder" id="noPhotosPlaceholder" style="display:none">
+        <p>Geen afbeeldingen toegevoegd aan deze herinnering.</p>
+        <button class="no-photos-add-btn" onclick="openEditModal(); setTimeout(()=>document.getElementById('addPhotosInput').click(),300)">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Foto's toevoegen
+        </button>
+      </div>
 
       <!-- Large viewer -->
       <div class="detail-viewer">
@@ -1163,21 +1200,33 @@
       const createdByEl = document.getElementById('detailCreatedBy');
       createdByEl.textContent = mem.createdBy ? 'Aangemaakt door ' + mem.createdBy : '';
 
-      // Build thumbnail strip
-      document.getElementById('detailThumbs').innerHTML = mem.images.map((src, i) =>
-        `<div class="detail-thumb" onclick="viewerGoTo(${i})">
-           <img src="${src}" alt="" />
-         </div>`
-      ).join('');
+      const hasPhotos = mem.images && mem.images.length > 0;
 
-      // Build all-photos grid
-      document.getElementById('detailAllPhotos').innerHTML = mem.images.map((src, i) =>
-        `<div class="detail-all-photo" onclick="viewerGoTo(${i}); this.closest('.detail-box').scrollTop = 0;">
-           <img src="${src}" alt="" />
-         </div>`
-      ).join('');
+      // Show/hide placeholder vs photo sections
+      document.getElementById('noPhotosPlaceholder').style.display = hasPhotos ? 'none' : '';
+      document.querySelector('.detail-viewer').style.display        = hasPhotos ? ''     : 'none';
+      document.querySelector('.detail-thumbs-wrap').style.display   = 'none'; // always hidden by design
+      document.querySelector('.detail-all-heading').style.display   = hasPhotos ? ''     : 'none';
+      document.querySelector('.detail-all-grid').style.display      = hasPhotos ? ''     : 'none';
 
-      viewerShow(0, false);
+      if (hasPhotos) {
+        // Build thumbnail strip
+        document.getElementById('detailThumbs').innerHTML = mem.images.map((src, i) =>
+          `<div class="detail-thumb" onclick="viewerGoTo(${i})">
+             <img src="${src}" alt="" />
+           </div>`
+        ).join('');
+
+        // Build all-photos grid
+        document.getElementById('detailAllPhotos').innerHTML = mem.images.map((src, i) =>
+          `<div class="detail-all-photo" onclick="viewerGoTo(${i}); this.closest('.detail-box').scrollTop = 0;">
+             <img src="${src}" alt="" />
+           </div>`
+        ).join('');
+
+        viewerShow(0, false);
+      }
+
       document.getElementById('detailModal').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
