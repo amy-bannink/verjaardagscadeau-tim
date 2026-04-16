@@ -110,10 +110,10 @@
     }
 
     .timeline-arrow {
-      position: absolute;
-      top: calc(var(--half-h) + 9px);
+      position: fixed;
+      top: 50%;
       transform: translateY(-50%);
-      z-index: 10;
+      z-index: 200;
       background: var(--surface);
       border: 1.5px solid var(--border);
       border-radius: 50%;
@@ -126,8 +126,8 @@
     }
     .timeline-arrow:hover { background: var(--primary-light); border-color: var(--primary); }
     .timeline-arrow:disabled { opacity: 0.25; cursor: default; }
-    .timeline-arrow.prev { left: 4px; }
-    .timeline-arrow.next { right: 4px; }
+    .timeline-arrow.prev { left: 10px; }
+    .timeline-arrow.next { right: 10px; }
     @media (max-width: 767px) { .timeline-arrow { display: none; } }
 
     .timeline-track {
@@ -889,18 +889,6 @@
 
         track.appendChild(item);
       });
-
-      // Future dots (desktop only)
-      if (!mobile) {
-        const fut = document.createElement('div');
-        fut.className = 'timeline-future';
-        fut.innerHTML = `<div class="future-dots-inner">
-          <div class="future-dot"></div>
-          <div class="future-dot"></div>
-          <div class="future-dot"></div>
-        </div>`;
-        track.appendChild(fut);
-      }
 
       setTimeout(updateTimelineArrows, 50);
     }
