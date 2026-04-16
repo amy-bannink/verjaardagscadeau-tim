@@ -582,15 +582,18 @@
     }
     .btn-delete:hover { background: #fee; }
     .detail-edit-btn {
-      position: absolute; top: 14px; left: 14px;
-      background: none; border: 1.5px solid var(--border);
-      border-radius: 50px; padding: 6px 14px;
-      font-size: 0.82rem; font-weight: 600;
+      position: fixed; bottom: 28px; right: 28px;
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 50px; padding: 10px 20px;
+      font-size: 0.9rem; font-weight: 600;
       cursor: pointer; color: var(--text-muted);
-      font-family: inherit; z-index: 10;
-      transition: background 0.15s, border-color 0.15s;
+      font-family: inherit; z-index: 4000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.14);
+      transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+      display: none;
     }
-    .detail-edit-btn:hover { background: var(--primary-light); border-color: var(--primary); color: var(--text); }
+    .detail-edit-btn.visible { display: block; }
+    .detail-edit-btn:hover { background: var(--primary-light); border-color: var(--primary); color: var(--text); box-shadow: 0 6px 24px rgba(0,0,0,0.18); }
     .form-error { background: #fee; color: #cc2222; padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 16px; display: none; }
 
     @media (max-width: 767px) {
@@ -645,7 +648,6 @@
   <!-- Detail modal -->
   <div id="detailModal">
     <div class="detail-box">
-      <button class="detail-edit-btn" onclick="openEditModal()">✏️ Bewerken</button>
       <button class="detail-close" onclick="closeDetail()">✕</button>
       <div class="detail-meta">
         <div class="detail-title" id="detailTitle"></div>
@@ -674,6 +676,9 @@
       <div class="detail-all-grid" id="detailAllPhotos"></div>
     </div>
   </div>
+
+  <!-- Floating edit button (shown when detail modal is open) -->
+  <button class="detail-edit-btn" id="detailEditBtn" onclick="openEditModal()">✏️ Bewerken</button>
 
   <!-- Add memory modal -->
   <div id="addModal">
@@ -918,6 +923,7 @@
 
       viewerShow(0, false);
       document.getElementById('detailModal').classList.add('open');
+      document.getElementById('detailEditBtn').classList.add('visible');
       document.body.style.overflow = 'hidden';
     }
 
@@ -957,6 +963,7 @@
 
     function closeDetail() {
       document.getElementById('detailModal').classList.remove('open');
+      document.getElementById('detailEditBtn').classList.remove('visible');
       document.body.style.overflow = '';
     }
 
