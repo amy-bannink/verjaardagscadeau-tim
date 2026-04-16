@@ -655,6 +655,25 @@
       .btn-submit  { padding: 8px 14px; font-size: 0.82rem; }
     }
 
+    /* ── Mini Player ── */
+    #miniPlayer {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 10px 24px; display: none; align-items: center;
+      gap: 14px; z-index: 1000; box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
+    }
+    #albumArt { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: var(--primary-light); }
+    #trackInfo { flex: 1; min-width: 0; }
+    #trackName { font-size: 0.9rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #artistName { font-size: 0.78rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+    .player-controls { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+    .ctrl-btn { background: none; border: none; cursor: pointer; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; color: var(--text); transition: background 0.15s; }
+    .ctrl-btn:hover { background: var(--primary-light); }
+    #playPauseBtn { background: var(--primary); width: 42px; height: 42px; font-size: 1.1rem; }
+    #playPauseBtn:hover { background: var(--primary-dark); }
+    #progressWrap { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--border); }
+    #progressBar { height: 100%; background: var(--primary); width: 0%; transition: width 1s linear; border-radius: 2px; }
+
     /* Toast */
     #toast {
       position: fixed; bottom: 28px; left: 50%;
@@ -668,6 +687,7 @@
       z-index: 9999;
     }
   </style>
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
 </head>
 <body>
 
@@ -789,6 +809,21 @@
         <button class="btn-cancel" onclick="closeAddModal()">Annuleren</button>
         <button class="btn-submit" id="addSubmitBtn" onclick="submitMemory()">Opslaan ✓</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Mini Player -->
+  <div id="miniPlayer">
+    <div id="progressWrap"><div id="progressBar"></div></div>
+    <img id="albumArt" src="" alt="" />
+    <div id="trackInfo">
+      <div id="trackName">Laden...</div>
+      <div id="artistName">Onze Blend</div>
+    </div>
+    <div class="player-controls">
+      <button class="ctrl-btn" onclick="skipPrev()">⏮</button>
+      <button class="ctrl-btn" id="playPauseBtn" onclick="togglePlay()">⏸</button>
+      <button class="ctrl-btn" onclick="skipNext()">⏭</button>
     </div>
   </div>
 
@@ -1303,6 +1338,91 @@
     document.getElementById('addModal').addEventListener('click', function(e) {
       if (e.target === this) closeAddModal();
     });
+
+    // ══════════════════════════════════════════
+    // SPOTIFY – herstart speler met opgeslagen token
+    // ══════════════════════════════════════════
+    (function initSpotify() {
+      const token  = sessionStorage.getItem('sp_token');
+      const expiry = parseInt(sessionStorage.getItem('sp_expiry') || '0');
+      if (!token || Date.now() >= expiry) return; // geen geldige token
+
+      const PLAYLIST_URI = 'spotify:playlist:37i9dQZF1EJwmwHt8uQefo';
+      let spotifyPlayer = null;
+      let progressTimer = null;
+      let currentPosition = 0;
+      let currentDuration = 1;
+
+      function updateProgress(pos, dur) {
+        document.getElementById('progressBar').style.width = (dur > 0 ? (pos / dur) * 100 : 0) + '%';
+      }
+      function togglePlay() { if (spotifyPlayer) spotifyPlayer.togglePlay(); }
+      function skipNext()   { if (spotifyPlayer) spotifyPlayer.nextTrack(); }
+      function skipPrev()   { if (spotifyPlayer) spotifyPlayer.previousTrack(); }
+      window.togglePlay = togglePlay;
+      window.skipNext   = skipNext;
+      window.skipPrev   = skipPrev;
+
+      const start = () => {
+        spotifyPlayer = new Spotify.Player({
+          name: 'Onze Herinneringen 💛',
+          getOAuthToken: cb => cb(token),
+          volume: 0.65
+        });
+
+        spotifyPlayer.addListener('ready', ({ device_id }) => {
+          // Zet playback over naar dit nieuwe device, maar onderbreek niet als al aan het spelen
+          fetch('https://api.spotify.com/v1/me/player', {
+            headers: { 'Authorization': 'Bearer ' + token }
+          }).then(r => r.json()).then(state => {
+            const isPlaying = state && state.is_playing;
+            // Verplaats playback naar dit device (met of zonder herstart)
+            fetch('https://api.spotify.com/v1/me/player', {
+              method: 'PUT',
+              headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+              body: JSON.stringify({ device_ids: [device_id], play: isPlaying !== false })
+            }).then(() => {
+              document.getElementById('miniPlayer').style.display = 'flex';
+            });
+          }).catch(() => {
+            // Fallback: start playlist opnieuw
+            fetch('https://api.spotify.com/v1/me/player/play?device_id=' + device_id, {
+              method: 'PUT',
+              headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+              body: JSON.stringify({ context_uri: PLAYLIST_URI })
+            }).then(() => {
+              document.getElementById('miniPlayer').style.display = 'flex';
+            });
+          });
+        });
+
+        spotifyPlayer.addListener('player_state_changed', state => {
+          if (!state) return;
+          const track = state.track_window.current_track;
+          currentPosition = state.position;
+          currentDuration = state.duration;
+          document.getElementById('trackName').textContent    = track.name;
+          document.getElementById('artistName').textContent   = track.artists.map(a => a.name).join(', ');
+          document.getElementById('playPauseBtn').textContent = state.paused ? '▶' : '⏸';
+          const img = track.album.images[0];
+          if (img) document.getElementById('albumArt').src = img.url;
+          updateProgress(currentPosition, currentDuration);
+          clearInterval(progressTimer);
+          if (!state.paused) {
+            progressTimer = setInterval(() => {
+              currentPosition = Math.min(currentPosition + 1000, currentDuration);
+              updateProgress(currentPosition, currentDuration);
+            }, 1000);
+          }
+        });
+
+        spotifyPlayer.addListener('not_ready', () => clearInterval(progressTimer));
+        spotifyPlayer.connect();
+      };
+
+      if (window.Spotify) start();
+      else window.onSpotifyWebPlaybackSDKReady = start;
+    })();
   </script>
 </body>
 </html>
