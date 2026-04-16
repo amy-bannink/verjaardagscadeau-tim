@@ -109,28 +109,27 @@
       will-change: transform;
     }
 
-    .timeline-section { position: relative; }
     .timeline-arrow {
-      position: absolute;
-      top: calc(var(--half-h) + 68px);
+      position: fixed;
+      top: 50%; /* overridden by JS */
       transform: translateY(-50%);
       background: none;
       border: none;
       color: var(--primary);
-      font-size: 2rem;
+      font-size: 2.2rem;
       line-height: 1;
       cursor: pointer;
-      padding: 4px 6px;
-      z-index: 10;
+      padding: 4px 8px;
+      z-index: 200;
       transition: opacity 0.15s, transform 0.15s;
     }
     .timeline-arrow:hover { opacity: 0.65; transform: translateY(-50%) scale(1.2); }
     .timeline-arrow:disabled { opacity: 0.2; cursor: default; transform: translateY(-50%); }
-    .timeline-arrow.prev { left: -18px; }
-    .timeline-arrow.next { right: -18px; }
+    .timeline-arrow.prev { left: 6px; }
+    .timeline-arrow.next { right: 6px; }
     @media (max-width: 767px) {
       .timeline-arrow { display: none; }
-      .timeline-nav { overflow-x: visible; }
+      .timeline-nav { overflow: visible; }
     }
 
     .timeline-track {
@@ -894,7 +893,7 @@
         track.appendChild(item);
       });
 
-      setTimeout(updateTimelineArrows, 50);
+      setTimeout(() => { updateTimelineArrows(); positionTimelineArrows(); }, 50);
     }
 
     function buildFan(images, extraClass) {
@@ -939,6 +938,19 @@
       document.getElementById('timelinePrev').disabled = tlOffset <= 0;
       document.getElementById('timelineNext').disabled = tlOffset >= max;
     }
+
+    function positionTimelineArrows() {
+      if (isMobile()) return;
+      const track = document.getElementById('timelineTrack');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const lineTop = rect.top + 230 + 9; // --half-h (230px) + dot offset (9px)
+      document.getElementById('timelinePrev').style.top = lineTop + 'px';
+      document.getElementById('timelineNext').style.top = lineTop + 'px';
+    }
+
+    window.addEventListener('scroll', positionTimelineArrows);
+    window.addEventListener('resize', positionTimelineArrows);
 
     updateTimelineArrows();
 
