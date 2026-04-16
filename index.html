@@ -996,7 +996,10 @@
 
           // Sla huidige staat op zodat dashboard.html kan hervatten
           sessionStorage.setItem('sp_track', JSON.stringify({
-            uri: track.uri, position: state.position, paused: state.paused
+            uri: track.uri, position: state.position, paused: state.paused,
+            name: track.name,
+            artist: track.artists.map(a => a.name).join(', '),
+            art: track.album.images[0] ? track.album.images[0].url : ''
           }));
 
           updateProgress(currentPosition, currentDuration);
@@ -1005,9 +1008,11 @@
             progressTimer = setInterval(() => {
               currentPosition = Math.min(currentPosition + 1000, currentDuration);
               updateProgress(currentPosition, currentDuration);
-              // Update positie ook in sessionStorage
               sessionStorage.setItem('sp_track', JSON.stringify({
-                uri: track.uri, position: currentPosition, paused: false
+                uri: track.uri, position: currentPosition, paused: false,
+                name: track.name,
+                artist: track.artists.map(a => a.name).join(', '),
+                art: track.album.images[0] ? track.album.images[0].url : ''
               }));
             }, 1000);
           }
@@ -1049,7 +1054,16 @@
 
       if (token) {
         document.getElementById('loginSection').style.display  = 'none';
-        document.getElementById('playerStatus').style.display  = 'block';
+        // Toon opgeslagen track-info meteen, vóór SDK verbindt
+        const saved = JSON.parse(sessionStorage.getItem('sp_track') || 'null');
+        if (saved && saved.name) {
+          document.getElementById('trackName').textContent  = saved.name;
+          document.getElementById('artistName').textContent = saved.artist || '';
+          if (saved.art) document.getElementById('albumArt').src = saved.art;
+          document.getElementById('miniPlayer').style.display = 'flex';
+        } else {
+          document.getElementById('playerStatus').style.display = 'block';
+        }
         initPlayer(token);
       }
     })();

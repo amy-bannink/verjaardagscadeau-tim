@@ -1347,6 +1347,15 @@
       const expiry = parseInt(sessionStorage.getItem('sp_expiry') || '0');
       if (!token || Date.now() >= expiry) return; // geen geldige token
 
+      // Toon opgeslagen track-info meteen, vóór SDK verbindt
+      const savedInit = JSON.parse(sessionStorage.getItem('sp_track') || 'null');
+      if (savedInit && savedInit.name) {
+        document.getElementById('trackName').textContent  = savedInit.name;
+        document.getElementById('artistName').textContent = savedInit.artist || '';
+        if (savedInit.art) document.getElementById('albumArt').src = savedInit.art;
+        document.getElementById('miniPlayer').style.display = 'flex';
+      }
+
       const PLAYLIST_URI = 'spotify:playlist:37i9dQZF1EJwmwHt8uQefo';
       let spotifyPlayer = null;
       let progressTimer = null;
@@ -1398,7 +1407,10 @@
           const img = track.album.images[0];
           if (img) document.getElementById('albumArt').src = img.url;
           sessionStorage.setItem('sp_track', JSON.stringify({
-            uri: track.uri, position: state.position, paused: state.paused
+            uri: track.uri, position: state.position, paused: state.paused,
+            name: track.name,
+            artist: track.artists.map(a => a.name).join(', '),
+            art: track.album.images[0] ? track.album.images[0].url : ''
           }));
           updateProgress(currentPosition, currentDuration);
           clearInterval(progressTimer);
@@ -1407,7 +1419,10 @@
               currentPosition = Math.min(currentPosition + 1000, currentDuration);
               updateProgress(currentPosition, currentDuration);
               sessionStorage.setItem('sp_track', JSON.stringify({
-                uri: track.uri, position: currentPosition, paused: false
+                uri: track.uri, position: currentPosition, paused: false,
+                name: track.name,
+                artist: track.artists.map(a => a.name).join(', '),
+                art: track.album.images[0] ? track.album.images[0].url : ''
               }));
             }, 1000);
           }
