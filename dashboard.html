@@ -1371,28 +1371,19 @@
         });
 
         spotifyPlayer.addListener('ready', ({ device_id }) => {
-          // Zet playback over naar dit nieuwe device, maar onderbreek niet als al aan het spelen
-          fetch('https://api.spotify.com/v1/me/player', {
-            headers: { 'Authorization': 'Bearer ' + token }
-          }).then(r => r.json()).then(state => {
-            const isPlaying = state && state.is_playing;
-            // Verplaats playback naar dit device (met of zonder herstart)
-            fetch('https://api.spotify.com/v1/me/player', {
-              method: 'PUT',
-              headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-              body: JSON.stringify({ device_ids: [device_id], play: isPlaying !== false })
-            }).then(() => {
-              document.getElementById('miniPlayer').style.display = 'flex';
-            });
-          }).catch(() => {
-            // Fallback: start playlist opnieuw
-            fetch('https://api.spotify.com/v1/me/player/play?device_id=' + device_id, {
-              method: 'PUT',
-              headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-              body: JSON.stringify({ context_uri: PLAYLIST_URI })
-            }).then(() => {
-              document.getElementById('miniPlayer').style.display = 'flex';
-            });
+          const saved = JSON.parse(sessionStorage.getItem('sp_track') || 'null');
+          const body = saved
+            ? { context_uri: PLAYLIST_URI, offset: { uri: saved.uri }, position_ms: saved.position }
+            : { context_uri: PLAYLIST_URI };
+
+          fetch('https://api.spotify.com/v1/me/player/play?device_id=' + device_id, {
+            method: 'PUT',
+            headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          }).then(() => {
+            document.getElementById('miniPlayer').style.display = 'flex';
+            // Was gepauzeerd? Dan ook hier pauzeren na korte delay
+            if (saved && saved.paused) setTimeout(() => spotifyPlayer.pause(), 800);
           });
         });
 
