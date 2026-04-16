@@ -112,7 +112,7 @@
     .timeline-section { position: relative; }
     .timeline-arrow {
       position: absolute;
-      top: calc(54px + var(--half-h) + 9px);
+      top: calc(var(--half-h) + 68px);
       transform: translateY(-50%);
       background: none;
       border: none;
@@ -120,15 +120,18 @@
       font-size: 2rem;
       line-height: 1;
       cursor: pointer;
-      padding: 4px 8px;
+      padding: 4px 6px;
       z-index: 10;
       transition: opacity 0.15s, transform 0.15s;
     }
     .timeline-arrow:hover { opacity: 0.65; transform: translateY(-50%) scale(1.2); }
     .timeline-arrow:disabled { opacity: 0.2; cursor: default; transform: translateY(-50%); }
-    .timeline-arrow.prev { left: 0; }
-    .timeline-arrow.next { right: 0; }
-    @media (max-width: 767px) { .timeline-arrow { display: none; } }
+    .timeline-arrow.prev { left: -18px; }
+    .timeline-arrow.next { right: -18px; }
+    @media (max-width: 767px) {
+      .timeline-arrow { display: none; }
+      .timeline-nav { overflow-x: visible; }
+    }
 
     .timeline-track {
       display: flex;
@@ -264,6 +267,7 @@
        MOBILE TIMELINE (vertical)
     ══════════════════════════════════ */
     @media (max-width: 767px) {
+      .timeline-nav { overflow: visible; }
       .timeline-scroll { overflow: visible; }
 
       .timeline-track {
