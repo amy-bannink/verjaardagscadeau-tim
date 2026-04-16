@@ -818,6 +818,8 @@
     // ══════════════════════════════════════════
     // TIMELINE RENDERER
     // ══════════════════════════════════════════
+    let tlOffset = 0;
+
     function isMobile() { return window.innerWidth < 768; }
 
     function getAllMemories() {
@@ -928,8 +930,6 @@
     renderTimeline();
 
     // ── Timeline arrow navigation (transform-based, no overflow clipping) ──
-    let tlOffset = 0;
-
     function scrollTimeline(dir) {
       const nav   = document.querySelector('.timeline-nav');
       const track = document.getElementById('timelineTrack');
