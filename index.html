@@ -1106,6 +1106,25 @@
     }
     const getUsers   = ()   => JSON.parse(localStorage.getItem('app_users') || '[]');
     const saveUsers  = (u)  => localStorage.setItem('app_users', JSON.stringify(u));
+
+    // ── Seed default accounts (runs on every load, safe to re-run) ──
+    async function seedDefaultUsers() {
+      const users = getUsers();
+      const defaults = [
+        { name: 'Amy', email: 'amy.bannink@gmail.com' },
+        { name: 'Tim', email: 'timoverbeek12@gmail.com' }
+      ];
+      const hash = await hashPassword('Letsgofrontalekwab!');
+      let changed = false;
+      for (const d of defaults) {
+        if (!users.find(u => u.email === d.email)) {
+          users.push({ name: d.name, email: d.email, passwordHash: hash, verified: true, createdAt: Date.now() });
+          changed = true;
+        }
+      }
+      if (changed) saveUsers(users);
+    }
+    seedDefaultUsers();
     const getSession = ()   => {
       const s = JSON.parse(localStorage.getItem('app_session') || 'null');
       if (!s) return null;
@@ -1222,25 +1241,43 @@
       const err = document.getElementById('verifyError');
       if (entered.length !== 6) return err.textContent = 'Voer alle 6 cijfers in.';
 
-      const p = JSON.parse(sessionStorage.getItem('pending_reg') || 'null');
-      if (!p)                     return err.textContent = 'Geen registratie gevonden. Begin opnieuw.';
-      if (Date.now() > p.expiresAt) { sessionStorage.removeItem('pending_reg'); return err.textContent = 'Code verlopen. Registreer opnieuw.'; }
-      if (entered !== p.code)     return err.textContent = 'Onjuiste code.';
+      const pl = JSON.parse(sessionStorage.getItem('pending_login') || 'null');
+      const pr = JSON.parse(sessionStorage.getItem('pending_reg')   || 'null');
+      const p  = pl || pr;
 
-      const hash  = await hashPassword(p.pass);
-      const users = getUsers();
-      users.push({ name: p.name, email: p.email, passwordHash: hash, verified: true, createdAt: Date.now() });
-      saveUsers(users);
-      sessionStorage.removeItem('pending_reg');
+      if (!p) return err.textContent = 'Geen verificatie gevonden. Begin opnieuw.';
+      if (Date.now() > p.expiresAt) {
+        sessionStorage.removeItem('pending_login');
+        sessionStorage.removeItem('pending_reg');
+        return err.textContent = 'Code verlopen. Probeer opnieuw.';
+      }
+      if (entered !== p.code) return err.textContent = 'Onjuiste code.';
 
-      saveSession(p.name, p.email);
-      updateAuthButton();
-      hideArrowHint();
-
-      document.getElementById('successTitle').textContent = 'Welkom, ' + p.name + '! 🎉';
-      document.getElementById('successMsg').textContent   = 'Je account is aangemaakt en je bent ingelogd.';
-      showAuthView('viewSuccess');
-      setTimeout(closeAuthModal, 2200);
+      if (pl) {
+        // Login verificatie geslaagd
+        sessionStorage.removeItem('pending_login');
+        saveSession(p.name, p.email);
+        updateAuthButton();
+        hideArrowHint();
+        document.getElementById('successTitle').textContent = 'Welkom terug, ' + p.name + '! 👋';
+        document.getElementById('successMsg').textContent   = 'Je bent nu ingelogd.';
+        showAuthView('viewSuccess');
+        setTimeout(closeAuthModal, 2200);
+      } else {
+        // Registratie verificatie geslaagd
+        const hash  = await hashPassword(p.pass);
+        const users = getUsers();
+        users.push({ name: p.name, email: p.email, passwordHash: hash, verified: true, createdAt: Date.now() });
+        saveUsers(users);
+        sessionStorage.removeItem('pending_reg');
+        saveSession(p.name, p.email);
+        updateAuthButton();
+        hideArrowHint();
+        document.getElementById('successTitle').textContent = 'Welkom, ' + p.name + '! 🎉';
+        document.getElementById('successMsg').textContent   = 'Je account is aangemaakt en je bent ingelogd.';
+        showAuthView('viewSuccess');
+        setTimeout(closeAuthModal, 2200);
+      }
     }
 
     // ── Login ──
@@ -1253,20 +1290,38 @@
       if (!pass)  return err.textContent = 'Voer je wachtwoord in.';
 
       const user = getUsers().find(u => u.email === email);
-      if (!user)          return err.textContent = 'Geen account met dit e-mailadres.';
-      if (!user.verified) return err.textContent = 'Account is nog niet geverifieerd.';
+      if (!user) return err.textContent = 'Geen account met dit e-mailadres.';
 
       if (await hashPassword(pass) !== user.passwordHash)
         return err.textContent = 'Onjuist wachtwoord.';
 
-      saveSession(user.name, user.email);
-      updateAuthButton();
-      hideArrowHint();
+      // Wachtwoord klopt — stuur verificatiecode
+      const code = String(Math.floor(100000 + Math.random() * 900000));
+      sessionStorage.setItem('pending_login', JSON.stringify({
+        name: user.name, email: user.email, code, expiresAt: Date.now() + 10 * 60 * 1000
+      }));
 
-      document.getElementById('successTitle').textContent = 'Welkom terug, ' + user.name + '! 👋';
-      document.getElementById('successMsg').textContent   = 'Je bent nu ingelogd.';
-      showAuthView('viewSuccess');
-      setTimeout(closeAuthModal, 2200);
+      document.getElementById('verifySubtitle').textContent =
+        'We hebben een code verstuurd naar ' + email + '.';
+      document.getElementById('codeNote').textContent = '';
+
+      if (EMAILJS_PUBLIC_KEY !== 'JOUW_PUBLIC_KEY') {
+        try {
+          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID,
+            { to_name: user.name, to_email: email, code }, EMAILJS_PUBLIC_KEY);
+        } catch(e) {
+          const msg = e?.text || e?.message || JSON.stringify(e);
+          document.getElementById('codeNote').innerHTML =
+            '📌 Fout: ' + msg + '<br>Jouw code: <strong>' + code + '</strong>';
+        }
+      } else {
+        document.getElementById('codeNote').innerHTML =
+          '📌 EmailJS niet ingesteld. Jouw code: <strong>' + code + '</strong>';
+      }
+
+      for (let i = 0; i < 6; i++) document.getElementById('cd' + i).value = '';
+      showAuthView('viewVerify');
+      document.getElementById('cd0').focus();
     }
 
     // ── Logout ──
