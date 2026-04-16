@@ -463,6 +463,18 @@
       padding: 8px 4px !important;
     }
     .auth-success-icon { font-size: 3rem; text-align: center; margin-bottom: 12px; }
+    /* User picker cards */
+    .user-pick-wrap { display: flex; gap: 14px; margin-top: 8px; }
+    .user-pick-btn {
+      flex: 1; padding: 18px 10px;
+      border: 2px solid var(--border); border-radius: 16px;
+      background: var(--bg); cursor: pointer; font-family: inherit;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .user-pick-btn:hover { border-color: var(--primary); background: var(--primary-light); transform: scale(1.03); }
+    .user-pick-btn .pick-avatar { font-size: 2.2rem; line-height: 1; }
+    .user-pick-btn .pick-name { font-size: 1rem; font-weight: 700; color: var(--text); }
 
     /* ── Slide 21 CTA button ── */
     .slide-cta-btn {
@@ -519,7 +531,7 @@
       <line x1="12" y1="28" x2="12" y2="4" stroke="#C9A000" stroke-width="3" stroke-linecap="round"/>
       <polyline points="4,12 12,4 20,12" stroke="#C9A000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-    <div class="arrow-label">Maak je account aan</div>
+    <div class="arrow-label">Log in om te beginnen</div>
   </div>
 
   <!-- ── AUTH MODAL ── -->
@@ -527,49 +539,41 @@
     <div id="authBox">
       <button class="auth-close" onclick="closeAuthModal()">×</button>
 
-      <!-- View: Choice -->
+      <!-- View: Kies gebruiker -->
       <div class="auth-view active" id="viewChoice">
-        <div class="auth-title">Welkom! 👋</div>
-        <div class="auth-subtitle">Registreer of log in om herinneringen bij te houden</div>
-        <button class="auth-btn-primary" onclick="showAuthView('viewRegister')">Registreren ✨</button>
-        <button class="auth-btn-secondary" onclick="showAuthView('viewLogin')">Inloggen</button>
+        <div class="auth-title">Wie ben jij? 👀</div>
+        <div class="auth-subtitle">Kies je naam om in te loggen</div>
+        <div class="user-pick-wrap">
+          <button class="user-pick-btn" onclick="selectUser('Amy')">
+            <span class="pick-avatar">👩</span>
+            <span class="pick-name">Amy</span>
+          </button>
+          <button class="user-pick-btn" onclick="selectUser('Tim')">
+            <span class="pick-avatar">👨</span>
+            <span class="pick-name">Tim</span>
+          </button>
+        </div>
       </div>
 
-      <!-- View: Register -->
-      <div class="auth-view" id="viewRegister">
-        <div class="auth-title">Account aanmaken ✨</div>
-        <div class="auth-subtitle">Kies je naam en vul je gegevens in</div>
-        <div class="auth-field">
-          <label>Wie ben jij?</label>
-          <select id="regName">
-            <option value="">Kies je naam...</option>
-            <option value="Amy">Amy</option>
-            <option value="Tim">Tim</option>
-          </select>
-        </div>
-        <div class="auth-field">
-          <label>E-mailadres</label>
-          <input type="email" id="regEmail" placeholder="jouw@email.nl" />
-        </div>
+      <!-- View: Wachtwoord -->
+      <div class="auth-view" id="viewLogin">
+        <div class="auth-title">Welkom terug! 👋</div>
+        <div class="auth-subtitle" id="loginSubtitle">Voer je wachtwoord in</div>
         <div class="auth-field">
           <label>Wachtwoord</label>
-          <input type="password" id="regPassword" placeholder="Minimaal 6 tekens" />
+          <input type="password" id="loginPassword" placeholder="Jouw wachtwoord" />
         </div>
-        <div class="auth-field">
-          <label>Wachtwoord bevestigen</label>
-          <input type="password" id="regPasswordConfirm" placeholder="Herhaal wachtwoord" />
-        </div>
-        <div class="auth-error" id="regError"></div>
-        <button class="auth-btn-primary" onclick="submitRegister()">Registreren →</button>
-        <div class="auth-switch">Al een account? <button class="auth-link-btn" onclick="showAuthView('viewLogin')">Inloggen</button></div>
+        <div class="auth-error" id="loginError"></div>
+        <button class="auth-btn-primary" onclick="submitLogin()">Volgende →</button>
+        <div class="auth-switch"><button class="auth-link-btn" onclick="showAuthView('viewChoice')">← Terug</button></div>
       </div>
 
-      <!-- View: Verify -->
+      <!-- View: Verificatie -->
       <div class="auth-view" id="viewVerify">
         <div class="auth-title">Bevestig je e-mail 📬</div>
-        <div class="auth-subtitle" id="verifySubtitle">We hebben een 6-cijferige code verstuurd.</div>
+        <div class="auth-subtitle" id="verifySubtitle">We hebben een code verstuurd.</div>
         <div class="auth-field">
-          <label style="text-align:center; display:block;">Voer de code in</label>
+          <label style="text-align:center; display:block;">Voer de 6-cijferige code in</label>
           <div class="code-input-wrap">
             <input class="code-digit" type="text" maxlength="1" inputmode="numeric" id="cd0" oninput="codeDigitInput(0)" onkeydown="codeDigitKey(event,0)" />
             <input class="code-digit" type="text" maxlength="1" inputmode="numeric" id="cd1" oninput="codeDigitInput(1)" onkeydown="codeDigitKey(event,1)" />
@@ -582,23 +586,6 @@
         <div class="auth-error" id="verifyError"></div>
         <button class="auth-btn-primary" onclick="submitVerify()">Bevestigen ✓</button>
         <p id="codeNote" style="margin-top:12px; font-size:0.82rem; color:var(--text-muted); text-align:center;"></p>
-      </div>
-
-      <!-- View: Login -->
-      <div class="auth-view" id="viewLogin">
-        <div class="auth-title">Welkom terug! 👋</div>
-        <div class="auth-subtitle">Log in met je gegevens</div>
-        <div class="auth-field">
-          <label>E-mailadres</label>
-          <input type="email" id="loginEmail" placeholder="jouw@email.nl" />
-        </div>
-        <div class="auth-field">
-          <label>Wachtwoord</label>
-          <input type="password" id="loginPassword" placeholder="Jouw wachtwoord" />
-        </div>
-        <div class="auth-error" id="loginError"></div>
-        <button class="auth-btn-primary" onclick="submitLogin()">Inloggen →</button>
-        <div class="auth-switch">Nog geen account? <button class="auth-link-btn" onclick="showAuthView('viewRegister')">Registreren</button></div>
       </div>
 
       <!-- View: Success -->
@@ -1174,54 +1161,15 @@
       if (e.target === this) closeAuthModal();
     });
 
-    // ── Register ──
-    async function submitRegister() {
-      const name  = document.getElementById('regName').value;
-      const email = document.getElementById('regEmail').value.trim().toLowerCase();
-      const pass  = document.getElementById('regPassword').value;
-      const conf  = document.getElementById('regPasswordConfirm').value;
-      const err   = document.getElementById('regError');
-
-      if (!name)                        return err.textContent = 'Kies je naam.';
-      if (!email.includes('@'))         return err.textContent = 'Voer een geldig e-mailadres in.';
-      if (pass.length < 6)              return err.textContent = 'Wachtwoord minimaal 6 tekens.';
-      if (pass !== conf)                return err.textContent = 'Wachtwoorden komen niet overeen.';
-
-      const users = getUsers();
-      if (users.find(u => u.name  === name))  return err.textContent = name + ' heeft al een account.';
-      if (users.find(u => u.email === email)) return err.textContent = 'E-mailadres al in gebruik.';
-      if (users.length >= 2)                  return err.textContent = 'Beide accounts zijn al aangemaakt.';
-
-      // Generate code
-      const code = String(Math.floor(100000 + Math.random() * 900000));
-      sessionStorage.setItem('pending_reg', JSON.stringify({
-        name, email, pass, code, expiresAt: Date.now() + 10 * 60 * 1000
-      }));
-
-      // Update verify view subtitle
-      document.getElementById('verifySubtitle').textContent =
-        'We hebben een code verstuurd naar ' + email + '.';
-      document.getElementById('codeNote').textContent = '';
-
-      // Send via EmailJS (or show fallback)
-      if (EMAILJS_PUBLIC_KEY !== 'JOUW_PUBLIC_KEY') {
-        try {
-          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID,
-            { to_name: name, to_email: email, code }, EMAILJS_PUBLIC_KEY);
-        } catch(e) {
-          const msg = e?.text || e?.message || JSON.stringify(e);
-          document.getElementById('codeNote').innerHTML =
-            '📌 Fout: ' + msg + '<br>Jouw code: <strong>' + code + '</strong>';
-        }
-      } else {
-        // EmailJS nog niet ingesteld — toon code direct
-        document.getElementById('codeNote').innerHTML =
-          '📌 EmailJS niet ingesteld. Jouw code: <strong>' + code + '</strong>';
-      }
-
-      for (let i = 0; i < 6; i++) document.getElementById('cd' + i).value = '';
-      showAuthView('viewVerify');
-      document.getElementById('cd0').focus();
+    // ── User selection ──
+    let selectedUser = null;
+    function selectUser(name) {
+      selectedUser = name;
+      document.getElementById('loginSubtitle').textContent = 'Hallo ' + name + ', voer je wachtwoord in';
+      document.getElementById('loginPassword').value = '';
+      document.getElementById('loginError').textContent = '';
+      showAuthView('viewLogin');
+      document.getElementById('loginPassword').focus();
     }
 
     // ── Code digit helpers ──
@@ -1282,15 +1230,14 @@
 
     // ── Login ──
     async function submitLogin() {
-      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-      const pass  = document.getElementById('loginPassword').value;
-      const err   = document.getElementById('loginError');
+      const pass = document.getElementById('loginPassword').value;
+      const err  = document.getElementById('loginError');
 
-      if (!email) return err.textContent = 'Voer je e-mailadres in.';
-      if (!pass)  return err.textContent = 'Voer je wachtwoord in.';
+      if (!selectedUser) return err.textContent = 'Kies eerst een gebruiker.';
+      if (!pass)         return err.textContent = 'Voer je wachtwoord in.';
 
-      const user = getUsers().find(u => u.email === email);
-      if (!user) return err.textContent = 'Geen account met dit e-mailadres.';
+      const user = getUsers().find(u => u.name === selectedUser);
+      if (!user) return err.textContent = 'Account niet gevonden.';
 
       if (await hashPassword(pass) !== user.passwordHash)
         return err.textContent = 'Onjuist wachtwoord.';
@@ -1302,13 +1249,13 @@
       }));
 
       document.getElementById('verifySubtitle').textContent =
-        'We hebben een code verstuurd naar ' + email + '.';
+        'We hebben een code verstuurd naar ' + user.email + '.';
       document.getElementById('codeNote').textContent = '';
 
       if (EMAILJS_PUBLIC_KEY !== 'JOUW_PUBLIC_KEY') {
         try {
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID,
-            { to_name: user.name, to_email: email, code }, EMAILJS_PUBLIC_KEY);
+            { to_name: user.name, to_email: user.email, code }, EMAILJS_PUBLIC_KEY);
         } catch(e) {
           const msg = e?.text || e?.message || JSON.stringify(e);
           document.getElementById('codeNote').innerHTML =
