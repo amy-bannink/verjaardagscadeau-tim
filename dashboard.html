@@ -863,69 +863,84 @@
     // FIREBASE
     // ══════════════════════════════════════════
     const firebaseConfig = {
-      apiKey:            "AIzaSyAx_trMiq6hGAeBkLhvwJ0oSXyTbOXQPew",
-      authDomain:        "herinneringen-ae224.firebaseapp.com",
-      projectId:         "herinneringen-ae224",
-      storageBucket:     "herinneringen-ae224.firebasestorage.app",
-      messagingSenderId: "1046147337249",
-      appId:             "1:1046147337249:web:4686fe853a076eb766a760"
+      apiKey:            "AIzaSyDfLpYTRYxM3FAIiRoBUe21TZ7-vS0K1jg",
+      authDomain:        "herinneringen-webapp.firebaseapp.com",
+      projectId:         "herinneringen-webapp",
+      storageBucket:     "herinneringen-webapp.firebasestorage.app",
+      messagingSenderId: "331175860752",
+      appId:             "1:331175860752:web:794ee8ae902e3a971e0895"
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // Compress image smaller for Firestore storage (max 800px, 75% quality)
-    function compressForStorage(dataUrl) {
-      return new Promise(resolve => {
-        const img = new Image();
-        img.onload = () => {
-          const maxW = 800;
-          let w = img.width, h = img.height;
-          if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
-          const canvas = document.createElement('canvas');
-          canvas.width = w; canvas.height = h;
-          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-          resolve(canvas.toDataURL('image/jpeg', 0.75));
-        };
-        img.src = dataUrl;
-      });
-    }
-
     // Save or update a memory in Firestore
+    // Foto's worden opgeslagen in aparte 'memory_images' documenten (1 per foto, volledige kwaliteit)
     async function saveMemoryToFirestore(memData, firestoreId = null) {
-      const storageImages = await Promise.all(memData.images.map(src =>
-        src.startsWith('images/') ? Promise.resolve(src) : compressForStorage(src)
-      ));
-      const doc = {
+      const meta = {
         title:       memData.title,
         date:        memData.date,
         sortDate:    memData.sortDate,
         dateType:    memData.dateType || 'day',
         location:    memData.location,
         description: memData.description || null,
-        images:      storageImages,
         updatedBy:   session.name,
         updatedAt:   firebase.firestore.FieldValue.serverTimestamp()
       };
+
       if (firestoreId) {
-        await db.collection('memories').doc(firestoreId).update(doc);
-        return firestoreId;
+        // Update metadata
+        await db.collection('memories').doc(firestoreId).update(meta);
+        // Verwijder oude foto's en sla nieuwe op
+        const oldImgs = await db.collection('memory_images')
+          .where('memoryId', '==', firestoreId).get();
+        const batch = db.batch();
+        oldImgs.docs.forEach(d => batch.delete(d.ref));
+        await batch.commit();
       } else {
-        doc.createdBy = session.name;
-        doc.createdAt = firebase.firestore.FieldValue.serverTimestamp();
-        const ref = await db.collection('memories').add(doc);
-        return ref.id;
+        meta.createdBy = session.name;
+        meta.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+        const ref = await db.collection('memories').add(meta);
+        firestoreId = ref.id;
       }
+
+      // Sla elke foto op als apart document (volledige 1200px kwaliteit)
+      for (let i = 0; i < memData.images.length; i++) {
+        await db.collection('memory_images').add({
+          memoryId: firestoreId,
+          data:     memData.images[i],
+          order:    i
+        });
+      }
+
+      return firestoreId;
     }
 
-    // Load all memories from Firestore, cache locally, re-render
+    // Laad alle memories + foto's uit Firestore, sla op in localStorage cache
     async function syncFromFirestore() {
       try {
-        const snapshot = await db.collection('memories').get();
-        const fbMems = snapshot.docs.map(docSnap => ({
+        const [memoriesSnap, imagesSnap] = await Promise.all([
+          db.collection('memories').get(),
+          db.collection('memory_images').get()
+        ]);
+
+        // Groepeer foto's per memoryId
+        const imagesByMemory = {};
+        imagesSnap.docs.forEach(doc => {
+          const d = doc.data();
+          if (!imagesByMemory[d.memoryId]) imagesByMemory[d.memoryId] = [];
+          imagesByMemory[d.memoryId].push(d);
+        });
+        Object.values(imagesByMemory).forEach(imgs =>
+          imgs.sort((a, b) => a.order - b.order)
+        );
+
+        const fbMems = memoriesSnap.docs.map(docSnap => ({
           id:          'fb_' + docSnap.id,
           firestoreId: docSnap.id,
-          ...docSnap.data()
+          ...docSnap.data(),
+          images: (imagesByMemory[docSnap.id] || []).map(i => i.data)
         }));
+
         localStorage.setItem('fb_memories', JSON.stringify(fbMems));
         renderTimeline();
       } catch(e) {
@@ -933,9 +948,15 @@
       }
     }
 
-    // Delete a memory from Firestore + local cache
+    // Verwijder memory + alle bijbehorende foto's uit Firestore
     async function deleteFromFirestore(firestoreId) {
-      await db.collection('memories').doc(firestoreId).delete();
+      const imagesSnap = await db.collection('memory_images')
+        .where('memoryId', '==', firestoreId).get();
+      const batch = db.batch();
+      imagesSnap.docs.forEach(d => batch.delete(d.ref));
+      batch.delete(db.collection('memories').doc(firestoreId));
+      await batch.commit();
+
       const cached = JSON.parse(localStorage.getItem('fb_memories') || '[]');
       localStorage.setItem('fb_memories', JSON.stringify(
         cached.filter(m => m.firestoreId !== firestoreId)
