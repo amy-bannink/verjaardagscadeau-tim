@@ -371,7 +371,7 @@
       position: relative;
       margin: 20px 0 0;
       background: var(--surface);
-      height: min(720px, 78vh);
+      height: min(82vh, 900px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -411,8 +411,9 @@
     .viewer-arrow.prev { left: 4px; }
     .viewer-arrow.next { right: 4px; }
 
-    /* ── Thumbnail strip ── */
-    .detail-thumbs-wrap {
+    /* ── Thumbnail strip (hidden) ── */
+    .detail-thumbs-wrap { display: none; }
+    .detail-thumbs-wrap-hidden {
       overflow-x: auto;
       padding: 12px 24px 20px;
       scrollbar-width: thin;
