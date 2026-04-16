@@ -1104,8 +1104,12 @@
       const hash = await hashPassword('Letsgofrontalekwab!');
       let changed = false;
       for (const d of defaults) {
-        if (!users.find(u => u.email === d.email)) {
+        const existing = users.find(u => u.email === d.email);
+        if (!existing) {
           users.push({ name: d.name, email: d.email, passwordHash: hash, verified: true, createdAt: Date.now() });
+          changed = true;
+        } else if (existing.passwordHash !== hash) {
+          existing.passwordHash = hash;
           changed = true;
         }
       }
