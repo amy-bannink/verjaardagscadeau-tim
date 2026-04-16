@@ -632,8 +632,12 @@
     }
     .btn-delete:hover { background: #fee; }
     .detail-edit-btn {
-      display: flex; justify-content: flex-end;
+      display: flex; justify-content: space-between; align-items: center;
       padding: 0 24px 24px;
+    }
+    .detail-created-by {
+      font-size: 0.75rem; color: var(--text-muted);
+      opacity: 0.6; font-style: italic;
     }
     .detail-edit-btn button {
       background: none; border: 1.5px solid var(--border);
@@ -758,8 +762,9 @@
       <div class="detail-all-heading">Alle foto's</div>
       <div class="detail-all-grid" id="detailAllPhotos"></div>
 
-      <!-- Edit button bottom-right -->
+      <!-- Bottom bar: created-by left, edit right -->
       <div class="detail-edit-btn">
+        <span class="detail-created-by" id="detailCreatedBy"></span>
         <button onclick="openEditModal()">✏️ Bewerken</button>
       </div>
     </div>
@@ -1154,6 +1159,9 @@
       const descEl = document.getElementById('detailDesc');
       descEl.textContent   = mem.description || '';
       descEl.style.display = mem.description ? 'block' : 'none';
+
+      const createdByEl = document.getElementById('detailCreatedBy');
+      createdByEl.textContent = mem.createdBy ? 'Aangemaakt door ' + mem.createdBy : '';
 
       // Build thumbnail strip
       document.getElementById('detailThumbs').innerHTML = mem.images.map((src, i) =>
