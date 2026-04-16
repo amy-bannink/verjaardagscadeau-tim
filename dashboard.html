@@ -1391,6 +1391,13 @@
 
     function compressImage(file, maxWidth = 1200, quality = 0.82) {
       return new Promise(resolve => {
+        // SVGs are vector — skip rasterisation, return as-is
+        if (file.type === 'image/svg+xml') {
+          const reader = new FileReader();
+          reader.onload = e => resolve(e.target.result);
+          reader.readAsDataURL(file);
+          return;
+        }
         const reader = new FileReader();
         reader.onload = e => {
           const img = new Image();
