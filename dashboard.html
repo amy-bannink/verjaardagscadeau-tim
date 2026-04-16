@@ -361,7 +361,7 @@
     .detail-viewer {
       position: relative;
       margin: 20px 0 0;
-      background: #111;
+      background: var(--bg);
       height: 360px;
       display: flex;
       align-items: center;
@@ -369,11 +369,13 @@
       overflow: hidden;
     }
     #viewerImg {
-      max-width: 100%; max-height: 100%;
+      max-width: 88%; max-height: 88%;
       object-fit: contain;
       user-select: none;
       transition: opacity 0.18s ease;
       display: block;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.16), 0 2px 8px rgba(0,0,0,0.10);
     }
     #viewerImg.fading { opacity: 0; }
     .viewer-counter {
@@ -427,6 +429,33 @@
     .detail-thumb.active { opacity: 1; border-color: var(--primary); }
     .detail-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+    /* ── All photos grid ── */
+    .detail-all-heading {
+      padding: 4px 24px 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+    .detail-all-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      padding: 0 24px 28px;
+    }
+    .detail-all-photo {
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      transition: transform 0.15s, box-shadow 0.15s;
+      outline: 2.5px solid transparent;
+    }
+    .detail-all-photo:hover { transform: scale(1.03); box-shadow: 0 6px 22px rgba(0,0,0,0.16); }
+    .detail-all-photo.active { outline-color: var(--primary); }
+    .detail-all-photo img { width: 100%; display: block; }
+
     @media (max-width: 767px) {
       #detailModal { padding: 0; align-items: flex-end; }
       .detail-box {
@@ -441,6 +470,7 @@
         to   { transform: translateY(0); }
       }
       .detail-viewer { height: 240px; }
+      .detail-all-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
     }
 
     /* Toast */
@@ -515,6 +545,10 @@
       <div class="detail-thumbs-wrap">
         <div class="detail-thumbs" id="detailThumbs"></div>
       </div>
+
+      <!-- All photos overview grid -->
+      <div class="detail-all-heading">Alle foto's</div>
+      <div class="detail-all-grid" id="detailAllPhotos"></div>
     </div>
   </div>
 
@@ -690,6 +724,13 @@
          </div>`
       ).join('');
 
+      // Build all-photos grid
+      document.getElementById('detailAllPhotos').innerHTML = mem.images.map((src, i) =>
+        `<div class="detail-all-photo" onclick="viewerGoTo(${i}); this.closest('.detail-box').scrollTop = 0;">
+           <img src="${src}" alt="" />
+         </div>`
+      ).join('');
+
       viewerShow(0, false);
       document.getElementById('detailModal').classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -710,8 +751,11 @@
       document.getElementById('viewerPrev').disabled = (i === 0);
       document.getElementById('viewerNext').disabled = (i === viewerImages.length - 1);
 
-      // Highlight active thumb
+      // Highlight active thumb + all-photos grid item
       document.querySelectorAll('.detail-thumb').forEach((t, ti) =>
+        t.classList.toggle('active', ti === i)
+      );
+      document.querySelectorAll('.detail-all-photo').forEach((t, ti) =>
         t.classList.toggle('active', ti === i)
       );
       // Scroll active thumb into view
