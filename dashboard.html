@@ -1038,15 +1038,39 @@
       }
     ];
 
+    async function deduplicateFirestore() {
+      if (localStorage.getItem('fb_deduped')) return;
+      const snap = await db.collection('memories').get();
+      const seen = {};
+      const batch = db.batch();
+      let removed = 0;
+      snap.docs.forEach(doc => {
+        const key = doc.data().title + '|' + doc.data().sortDate;
+        if (seen[key]) {
+          // Duplicate — schedule for deletion
+          batch.delete(doc.ref);
+          removed++;
+        } else {
+          seen[key] = true;
+        }
+      });
+      if (removed > 0) await batch.commit();
+      localStorage.setItem('fb_deduped', '1');
+    }
+
     async function migrateHardcodedToFirestore() {
       if (localStorage.getItem('hardcoded_migrated')) return;
+      // Check if Firestore already has memories (migration already ran on another device)
+      const existing = await db.collection('memories').limit(1).get();
+      if (!existing.empty) {
+        localStorage.setItem('hardcoded_migrated', '1');
+        return;
+      }
       const base = window.location.href.replace(/\/[^\/]*$/, '/');
       for (const mem of HARDCODED_MEMORIES) {
-        // Zet relatieve paden om naar absolute URLs
         const absImages = mem.images.map(src => new URL(src, base).href);
         await saveMemoryToFirestore({ ...mem, images: absImages });
       }
-      // Opruimen: oude localStorage velden niet meer nodig
       localStorage.removeItem('deleted_memory_ids');
       localStorage.removeItem('memory_overrides');
       localStorage.removeItem('user_memories');
@@ -1150,7 +1174,7 @@
     // Initial render (from localStorage cache)
     renderTimeline();
     // Migrate hardcoded memories once, then sync from Firestore
-    migrateHardcodedToFirestore().then(() => syncFromFirestore());
+    deduplicateFirestore().then(() => migrateHardcodedToFirestore()).then(() => syncFromFirestore());
 
     // ── Timeline arrow navigation (transform-based, no overflow clipping) ──
     function scrollTimeline(dir) {
