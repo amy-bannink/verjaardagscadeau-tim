@@ -483,6 +483,101 @@
       .detail-all-grid { columns: 2; }
     }
 
+    /* ══════════════════════════════════
+       ADD MEMORY MODAL
+    ══════════════════════════════════ */
+    #addModal {
+      display: none;
+      position: fixed; inset: 0;
+      z-index: 3000;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #addModal.open { display: flex; }
+
+    .add-box {
+      background: var(--surface);
+      border-radius: 20px;
+      max-width: 560px; width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.22);
+      animation: slideUp 0.3s ease;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+      padding: 28px 28px 32px;
+    }
+    .add-box::-webkit-scrollbar { width: 6px; }
+    .add-box::-webkit-scrollbar-track { background: transparent; margin: 20px 0; }
+    .add-box::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .add-box::-webkit-scrollbar-button { display: none !important; height: 0 !important; width: 0 !important; }
+    .add-box h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 22px; padding-right: 40px; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    .form-group .optional { font-weight: 400; color: var(--text-muted); font-size: 0.8rem; }
+    .form-input {
+      width: 100%; padding: 10px 14px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 0.92rem; font-family: inherit;
+      background: var(--bg); color: var(--text);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+    }
+    .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(245,197,24,0.2); background: var(--surface); }
+    textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
+
+    .date-type-toggle { display: flex; border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
+    .date-type-btn {
+      flex: 1; padding: 8px 12px; background: var(--bg); border: none;
+      font-family: inherit; font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; color: var(--text-muted); transition: background 0.15s, color 0.15s;
+    }
+    .date-type-btn.active { background: var(--primary); color: var(--text); font-weight: 700; }
+
+    .photo-upload-area {
+      border: 2px dashed var(--border); border-radius: 10px;
+      padding: 20px; text-align: center;
+      cursor: pointer; color: var(--text-muted); font-size: 0.9rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .photo-upload-area:hover { border-color: var(--primary); background: var(--primary-light); color: var(--text); }
+    .photo-previews { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .preview-item { position: relative; width: 80px; height: 80px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.12); flex-shrink: 0; }
+    .preview-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .preview-remove {
+      position: absolute; top: 3px; right: 3px;
+      background: rgba(0,0,0,0.55); color: white;
+      border: none; border-radius: 50%;
+      width: 20px; height: 20px; font-size: 0.7rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .preview-remove:hover { background: rgba(180,0,0,0.8); }
+
+    .form-actions { display: flex; gap: 10px; margin-top: 24px; justify-content: flex-end; }
+    .btn-cancel {
+      padding: 10px 20px; background: none; border: 1.5px solid var(--border);
+      border-radius: 50px; font-family: inherit; font-size: 0.9rem;
+      cursor: pointer; color: var(--text-muted); transition: background 0.15s;
+    }
+    .btn-cancel:hover { background: var(--bg); }
+    .btn-submit {
+      padding: 10px 24px; background: var(--primary); border: none;
+      border-radius: 50px; font-family: inherit; font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; transition: background 0.15s, transform 0.1s;
+    }
+    .btn-submit:hover { background: var(--primary-dark); transform: scale(1.02); }
+    .form-error { background: #fee; color: #cc2222; padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 16px; display: none; }
+
+    @media (max-width: 767px) {
+      #addModal { padding: 0; align-items: flex-end; }
+      .add-box { border-radius: 20px 20px 0 0; max-height: 90vh; max-width: 100%; }
+    }
+
     /* Toast */
     #toast {
       position: fixed; bottom: 28px; left: 50%;
@@ -517,7 +612,7 @@
       <p>Hier staan jullie gedeelde herinneringen. Klik op een herinnering om hem te bekijken.</p>
     </div>
 
-    <button class="add-btn" onclick="showComingSoon()">+ Herinnering toevoegen</button>
+    <button class="add-btn" onclick="openAddModal()">+ Herinnering toevoegen</button>
 
     <div class="timeline-section">
       <h2>Tijdlijn</h2>
@@ -559,7 +654,55 @@
     </div>
   </div>
 
-  <div id="toast">Coming soon! 🔨</div>
+  <!-- Add memory modal -->
+  <div id="addModal">
+    <div class="add-box">
+      <button class="detail-close" onclick="closeAddModal()">✕</button>
+      <h2>✨ Herinnering toevoegen</h2>
+      <div class="form-error" id="addError"></div>
+
+      <div class="form-group">
+        <label for="addTitle">Titel *</label>
+        <input type="text" class="form-input" id="addTitle" placeholder="bijv. Dagje Amsterdam" maxlength="80" />
+      </div>
+
+      <div class="form-group">
+        <label>Datum *</label>
+        <div class="date-type-toggle">
+          <button class="date-type-btn active" onclick="setDateType('day')">Specifieke dag</button>
+          <button class="date-type-btn" onclick="setDateType('month')">Maand &amp; jaar</button>
+        </div>
+        <input type="date" class="form-input" id="addDateDay" />
+        <input type="month" class="form-input" id="addDateMonth" style="display:none" />
+      </div>
+
+      <div class="form-group">
+        <label for="addLocation">Locatie *</label>
+        <input type="text" class="form-input" id="addLocation" placeholder="bijv. Amsterdam, Nederland" maxlength="80" />
+      </div>
+
+      <div class="form-group">
+        <label for="addFormDesc">Beschrijving <span class="optional">(optioneel)</span></label>
+        <textarea class="form-input" id="addFormDesc" rows="3" placeholder="Vertel iets over deze herinnering..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Foto's <span class="optional">(optioneel)</span></label>
+        <div class="photo-upload-area" onclick="document.getElementById('addPhotosInput').click()">
+          <input type="file" id="addPhotosInput" multiple accept="image/*" onchange="handlePhotos(this)" style="display:none" />
+          📷 Klik om foto's te selecteren
+        </div>
+        <div class="photo-previews" id="photoPreviews"></div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-cancel" onclick="closeAddModal()">Annuleren</button>
+        <button class="btn-submit" onclick="submitMemory()">Opslaan ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
 
   <script>
     // ── Session guard ──
@@ -615,18 +758,24 @@
     // ══════════════════════════════════════════
     function isMobile() { return window.innerWidth < 768; }
 
+    function getAllMemories() {
+      const userMems = JSON.parse(localStorage.getItem('user_memories') || '[]');
+      return [...MEMORIES, ...userMems].sort((a, b) => a.sortDate.localeCompare(b.sortDate));
+    }
+
     function renderTimeline() {
       const track = document.getElementById('timelineTrack');
       track.innerHTML = '';
 
       const mobile  = isMobile();
+      const allMems = getAllMemories();
       // Desktop: oldest → newest (left → right)
       // Mobile: newest → oldest (top → bottom)
-      const ordered = mobile ? [...MEMORIES].slice().reverse() : [...MEMORIES];
+      const ordered = mobile ? [...allMems].reverse() : [...allMems];
 
       ordered.forEach(mem => {
-        // Determine above/below based on original array index (not display order)
-        const origIdx = MEMORIES.indexOf(mem);
+        // Determine above/below based on sorted index (stable alternating)
+        const origIdx = allMems.indexOf(mem);
         const isAbove = origIdx % 2 === 0; // 0,2,4 = above | 1,3,5 = below
 
         const item = document.createElement('div');
@@ -805,11 +954,139 @@
     });
 
     // ── Toast ──
-    function showComingSoon() {
+    function showToast(msg) {
       const t = document.getElementById('toast');
+      t.textContent = msg;
       t.style.opacity = '1';
-      setTimeout(() => t.style.opacity = '0', 2500);
+      setTimeout(() => t.style.opacity = '0', 2800);
     }
+
+    // ══════════════════════════════════════════
+    // ADD MEMORY
+    // ══════════════════════════════════════════
+    const DUTCH_MONTHS = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+    let addDateType = 'day';
+    let stagedPhotos = [];
+
+    function openAddModal() {
+      document.getElementById('addTitle').value    = '';
+      document.getElementById('addLocation').value = '';
+      document.getElementById('addFormDesc').value = '';
+      document.getElementById('addDateDay').value  = '';
+      document.getElementById('addDateMonth').value = '';
+      document.getElementById('photoPreviews').innerHTML = '';
+      document.getElementById('addError').style.display = 'none';
+      stagedPhotos = [];
+      setDateType('day');
+      document.getElementById('addModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAddModal() {
+      document.getElementById('addModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function setDateType(type) {
+      addDateType = type;
+      document.querySelectorAll('.date-type-btn').forEach((btn, i) =>
+        btn.classList.toggle('active', (i === 0) === (type === 'day'))
+      );
+      document.getElementById('addDateDay').style.display   = type === 'day'   ? '' : 'none';
+      document.getElementById('addDateMonth').style.display = type === 'month' ? '' : 'none';
+    }
+
+    async function handlePhotos(input) {
+      for (const file of input.files) {
+        const compressed = await compressImage(file);
+        stagedPhotos.push(compressed);
+        renderPhotoPreviews();
+      }
+      input.value = '';
+    }
+
+    function compressImage(file, maxWidth = 1200, quality = 0.82) {
+      return new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let w = img.width, h = img.height;
+            if (w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
+            canvas.width = w; canvas.height = h;
+            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderPhotoPreviews() {
+      document.getElementById('photoPreviews').innerHTML = stagedPhotos.map((src, i) =>
+        `<div class="preview-item">
+           <img src="${src}" alt="" />
+           <button class="preview-remove" onclick="removePhoto(${i})">✕</button>
+         </div>`
+      ).join('');
+    }
+
+    function removePhoto(i) {
+      stagedPhotos.splice(i, 1);
+      renderPhotoPreviews();
+    }
+
+    function formatDisplayDate(value, type) {
+      if (!value) return '';
+      if (type === 'day') {
+        const [y, m, d] = value.split('-');
+        return `${parseInt(d)} ${DUTCH_MONTHS[parseInt(m) - 1]} ${y}`;
+      } else {
+        const [y, m] = value.split('-');
+        return `${DUTCH_MONTHS[parseInt(m) - 1]} ${y}`;
+      }
+    }
+
+    function submitMemory() {
+      const title    = document.getElementById('addTitle').value.trim();
+      const location = document.getElementById('addLocation').value.trim();
+      const dateVal  = addDateType === 'day'
+        ? document.getElementById('addDateDay').value
+        : document.getElementById('addDateMonth').value;
+      const desc     = document.getElementById('addFormDesc').value.trim();
+      const errEl    = document.getElementById('addError');
+
+      if (!title)    { errEl.textContent = 'Vul een titel in.';  errEl.style.display = 'block'; return; }
+      if (!dateVal)  { errEl.textContent = 'Vul een datum in.';  errEl.style.display = 'block'; return; }
+      if (!location) { errEl.textContent = 'Vul een locatie in.'; errEl.style.display = 'block'; return; }
+      errEl.style.display = 'none';
+
+      const newMem = {
+        id:          Date.now(),
+        title,
+        date:        formatDisplayDate(dateVal, addDateType),
+        sortDate:    addDateType === 'day' ? dateVal : dateVal + '-01',
+        location,
+        description: desc || null,
+        images:      [...stagedPhotos],
+        userAdded:   true
+      };
+
+      const saved = JSON.parse(localStorage.getItem('user_memories') || '[]');
+      saved.push(newMem);
+      localStorage.setItem('user_memories', JSON.stringify(saved));
+
+      closeAddModal();
+      renderTimeline();
+      showToast('Herinnering opgeslagen! 🎉');
+    }
+
+    // Close add modal on backdrop click
+    document.getElementById('addModal').addEventListener('click', function(e) {
+      if (e.target === this) closeAddModal();
+    });
   </script>
 </body>
 </html>
