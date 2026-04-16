@@ -582,18 +582,18 @@
     }
     .btn-delete:hover { background: #fee; }
     .detail-edit-btn {
-      position: fixed; bottom: 28px; right: 28px;
-      background: var(--surface); border: 1.5px solid var(--border);
-      border-radius: 50px; padding: 10px 20px;
-      font-size: 0.9rem; font-weight: 600;
-      cursor: pointer; color: var(--text-muted);
-      font-family: inherit; z-index: 4000;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.14);
-      transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
-      display: none;
+      display: flex; justify-content: flex-end;
+      padding: 0 24px 24px;
     }
-    .detail-edit-btn.visible { display: block; }
-    .detail-edit-btn:hover { background: var(--primary-light); border-color: var(--primary); color: var(--text); box-shadow: 0 6px 24px rgba(0,0,0,0.18); }
+    .detail-edit-btn button {
+      background: none; border: 1.5px solid var(--border);
+      border-radius: 50px; padding: 8px 18px;
+      font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; color: var(--text-muted);
+      font-family: inherit;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .detail-edit-btn button:hover { background: var(--primary-light); border-color: var(--primary); color: var(--text); }
     .form-error { background: #fee; color: #cc2222; padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 16px; display: none; }
 
     @media (max-width: 767px) {
@@ -674,11 +674,13 @@
       <!-- All photos overview grid -->
       <div class="detail-all-heading">Alle foto's</div>
       <div class="detail-all-grid" id="detailAllPhotos"></div>
+
+      <!-- Edit button bottom-right -->
+      <div class="detail-edit-btn">
+        <button onclick="openEditModal()">✏️ Bewerken</button>
+      </div>
     </div>
   </div>
-
-  <!-- Floating edit button (shown when detail modal is open) -->
-  <button class="detail-edit-btn" id="detailEditBtn" onclick="openEditModal()">✏️ Bewerken</button>
 
   <!-- Add memory modal -->
   <div id="addModal">
@@ -923,7 +925,6 @@
 
       viewerShow(0, false);
       document.getElementById('detailModal').classList.add('open');
-      document.getElementById('detailEditBtn').classList.add('visible');
       document.body.style.overflow = 'hidden';
     }
 
@@ -963,7 +964,6 @@
 
     function closeDetail() {
       document.getElementById('detailModal').classList.remove('open');
-      document.getElementById('detailEditBtn').classList.remove('visible');
       document.body.style.overflow = '';
     }
 
