@@ -63,7 +63,7 @@
     .logout-btn:hover { background: #fee; color: #cc2222; border-color: #cc2222; }
 
     /* ── Page ── */
-    .page-content { max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px; }
+    .page-content { max-width: 1200px; margin: 0 auto; padding: 40px 24px 120px; }
     .page-header { margin-bottom: 32px; }
     .page-header h1 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700; }
     .page-header h1 span {
@@ -109,25 +109,25 @@
       will-change: transform;
     }
 
+    .timeline-section { position: relative; }
     .timeline-arrow {
-      position: fixed;
-      top: 50%;
+      position: absolute;
+      top: calc(54px + var(--half-h) + 9px);
       transform: translateY(-50%);
-      z-index: 200;
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 50%;
-      width: 42px; height: 42px;
-      font-size: 1.1rem;
-      cursor: pointer; font-family: inherit;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-      transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-size: 2rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 4px 8px;
+      z-index: 10;
+      transition: opacity 0.15s, transform 0.15s;
     }
-    .timeline-arrow:hover { background: var(--primary-light); border-color: var(--primary); }
-    .timeline-arrow:disabled { opacity: 0.25; cursor: default; }
-    .timeline-arrow.prev { left: 10px; }
-    .timeline-arrow.next { right: 10px; }
+    .timeline-arrow:hover { opacity: 0.65; transform: translateY(-50%) scale(1.2); }
+    .timeline-arrow:disabled { opacity: 0.2; cursor: default; transform: translateY(-50%); }
+    .timeline-arrow.prev { left: 0; }
+    .timeline-arrow.next { right: 0; }
     @media (max-width: 767px) { .timeline-arrow { display: none; } }
 
     .timeline-track {
@@ -668,12 +668,12 @@
 
     <div class="timeline-section">
       <h2>Tijdlijn</h2>
+      <button class="timeline-arrow prev" id="timelinePrev" onclick="scrollTimeline(-1)">&#8592;</button>
+      <button class="timeline-arrow next" id="timelineNext" onclick="scrollTimeline(1)">&#8594;</button>
       <div class="timeline-nav">
-        <button class="timeline-arrow prev" id="timelinePrev" onclick="scrollTimeline(-1)">&#8592;</button>
         <div class="timeline-scroll" id="timelineScroll">
           <div class="timeline-track" id="timelineTrack"></div>
         </div>
-        <button class="timeline-arrow next" id="timelineNext" onclick="scrollTimeline(1)">&#8594;</button>
       </div>
     </div>
   </div>
@@ -919,19 +919,19 @@
 
     // ── Timeline arrow navigation (transform-based, no overflow clipping) ──
     function scrollTimeline(dir) {
-      const nav   = document.querySelector('.timeline-nav');
+      const nav   = document.querySelector('.timeline-section');
       const track = document.getElementById('timelineTrack');
-      const max   = Math.max(0, track.scrollWidth - nav.clientWidth + 80);
+      const max   = Math.max(0, track.scrollWidth - nav.clientWidth);
       tlOffset = Math.max(0, Math.min(max, tlOffset + dir * 260));
       track.style.transform = `translateX(-${tlOffset}px)`;
       updateTimelineArrows();
     }
 
     function updateTimelineArrows() {
-      const nav   = document.querySelector('.timeline-nav');
+      const nav   = document.querySelector('.timeline-section');
       const track = document.getElementById('timelineTrack');
       if (!nav || !track) return;
-      const max = Math.max(0, track.scrollWidth - nav.clientWidth + 80);
+      const max = Math.max(0, track.scrollWidth - nav.clientWidth);
       document.getElementById('timelinePrev').disabled = tlOffset <= 0;
       document.getElementById('timelineNext').disabled = tlOffset >= max;
     }
