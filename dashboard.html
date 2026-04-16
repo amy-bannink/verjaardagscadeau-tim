@@ -323,32 +323,27 @@
       background: var(--border);
       border-radius: 3px;
     }
-    .detail-box::-webkit-scrollbar-button { display: none; height: 0; }
+    .detail-box::-webkit-scrollbar-button { display: none !important; height: 0 !important; width: 0 !important; }
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .detail-header {
-      padding: 14px 16px 0 24px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
+    .detail-header { display: none; }
     .detail-close {
+      position: absolute; top: 14px; right: 14px;
       background: var(--bg); border: none;
       border-radius: 50%; width: 34px; height: 34px;
       font-size: 1.2rem; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      color: var(--text-muted); flex-shrink: 0;
+      color: var(--text-muted);
       transition: background 0.15s;
+      z-index: 10;
     }
     .detail-close:hover { background: var(--border); }
 
     .detail-meta {
-      padding: 0 24px;
-      margin-top: 8px;
+      padding: 20px 24px 0 24px;
     }
     .detail-title {
       font-size: 1.5rem; font-weight: 700;
@@ -375,7 +370,7 @@
     .detail-viewer {
       position: relative;
       margin: 20px 0 0;
-      background: var(--bg);
+      background: var(--surface);
       height: 360px;
       display: flex;
       align-items: center;
@@ -403,19 +398,18 @@
     .viewer-arrow {
       position: absolute;
       top: 50%; transform: translateY(-50%);
-      background: var(--primary);
-      border: none; border-radius: 50%;
-      width: 44px; height: 44px;
-      font-size: 1.3rem; color: var(--text);
+      background: none;
+      border: none; padding: 8px;
+      font-size: 2rem; color: var(--primary);
       cursor: pointer; z-index: 2;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.15s, transform 0.15s;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+      line-height: 1;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.18);
+      transition: opacity 0.15s, transform 0.15s;
     }
-    .viewer-arrow:hover  { background: var(--primary-dark); transform: translateY(-50%) scale(1.08); }
-    .viewer-arrow:disabled { opacity: 0.2; cursor: default; transform: translateY(-50%) scale(1); }
-    .viewer-arrow.prev { left: 12px; }
-    .viewer-arrow.next { right: 12px; }
+    .viewer-arrow:hover  { opacity: 0.75; transform: translateY(-50%) scale(1.12); }
+    .viewer-arrow:disabled { opacity: 0.15; cursor: default; transform: translateY(-50%) scale(1); }
+    .viewer-arrow.prev { left: 4px; }
+    .viewer-arrow.next { right: 4px; }
 
     /* ── Thumbnail strip ── */
     .detail-thumbs-wrap {
@@ -466,10 +460,11 @@
       box-shadow: 0 4px 16px rgba(0,0,0,0.10);
       transition: transform 0.15s, box-shadow 0.15s;
       outline: 2.5px solid transparent;
+      aspect-ratio: 4 / 3;
     }
     .detail-all-photo:hover { transform: scale(1.03); box-shadow: 0 6px 22px rgba(0,0,0,0.16); }
     .detail-all-photo.active { outline-color: var(--primary); }
-    .detail-all-photo img { width: 100%; display: block; }
+    .detail-all-photo img { width: 100%; height: 100%; object-fit: contain; display: block; background: white; }
 
     @media (max-width: 767px) {
       #detailModal { padding: 0; align-items: flex-end; }
@@ -535,10 +530,7 @@
   <!-- Detail modal -->
   <div id="detailModal">
     <div class="detail-box">
-      <div class="detail-header">
-        <div></div>
-        <button class="detail-close" onclick="closeDetail()">✕</button>
-      </div>
+      <button class="detail-close" onclick="closeDetail()">✕</button>
       <div class="detail-meta">
         <div class="detail-title" id="detailTitle"></div>
         <div class="detail-date-loc">
