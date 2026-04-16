@@ -1397,12 +1397,18 @@
           document.getElementById('playPauseBtn').textContent = state.paused ? '▶' : '⏸';
           const img = track.album.images[0];
           if (img) document.getElementById('albumArt').src = img.url;
+          sessionStorage.setItem('sp_track', JSON.stringify({
+            uri: track.uri, position: state.position, paused: state.paused
+          }));
           updateProgress(currentPosition, currentDuration);
           clearInterval(progressTimer);
           if (!state.paused) {
             progressTimer = setInterval(() => {
               currentPosition = Math.min(currentPosition + 1000, currentDuration);
               updateProgress(currentPosition, currentDuration);
+              sessionStorage.setItem('sp_track', JSON.stringify({
+                uri: track.uri, position: currentPosition, paused: false
+              }));
             }, 1000);
           }
         });

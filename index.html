@@ -967,13 +967,18 @@
         });
 
         spotifyPlayer.addListener('ready', ({ device_id }) => {
+          const saved = JSON.parse(sessionStorage.getItem('sp_track') || 'null');
+          const body = saved
+            ? { context_uri: PLAYLIST_URI, offset: { uri: saved.uri }, position_ms: saved.position }
+            : { context_uri: PLAYLIST_URI };
           fetch('https://api.spotify.com/v1/me/player/play?device_id=' + device_id, {
             method: 'PUT',
             headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ context_uri: PLAYLIST_URI })
+            body: JSON.stringify(body)
           }).then(() => {
             document.getElementById('playerStatus').style.display = 'none';
             document.getElementById('miniPlayer').style.display   = 'flex';
+            if (saved && saved.paused) setTimeout(() => spotifyPlayer.pause(), 800);
           });
         });
 
