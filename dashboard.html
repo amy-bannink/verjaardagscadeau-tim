@@ -774,7 +774,7 @@
     if (!session || Date.now() - session.loginAt > 30 * 24 * 60 * 60 * 1000) {
       window.location.replace('./index.html');
     } else {
-      document.getElementById('welcomeName').textContent = session.name;
+      // welcomeName element removed from HTML
       document.getElementById('userBadge').textContent   = '👤 ' + session.name;
     }
 
