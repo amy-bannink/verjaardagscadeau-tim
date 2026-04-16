@@ -99,7 +99,35 @@
     /* ══════════════════════════════════
        DESKTOP TIMELINE (horizontal)
     ══════════════════════════════════ */
-    .timeline-scroll { overflow-x: auto; padding-bottom: 20px; }
+    .timeline-nav { position: relative; }
+    .timeline-scroll {
+      overflow-x: scroll;
+      padding-bottom: 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .timeline-scroll::-webkit-scrollbar { display: none; }
+
+    .timeline-arrow {
+      position: absolute;
+      top: calc(var(--half-h) + 9px);
+      transform: translateY(-50%);
+      z-index: 10;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      width: 42px; height: 42px;
+      font-size: 1.1rem;
+      cursor: pointer; font-family: inherit;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+    }
+    .timeline-arrow:hover { background: var(--primary-light); border-color: var(--primary); }
+    .timeline-arrow:disabled { opacity: 0.25; cursor: default; }
+    .timeline-arrow.prev { left: -21px; }
+    .timeline-arrow.next { right: -21px; }
+    @media (max-width: 767px) { .timeline-arrow { display: none; } }
 
     .timeline-track {
       display: flex;
@@ -235,7 +263,7 @@
        MOBILE TIMELINE (vertical)
     ══════════════════════════════════ */
     @media (max-width: 767px) {
-      .timeline-scroll { overflow-x: visible; padding-bottom: 0; }
+      .timeline-scroll { overflow-x: visible; }
 
       .timeline-track {
         flex-direction: column;
@@ -639,8 +667,12 @@
 
     <div class="timeline-section">
       <h2>Tijdlijn</h2>
-      <div class="timeline-scroll">
-        <div class="timeline-track" id="timelineTrack"></div>
+      <div class="timeline-nav">
+        <button class="timeline-arrow prev" id="timelinePrev" onclick="scrollTimeline(-1)">&#8592;</button>
+        <div class="timeline-scroll" id="timelineScroll">
+          <div class="timeline-track" id="timelineTrack"></div>
+        </div>
+        <button class="timeline-arrow next" id="timelineNext" onclick="scrollTimeline(1)">&#8594;</button>
       </div>
     </div>
   </div>
@@ -864,6 +896,8 @@
         </div>`;
         track.appendChild(fut);
       }
+
+      setTimeout(updateTimelineArrows, 50);
     }
 
     function buildFan(images, extraClass) {
@@ -889,6 +923,25 @@
 
     // Initial render
     renderTimeline();
+
+    // ── Timeline arrow navigation ──
+    function scrollTimeline(dir) {
+      const el = document.getElementById('timelineScroll');
+      el.scrollBy({ left: dir * 250, behavior: 'smooth' });
+      setTimeout(updateTimelineArrows, 320);
+    }
+
+    function updateTimelineArrows() {
+      const el   = document.getElementById('timelineScroll');
+      const prev = document.getElementById('timelinePrev');
+      const next = document.getElementById('timelineNext');
+      if (!el || !prev || !next) return;
+      prev.disabled = el.scrollLeft <= 0;
+      next.disabled = el.scrollLeft >= el.scrollWidth - el.clientWidth - 2;
+    }
+
+    document.getElementById('timelineScroll').addEventListener('scroll', updateTimelineArrows);
+    updateTimelineArrows();
 
     // ══════════════════════════════════════════
     // DETAIL MODAL + VIEWER
