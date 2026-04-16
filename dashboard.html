@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Onze Herinneringen – Dashboard</title>
+  <style>
+    :root {
+      --primary:       #F5C518;
+      --primary-light: #FFF8D6;
+      --primary-dark:  #C9A000;
+      --bg:            #F7F7F5;
+      --surface:       #FFFFFF;
+      --border:        #E8E8E5;
+      --text:          #1A1A1A;
+      --text-muted:    #6B6B6B;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+    }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .back-btn {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text);
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .back-btn:hover { background: var(--primary-light); border-color: var(--primary); }
+    .topbar-title {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .user-badge {
+      background: var(--primary-light);
+      border: 1.5px solid var(--primary);
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .logout-btn {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .logout-btn:hover { background: #fee; color: #cc2222; border-color: #cc2222; }
+
+    /* ── Page content ── */
+    .page-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    .page-header {
+      margin-bottom: 36px;
+    }
+    .page-header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .page-header h1 span {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 0 8px;
+      border-radius: 6px;
+    }
+    .page-header p {
+      margin-top: 8px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* ── Add button ── */
+    .add-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      background: var(--primary);
+      border: none;
+      border-radius: 50px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s, transform 0.1s;
+      margin-bottom: 40px;
+    }
+    .add-btn:hover { background: var(--primary-dark); transform: scale(1.02); }
+
+    /* ── Timeline ── */
+    .timeline-section h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .timeline-section h2::before {
+      content: '';
+      display: inline-block;
+      width: 4px; height: 1.1rem;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .timeline-scroll {
+      overflow-x: auto;
+      padding-bottom: 16px;
+    }
+    .timeline-track {
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+      min-width: 600px;
+      padding: 0 60px 0 60px;
+      gap: 0;
+    }
+
+    /* Horizontal line */
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 52px;
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    /* ── Memory card on timeline ── */
+    .memory-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    /* Fan card container */
+    .fan-wrap {
+      position: relative;
+      width: 200px;
+      height: 240px;
+      margin-bottom: 18px;
+    }
+    .fan-card {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 130px;
+      transform-origin: bottom center;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.14);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.2s;
+    }
+    .fan-card:hover { box-shadow: 0 10px 32px rgba(0,0,0,0.22); }
+    .fan-card:nth-child(1) {
+      transform: translateX(-50%) rotate(-14deg);
+      z-index: 1;
+    }
+    .fan-card:nth-child(2) {
+      transform: translateX(-50%) rotate(10deg);
+      z-index: 2;
+    }
+    .fan-card:hover:nth-child(1) { transform: translateX(-66%) rotate(-20deg); }
+    .fan-card:hover:nth-child(2) { transform: translateX(-34%) rotate(16deg); }
+    .fan-card img {
+      width: 100%;
+      display: block;
+    }
+
+    /* Dot on timeline */
+    .timeline-dot {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 3px solid var(--surface);
+      box-shadow: 0 0 0 3px var(--primary);
+      margin-bottom: 0;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .timeline-dot:hover { transform: scale(1.25); }
+
+    /* Label below dot */
+    .memory-label {
+      margin-top: 10px;
+      text-align: center;
+    }
+    .memory-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .memory-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── Coming soon dots ── */
+    .timeline-future {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 30px;
+      padding-bottom: 52px;
+    }
+    .future-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+      border: 2px solid #ccc;
+      opacity: 0.5;
+    }
+
+    /* ── Empty state ── */
+    .empty-note {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .empty-note .big { font-size: 2.8rem; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="back-btn" onclick="window.location.href='./index.html'">← Terug</button>
+      <span class="topbar-title">📸 Onze Herinneringen</span>
+    </div>
+    <div class="topbar-right">
+      <span class="user-badge" id="userBadge">👤 ...</span>
+      <button class="logout-btn" onclick="doLogout()">Uitloggen</button>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="page-header">
+      <h1>Hallo, <span id="welcomeName">...</span> 👋</h1>
+      <p>Hier staan jullie gedeelde herinneringen. Klik op een foto om hem te bekijken.</p>
+    </div>
+
+    <button class="add-btn" onclick="showComingSoon()">
+      + Herinnering toevoegen
+    </button>
+
+    <div class="timeline-section">
+      <h2>Tijdlijn</h2>
+      <div class="timeline-scroll">
+        <div class="timeline-track">
+
+          <!-- Memory: Brussel Weekend -->
+          <div class="memory-item">
+            <div class="fan-wrap">
+              <div class="fan-card" title="Walibi – april 2026">
+                <img src="images/bxl01.svg" alt="Walibi" />
+              </div>
+              <div class="fan-card" title="Diner – april 2026">
+                <img src="images/bxl02.svg" alt="Diner" />
+              </div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="memory-label">
+              <div class="memory-date">april 2026</div>
+              <div class="memory-name">Brussel Weekend</div>
+            </div>
+          </div>
+
+          <!-- Future dots -->
+          <div class="timeline-future">
+            <div class="future-dot"></div>
+            <div class="future-dot"></div>
+            <div class="future-dot"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coming soon toast -->
+  <div id="toast" style="
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+    background: var(--text); color: white;
+    padding: 12px 24px; border-radius: 50px;
+    font-size: 0.9rem; font-weight: 600;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    opacity: 0; transition: opacity 0.3s;
+    pointer-events: none; white-space: nowrap;
+    z-index: 9999;
+  ">Coming soon! 🔨</div>
+
+  <script>
+    // ── Session guard ──
+    function getSession() {
+      const s = JSON.parse(localStorage.getItem('app_session') || 'null');
+      if (!s) return null;
+      if (Date.now() - s.loginAt > 30 * 24 * 60 * 60 * 1000) {
+        localStorage.removeItem('app_session'); return null;
+      }
+      return s;
+    }
+
+    const session = getSession();
+    if (!session) {
+      window.location.replace('./index.html');
+    } else {
+      document.getElementById('welcomeName').textContent = session.name;
+      document.getElementById('userBadge').textContent   = '👤 ' + session.name;
+    }
+
+    function doLogout() {
+      localStorage.removeItem('app_session');
+      window.location.href = './index.html';
+    }
+
+    function showComingSoon() {
+      const t = document.getElementById('toast');
+      t.style.opacity = '1';
+      setTimeout(() => t.style.opacity = '0', 2500);
+    }
+  </script>
+
+</body>
+</html>
