@@ -1006,78 +1006,6 @@
     }
 
     // ══════════════════════════════════════════
-    // EENMALIGE MIGRATIE: hardcoded → Firestore
-    // ══════════════════════════════════════════
-    const HARDCODED_MEMORIES = [
-      {
-        title: "Weekendje Gent",
-        date: "7–8 februari 2026",
-        sortDate: "2026-02-07",
-        dateType: "day",
-        location: "Gent, België",
-        description: "Een gezellig weekend door het historische centrum van Gent. Stroopwafels, kanalen en een heleboel gezelligheid.",
-        images: ["images/bxl02.svg", "images/bxl01.svg"]
-      },
-      {
-        title: "Dagje Efteling",
-        date: "14 maart 2026",
-        sortDate: "2026-03-14",
-        dateType: "day",
-        location: "Kaatsheuvel, Nederland",
-        description: null,
-        images: ["images/bxl01.svg", "images/bxl02.svg"]
-      },
-      {
-        title: "Brussel Weekend",
-        date: "18–20 april 2026",
-        sortDate: "2026-04-18",
-        dateType: "day",
-        location: "Brussel, België",
-        description: "Walibi voor de schreeuw-therapie, een knus Airbnb, en een heerlijk verjaardagsdiner. Niet slecht voor een weekend.",
-        images: ["images/bxl01.svg", "images/bxl02.svg", "images/memory14.svg", "images/memory17.svg", "images/memory07.svg"]
-      }
-    ];
-
-    async function deduplicateFirestore() {
-      if (localStorage.getItem('fb_deduped')) return;
-      const snap = await db.collection('memories').get();
-      const seen = {};
-      const batch = db.batch();
-      let removed = 0;
-      snap.docs.forEach(doc => {
-        const key = doc.data().title + '|' + doc.data().sortDate;
-        if (seen[key]) {
-          // Duplicate — schedule for deletion
-          batch.delete(doc.ref);
-          removed++;
-        } else {
-          seen[key] = true;
-        }
-      });
-      if (removed > 0) await batch.commit();
-      localStorage.setItem('fb_deduped', '1');
-    }
-
-    async function migrateHardcodedToFirestore() {
-      if (localStorage.getItem('hardcoded_migrated')) return;
-      // Check if Firestore already has memories (migration already ran on another device)
-      const existing = await db.collection('memories').limit(1).get();
-      if (!existing.empty) {
-        localStorage.setItem('hardcoded_migrated', '1');
-        return;
-      }
-      const base = window.location.href.replace(/\/[^\/]*$/, '/');
-      for (const mem of HARDCODED_MEMORIES) {
-        const absImages = mem.images.map(src => new URL(src, base).href);
-        await saveMemoryToFirestore({ ...mem, images: absImages });
-      }
-      localStorage.removeItem('deleted_memory_ids');
-      localStorage.removeItem('memory_overrides');
-      localStorage.removeItem('user_memories');
-      localStorage.setItem('hardcoded_migrated', '1');
-    }
-
-    // ══════════════════════════════════════════
     // TIMELINE RENDERER
     // ══════════════════════════════════════════
     let tlOffset = 0;
@@ -1174,7 +1102,7 @@
     // Initial render (from localStorage cache)
     renderTimeline();
     // Migrate hardcoded memories once, then sync from Firestore
-    deduplicateFirestore().then(() => migrateHardcodedToFirestore()).then(() => syncFromFirestore());
+    syncFromFirestore();
 
     // ── Timeline arrow navigation (transform-based, no overflow clipping) ──
     function scrollTimeline(dir) {
