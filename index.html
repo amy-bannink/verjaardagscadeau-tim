@@ -1182,8 +1182,9 @@
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID,
             { to_name: name, to_email: email, code }, EMAILJS_PUBLIC_KEY);
         } catch(e) {
+          const msg = e?.text || e?.message || JSON.stringify(e);
           document.getElementById('codeNote').innerHTML =
-            '📌 E-mail sturen mislukt. Jouw code: <strong>' + code + '</strong>';
+            '📌 Fout: ' + msg + '<br>Jouw code: <strong>' + code + '</strong>';
         }
       } else {
         // EmailJS nog niet ingesteld — toon code direct
