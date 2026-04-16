@@ -53,6 +53,9 @@
       margin: 36px auto 0;
       padding: 0 20px;
     }
+    @media (max-width: 600px) {
+      .slideshow-wrap { margin-top: 60px; }
+    }
 
     .slide {
       display: none;
@@ -355,6 +358,11 @@
     }
     #authBtn:hover { background: var(--primary-light); border-color: var(--primary); }
     #authBtn.logged-in { background: var(--primary-light); border-color: var(--primary); }
+    @media (max-width: 600px) {
+      #authBtn { top: 12px; right: 12px; padding: 7px 14px; font-size: 0.8rem; }
+      #authDropdown { top: 48px; right: 12px; }
+      #arrowHint { top: 56px; right: 10px; }
+    }
 
     /* ── Auth Dropdown ── */
     #authDropdown {
@@ -511,7 +519,7 @@
       <line x1="12" y1="28" x2="12" y2="4" stroke="#C9A000" stroke-width="3" stroke-linecap="round"/>
       <polyline points="4,12 12,4 20,12" stroke="#C9A000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-    <div class="arrow-label">Maak je account aan ↑</div>
+    <div class="arrow-label">Maak je account aan</div>
   </div>
 
   <!-- ── AUTH MODAL ── -->
