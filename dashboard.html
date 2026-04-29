@@ -209,18 +209,49 @@
     const CLOUDINARY_CLOUD  = 'dm08lxwic';
     const CLOUDINARY_PRESET = 'ml_default';
 
-    async function uploadToCloudinary(file) {
-      const fd = new FormData();
-      fd.append('file', file);
-      fd.append('upload_preset', CLOUDINARY_PRESET);
-      const res  = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/video/upload`, { method: 'POST', body: fd });
-      const data = await res.json();
-      if (!data.secure_url) {
-        const msg = data.error?.message || JSON.stringify(data);
-        console.error('Cloudinary fout:', msg);
+    async function uploadToCloudinary(file, onProgress) {
+      const CHUNK = 20 * 1024 * 1024; // 20 MB per stuk
+      const total  = file.size;
+      const uid    = Array.from(crypto.getRandomValues(new Uint8Array(16)))
+                       .map(b => b.toString(16).padStart(2, '0')).join('');
+      let start = 0;
+      let result;
+
+      while (start < total) {
+        const end   = Math.min(start + CHUNK, total);
+        const chunk = file.slice(start, end);
+        const fd    = new FormData();
+        fd.append('file', chunk, file.name);
+        fd.append('upload_preset', CLOUDINARY_PRESET);
+
+        const res = await fetch(
+          `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/video/upload`,
+          {
+            method: 'POST',
+            headers: {
+              'X-Unique-Upload-Id': uid,
+              'Content-Range': `bytes ${start}-${end - 1}/${total}`,
+            },
+            body: fd,
+          }
+        );
+        result = await res.json();
+
+        if (res.status !== 200 && res.status !== 206) {
+          const msg = result.error?.message || JSON.stringify(result);
+          console.error('Cloudinary chunk fout:', msg);
+          throw new Error(msg);
+        }
+
+        start = end;
+        if (onProgress) onProgress(Math.round((start / total) * 100));
+      }
+
+      if (!result.secure_url) {
+        const msg = result.error?.message || JSON.stringify(result);
         throw new Error(msg);
       }
-      return data.secure_url;
+      return result.secure_url;
     }
 
     function isVideo(item) { return item && typeof item === 'object' && item.type === 'video'; }
@@ -680,10 +711,12 @@
       for (const file of input.files) {
         if (file.type.startsWith('video/')) {
           const origText = submitBtn.textContent;
-          submitBtn.disabled   = true;
-          submitBtn.textContent = 'Video uploaden... ⏳';
+          submitBtn.disabled    = true;
+          submitBtn.textContent = 'Video uploaden... 0%';
           try {
-            const url = await uploadToCloudinary(file);
+            const url = await uploadToCloudinary(file, pct => {
+              submitBtn.textContent = `Video uploaden... ${pct}%`;
+            });
             stagedPhotos.push({ type: 'video', url });
           } catch(e) {
             showToast('Video uploaden mislukt: ' + e.message);
