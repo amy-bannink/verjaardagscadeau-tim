@@ -455,8 +455,7 @@
 }
 .detail-all-photo:hover  { transform: scale(1.04); box-shadow: 0 4px 14px rgba(0,0,0,0.18); }
 .detail-all-photo.active { outline-color: var(--primary); }
-/* object-fit: contain toont de foto in zijn eigen verhouding met witruimte */
-.detail-all-photo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.detail-all-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* ── Detail-bewerken balk ── */
 .detail-edit-btn {
