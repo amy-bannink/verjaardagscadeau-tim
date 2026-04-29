@@ -622,7 +622,7 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
   display: flex; align-items: center; justify-content: center;
   font-size: 0.9rem; pointer-events: none;
 }
-.thumb-video-wrap { position: relative; display: inline-block; }
+.thumb-video-wrap { position: relative; display: inline-block; min-width: 90px; min-height: 90px; background: var(--primary-light); border-radius: 8px; }
 .thumb-video-wrap .thumb-video-icon,
 .detail-all-photo .thumb-video-icon,
 .detail-thumb .thumb-video-icon {
