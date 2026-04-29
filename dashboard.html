@@ -215,7 +215,11 @@
       fd.append('upload_preset', CLOUDINARY_PRESET);
       const res  = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/video/upload`, { method: 'POST', body: fd });
       const data = await res.json();
-      if (!data.secure_url) throw new Error('Cloudinary upload mislukt: ' + (data.error?.message || ''));
+      if (!data.secure_url) {
+        const msg = data.error?.message || JSON.stringify(data);
+        console.error('Cloudinary fout:', msg);
+        throw new Error(msg);
+      }
       return data.secure_url;
     }
 
@@ -682,7 +686,7 @@
             const url = await uploadToCloudinary(file);
             stagedPhotos.push({ type: 'video', url });
           } catch(e) {
-            showToast('Video uploaden mislukt. Probeer opnieuw.');
+            showToast('Video uploaden mislukt: ' + e.message);
           }
           submitBtn.textContent = origText;
           submitBtn.disabled    = (editingMemoryId !== null && !formDirty);
