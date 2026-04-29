@@ -706,6 +706,49 @@
     #progressWrap { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--border); }
     #progressBar { height: 100%; background: var(--primary); width: 0%; transition: width 1s linear; border-radius: 2px; }
 
+    /* Video badges in fan / thumbs / previews */
+    .fan-card { position: relative; }
+    .fan-video-icon {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.55); color: #fff;
+      border-radius: 50%; width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; pointer-events: none;
+    }
+    .thumb-video-wrap { position: relative; display: inline-block; }
+    .thumb-video-wrap .thumb-video-icon {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.55); color: #fff;
+      border-radius: 50%; width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; pointer-events: none;
+    }
+    .detail-all-photo { position: relative; }
+    .detail-all-photo .thumb-video-icon {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.55); color: #fff;
+      border-radius: 50%; width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; pointer-events: none;
+    }
+    .detail-thumb { position: relative; }
+    .detail-thumb .thumb-video-icon {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.55); color: #fff;
+      border-radius: 50%; width: 20px; height: 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem; pointer-events: none;
+    }
+    #viewerVideo {
+      display: none; max-width: 100%; max-height: 60vh;
+      border-radius: 8px; outline: none;
+    }
+    .preview-item { position: relative; }
+
     /* Toast */
     #toast {
       position: fixed; bottom: 28px; left: 50%;
@@ -780,7 +823,7 @@
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
-          Foto's toevoegen
+          Foto's &amp; video's toevoegen
         </button>
       </div>
 
@@ -788,6 +831,7 @@
       <div class="detail-viewer">
         <button class="viewer-arrow prev" id="viewerPrev" onclick="viewerStep(-1)">&#8592;</button>
         <img id="viewerImg" src="" alt="" />
+        <video id="viewerVideo" controls></video>
         <button class="viewer-arrow next" id="viewerNext" onclick="viewerStep(1)">&#8594;</button>
         <div class="viewer-counter" id="viewerCounter"></div>
       </div>
@@ -798,7 +842,7 @@
       </div>
 
       <!-- All photos overview grid -->
-      <div class="detail-all-heading">Alle foto's</div>
+      <div class="detail-all-heading">Alle media</div>
       <div class="detail-all-grid" id="detailAllPhotos"></div>
 
       <!-- Bottom bar: created-by left, edit right -->
@@ -842,10 +886,10 @@
       </div>
 
       <div class="form-group">
-        <label>Foto's <span class="optional">(optioneel)</span></label>
+        <label>Foto's &amp; video's <span class="optional">(optioneel)</span></label>
         <div class="photo-upload-area" onclick="document.getElementById('addPhotosInput').click()">
-          <input type="file" id="addPhotosInput" multiple accept="image/*" onchange="handlePhotos(this)" style="display:none" />
-          📷 Klik om foto's te selecteren
+          <input type="file" id="addPhotosInput" multiple accept="image/*,video/*" onchange="handleFiles(this)" style="display:none" />
+          📷 Klik om foto's of video's te selecteren
         </div>
         <div class="photo-previews" id="photoPreviews"></div>
       </div>
@@ -917,6 +961,23 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
+    // ── Cloudinary (video upload) ──
+    const CLOUDINARY_CLOUD  = 'dm08lxwic';
+    const CLOUDINARY_PRESET = 'ml_default';
+
+    async function uploadToCloudinary(file) {
+      const fd = new FormData();
+      fd.append('file', file);
+      fd.append('upload_preset', CLOUDINARY_PRESET);
+      const res  = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/video/upload`, { method: 'POST', body: fd });
+      const data = await res.json();
+      if (!data.secure_url) throw new Error('Cloudinary upload mislukt: ' + (data.error?.message || ''));
+      return data.secure_url;
+    }
+
+    function isVideo(item) { return item && typeof item === 'object' && item.type === 'video'; }
+    function videoThumb(url) { return url.replace(/\.[^.]+$/, '.jpg'); }
+
     // Save or update a memory in Firestore
     // Foto's worden opgeslagen in aparte 'memory_images' documenten (1 per foto, volledige kwaliteit)
     async function saveMemoryToFirestore(memData, firestoreId = null) {
@@ -947,13 +1008,13 @@
         firestoreId = ref.id;
       }
 
-      // Sla elke foto op als apart document (volledige 1200px kwaliteit)
+      // Sla elke foto/video op als apart document
       for (let i = 0; i < memData.images.length; i++) {
-        await db.collection('memory_images').add({
-          memoryId: firestoreId,
-          data:     memData.images[i],
-          order:    i
-        });
+        const item = memData.images[i];
+        const doc  = isVideo(item)
+          ? { memoryId: firestoreId, type: 'video', url: item.url, order: i }
+          : { memoryId: firestoreId, type: 'image', data: item,    order: i };
+        await db.collection('memory_images').add(doc);
       }
 
       return firestoreId;
@@ -982,7 +1043,9 @@
           id:          'fb_' + docSnap.id,
           firestoreId: docSnap.id,
           ...docSnap.data(),
-          images: (imagesByMemory[docSnap.id] || []).map(i => i.data)
+          images: (imagesByMemory[docSnap.id] || []).map(i =>
+            i.type === 'video' ? { type: 'video', url: i.url } : (i.data || i)
+          )
         }));
 
         localStorage.setItem('fb_memories', JSON.stringify(fbMems));
@@ -1067,8 +1130,9 @@
               <div class="mobile-label-name">${mem.title}</div>
               <div class="mobile-label-meta">🗓 ${mem.date} &nbsp;·&nbsp; 📍 ${mem.location}</div>
               <div class="mobile-fan">
-                ${mem.images.map(src =>
-                  `<img src="${src}" class="mobile-thumb" alt="" />`
+                ${mem.images.map(item => isVideo(item)
+                  ? `<div class="thumb-video-wrap"><img src="${videoThumb(item.url)}" class="mobile-thumb" alt="" /><div class="thumb-video-icon">▶</div></div>`
+                  : `<img src="${item}" class="mobile-thumb" alt="" />`
                 ).join('')}
               </div>
             </div>`;
@@ -1082,7 +1146,10 @@
 
     function buildFan(images, extraClass) {
       return `<div class="fan-wrap ${extraClass}">
-        ${images.map(src => `<div class="fan-card"><img src="${src}" alt="" /></div>`).join('')}
+        ${images.map(item => isVideo(item)
+          ? `<div class="fan-card"><img src="${videoThumb(item.url)}" alt="" /><div class="fan-video-icon">▶</div></div>`
+          : `<div class="fan-card"><img src="${item}" alt="" /></div>`
+        ).join('')}
       </div>`;
     }
 
@@ -1173,16 +1240,18 @@
 
       if (hasPhotos) {
         // Build thumbnail strip
-        document.getElementById('detailThumbs').innerHTML = mem.images.map((src, i) =>
+        document.getElementById('detailThumbs').innerHTML = mem.images.map((item, i) =>
           `<div class="detail-thumb" onclick="viewerGoTo(${i})">
-             <img src="${src}" alt="" />
+             <img src="${isVideo(item) ? videoThumb(item.url) : item}" alt="" />
+             ${isVideo(item) ? '<div class="thumb-video-icon">▶</div>' : ''}
            </div>`
         ).join('');
 
         // Build all-photos grid
-        document.getElementById('detailAllPhotos').innerHTML = mem.images.map((src, i) =>
+        document.getElementById('detailAllPhotos').innerHTML = mem.images.map((item, i) =>
           `<div class="detail-all-photo" onclick="viewerGoTo(${i}); this.closest('.detail-box').scrollTop = 0;">
-             <img src="${src}" alt="" />
+             <img src="${isVideo(item) ? videoThumb(item.url) : item}" alt="" />
+             ${isVideo(item) ? '<div class="thumb-video-icon">▶</div>' : ''}
            </div>`
         ).join('');
 
@@ -1195,13 +1264,27 @@
 
     function viewerShow(i, animate) {
       viewerIndex = i;
-      const img = document.getElementById('viewerImg');
+      const imgEl   = document.getElementById('viewerImg');
+      const videoEl = document.getElementById('viewerVideo');
+      const item    = viewerImages[i];
 
-      if (animate) {
-        img.classList.add('fading');
-        setTimeout(() => { img.src = viewerImages[i]; img.classList.remove('fading'); }, 160);
+      videoEl.pause();
+      videoEl.removeAttribute('src');
+
+      if (isVideo(item)) {
+        imgEl.style.display   = 'none';
+        videoEl.style.display = '';
+        videoEl.src           = item.url;
+        videoEl.load();
       } else {
-        img.src = viewerImages[i];
+        videoEl.style.display = 'none';
+        imgEl.style.display   = '';
+        if (animate) {
+          imgEl.classList.add('fading');
+          setTimeout(() => { imgEl.src = item; imgEl.classList.remove('fading'); }, 160);
+        } else {
+          imgEl.src = item;
+        }
       }
 
       document.getElementById('viewerCounter').textContent = (i + 1) + ' / ' + viewerImages.length;
@@ -1228,6 +1311,9 @@
     }
 
     function closeDetail() {
+      const videoEl = document.getElementById('viewerVideo');
+      videoEl.pause();
+      videoEl.removeAttribute('src');
       document.getElementById('detailModal').classList.remove('open');
       document.body.style.overflow = '';
     }
@@ -1341,10 +1427,25 @@
       document.getElementById('addDateMonth').style.display = type === 'month' ? '' : 'none';
     }
 
-    async function handlePhotos(input) {
+    async function handleFiles(input) {
+      const submitBtn = document.getElementById('addSubmitBtn');
       for (const file of input.files) {
-        const compressed = await compressImage(file);
-        stagedPhotos.push(compressed);
+        if (file.type.startsWith('video/')) {
+          const origText = submitBtn.textContent;
+          submitBtn.disabled   = true;
+          submitBtn.textContent = 'Video uploaden... ⏳';
+          try {
+            const url = await uploadToCloudinary(file);
+            stagedPhotos.push({ type: 'video', url });
+          } catch(e) {
+            showToast('Video uploaden mislukt. Probeer opnieuw.');
+          }
+          submitBtn.textContent = origText;
+          submitBtn.disabled    = (editingMemoryId !== null && !formDirty);
+        } else {
+          const compressed = await compressImage(file);
+          stagedPhotos.push(compressed);
+        }
       }
       renderPhotoPreviews();
       markDirty();
@@ -1378,12 +1479,12 @@
     }
 
     function renderPhotoPreviews() {
-      document.getElementById('photoPreviews').innerHTML = stagedPhotos.map((src, i) =>
-        `<div class="preview-item">
-           <img src="${src}" alt="" />
-           <button class="preview-remove" onclick="removePhoto(${i})">✕</button>
-         </div>`
-      ).join('');
+      document.getElementById('photoPreviews').innerHTML = stagedPhotos.map((item, i) => {
+        const inner = isVideo(item)
+          ? `<img src="${videoThumb(item.url)}" alt="" style="object-fit:cover;width:80px;height:80px;border-radius:6px;" /><div class="fan-video-icon" style="width:24px;height:24px;font-size:0.7rem;">▶</div>`
+          : `<img src="${item}" alt="" />`;
+        return `<div class="preview-item">${inner}<button class="preview-remove" onclick="removePhoto(${i})">✕</button></div>`;
+      }).join('');
     }
 
     function removePhoto(i) {
