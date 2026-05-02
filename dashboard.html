@@ -206,8 +206,8 @@
     const db = firebase.firestore();
 
     // ── Cloudflare R2 (video upload via Worker) ──
-    const R2_WORKER_URL   = 'JOUW_WORKER_URL';
-    const R2_UPLOAD_TOKEN = 'JOUW_UPLOAD_TOKEN';
+    const R2_WORKER_URL   = 'https://video-upload.amy-bannink.workers.dev';
+    const R2_UPLOAD_TOKEN = 'HerinneringenTim!';
 
     function captureVideoThumb(file) {
       return new Promise(resolve => {
