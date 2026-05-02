@@ -860,7 +860,7 @@
         }
       } catch(e) {
         console.error('Opslaan mislukt:', e);
-        errEl.textContent = 'Opslaan mislukt. Controleer je verbinding.';
+        errEl.textContent = 'Opslaan mislukt: ' + (e.message || e.code || JSON.stringify(e));
         errEl.style.display = 'block';
         submitBtn.disabled = false;
         submitBtn.textContent = editingMemoryId !== null ? 'Wijzigingen opslaan ✓' : 'Opslaan ✓';
