@@ -9,7 +9,6 @@
   <script src="https://sdk.scdn.co/spotify-player.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
@@ -206,11 +205,9 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // ── Supabase Storage (video upload) ──
-    const SUPABASE_URL      = 'https://eujtrylxddcbinznthfv.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_p1gNKt0rW42nZ0ypy-yVAg_ottYsW0H';
-    const SUPABASE_BUCKET   = 'videos';
-    const supabaseClient    = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    // ── Cloudflare R2 (video upload via Worker) ──
+    const R2_WORKER_URL   = 'JOUW_WORKER_URL';
+    const R2_UPLOAD_TOKEN = 'JOUW_UPLOAD_TOKEN';
 
     function captureVideoThumb(file) {
       return new Promise(resolve => {
@@ -233,30 +230,35 @@
           } catch { cleanup(); resolve(null); }
         });
         video.addEventListener('error', () => { cleanup(); resolve(null); });
-        // Fallback: if seeked never fires, resolve after 4s
         setTimeout(() => { cleanup(); resolve(null); }, 4000);
       });
     }
 
-    async function uploadToSupabase(file, onProgress) {
-      const ext      = file.name.split('.').pop() || 'mp4';
-      const fileName = `${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+    function uploadToR2(file, onProgress) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', R2_WORKER_URL);
+        xhr.setRequestHeader('Content-Type', file.type || 'video/mp4');
+        xhr.setRequestHeader('X-File-Name', file.name);
+        xhr.setRequestHeader('X-Upload-Token', R2_UPLOAD_TOKEN);
 
-      if (onProgress) onProgress(0);
+        xhr.upload.addEventListener('progress', e => {
+          if (e.lengthComputable && onProgress)
+            onProgress(Math.round((e.loaded / e.total) * 100));
+        });
 
-      const { error } = await supabaseClient.storage
-        .from(SUPABASE_BUCKET)
-        .upload(fileName, file, { contentType: file.type || 'video/mp4', upsert: false });
-
-      if (error) throw new Error(error.message);
-
-      if (onProgress) onProgress(100);
-
-      const { data } = supabaseClient.storage
-        .from(SUPABASE_BUCKET)
-        .getPublicUrl(fileName);
-
-      return data.publicUrl;
+        xhr.addEventListener('load', () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            try { resolve(JSON.parse(xhr.responseText).url); }
+            catch { reject(new Error('Ongeldig antwoord van server')); }
+          } else {
+            reject(new Error(`Upload mislukt: HTTP ${xhr.status} – ${xhr.responseText}`));
+          }
+        });
+        xhr.addEventListener('error',   () => reject(new Error('Netwerkfout bij uploaden')));
+        xhr.addEventListener('timeout', () => reject(new Error('Upload timeout')));
+        xhr.send(file);
+      });
     }
 
     function isVideo(item) { return item && typeof item === 'object' && item.type === 'video'; }
@@ -730,7 +732,7 @@
           try {
             const thumb = await captureVideoThumb(file);
             submitBtn.textContent = 'Video uploaden... 0%';
-            const url = await uploadToSupabase(file, pct => {
+            const url = await uploadToR2(file, pct => {
               submitBtn.textContent = `Video uploaden... ${pct}%`;
             });
             stagedPhotos.push({ type: 'video', url, thumb });
