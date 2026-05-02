@@ -332,7 +332,8 @@
           )
         }));
 
-        localStorage.setItem('fb_memories', JSON.stringify(fbMems));
+        memoriesCache = fbMems;
+        saveCache();
         renderTimeline();
       } catch(e) {
         console.warn('Firestore sync mislukt:', e);
@@ -348,10 +349,8 @@
       batch.delete(db.collection('memories').doc(firestoreId));
       await batch.commit();
 
-      const cached = JSON.parse(localStorage.getItem('fb_memories') || '[]');
-      localStorage.setItem('fb_memories', JSON.stringify(
-        cached.filter(m => m.firestoreId !== firestoreId)
-      ));
+      memoriesCache = memoriesCache.filter(m => m.firestoreId !== firestoreId);
+      saveCache();
     }
 
     // ══════════════════════════════════════════
@@ -359,11 +358,21 @@
     // ══════════════════════════════════════════
     let tlOffset = 0;
 
+    // In-memory cache — localStorage is only used as a fast initial load.
+    // We never rely on localStorage.setItem succeeding (it fails when Base64
+    // images fill the ~5 MB quota), so the in-memory array is always authoritative.
+    let memoriesCache = (() => {
+      try { return JSON.parse(localStorage.getItem('fb_memories') || '[]'); } catch { return []; }
+    })();
+
+    function saveCache() {
+      try { localStorage.setItem('fb_memories', JSON.stringify(memoriesCache)); } catch {}
+    }
+
     function isMobile() { return window.innerWidth < 768; }
 
     function getAllMemories() {
-      const fbMems = JSON.parse(localStorage.getItem('fb_memories') || '[]');
-      return fbMems.sort((a, b) => a.sortDate.localeCompare(b.sortDate));
+      return [...memoriesCache].sort((a, b) => a.sortDate.localeCompare(b.sortDate));
     }
 
     function renderTimeline() {
@@ -838,10 +847,9 @@
           const mem = getAllMemories().find(m => m.id === editingMemoryId);
           if (mem && mem.firestoreId) {
             await saveMemoryToFirestore(memData, mem.firestoreId);
-            const cached = JSON.parse(localStorage.getItem('fb_memories') || '[]');
-            const idx = cached.findIndex(m => m.firestoreId === mem.firestoreId);
-            if (idx !== -1) cached[idx] = { ...cached[idx], ...memData };
-            localStorage.setItem('fb_memories', JSON.stringify(cached));
+            const idx = memoriesCache.findIndex(m => m.firestoreId === mem.firestoreId);
+            if (idx !== -1) memoriesCache[idx] = { ...memoriesCache[idx], ...memData };
+            saveCache();
           }
           closeAddModal();
           closeDetail();
@@ -851,9 +859,8 @@
           // Nieuwe herinnering: opslaan in Firestore
           const firestoreId = await saveMemoryToFirestore(memData);
           const newMem = { id: 'fb_' + firestoreId, firestoreId, ...memData };
-          const cached = JSON.parse(localStorage.getItem('fb_memories') || '[]');
-          cached.push(newMem);
-          localStorage.setItem('fb_memories', JSON.stringify(cached));
+          memoriesCache.push(newMem);
+          saveCache();
           closeAddModal();
           renderTimeline();
           showToast('Herinnering opgeslagen! 🎉');
