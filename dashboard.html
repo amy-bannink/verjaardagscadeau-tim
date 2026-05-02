@@ -591,12 +591,12 @@
 
       if (isVideo(item)) {
         imgEl.style.display   = 'none';
-        videoEl.style.display = '';
+        videoEl.style.display = 'block';
         videoEl.src           = item.url;
         videoEl.load();
       } else {
         videoEl.style.display = 'none';
-        imgEl.style.display   = '';
+        imgEl.style.display   = 'block';
         if (animate) {
           imgEl.classList.add('fading');
           setTimeout(() => { imgEl.src = item; imgEl.classList.remove('fading'); }, 160);
