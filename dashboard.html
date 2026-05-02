@@ -234,31 +234,54 @@
       });
     }
 
-    function uploadToR2(file, onProgress) {
-      return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', R2_WORKER_URL);
-        xhr.setRequestHeader('Content-Type', file.type || 'video/mp4');
-        xhr.setRequestHeader('X-File-Name', file.name);
-        xhr.setRequestHeader('X-Upload-Token', R2_UPLOAD_TOKEN);
-
-        xhr.upload.addEventListener('progress', e => {
-          if (e.lengthComputable && onProgress)
-            onProgress(Math.round((e.loaded / e.total) * 100));
-        });
-
-        xhr.addEventListener('load', () => {
-          if (xhr.status >= 200 && xhr.status < 300) {
-            try { resolve(JSON.parse(xhr.responseText).url); }
-            catch { reject(new Error('Ongeldig antwoord van server')); }
-          } else {
-            reject(new Error(`Upload mislukt: HTTP ${xhr.status} – ${xhr.responseText}`));
-          }
-        });
-        xhr.addEventListener('error',   () => reject(new Error('Netwerkfout bij uploaden')));
-        xhr.addEventListener('timeout', () => reject(new Error('Upload timeout')));
-        xhr.send(file);
+    async function uploadToR2(file, onProgress) {
+      const CHUNK = 5 * 1024 * 1024; // 5 MB per stuk (R2 minimum)
+      const headers = (extra = {}) => ({
+        'X-Upload-Token': R2_UPLOAD_TOKEN,
+        ...extra,
       });
+
+      // 1. Start multipart upload
+      const initRes = await fetch(`${R2_WORKER_URL}/init`, {
+        method: 'POST',
+        headers: headers({ 'Content-Type': file.type || 'video/mp4', 'X-File-Name': file.name }),
+      });
+      if (!initRes.ok) throw new Error(`Init mislukt: ${await initRes.text()}`);
+      const { uploadId, key } = await initRes.json();
+
+      // 2. Upload stukken
+      const totalChunks = Math.ceil(file.size / CHUNK);
+      const parts = [];
+      for (let i = 0; i < totalChunks; i++) {
+        const chunk    = file.slice(i * CHUNK, Math.min((i + 1) * CHUNK, file.size));
+        const partRes  = await fetch(`${R2_WORKER_URL}/part`, {
+          method: 'POST',
+          headers: headers({
+            'Content-Type':   file.type || 'video/mp4',
+            'X-Upload-Id':    uploadId,
+            'X-Key':          key,
+            'X-Part-Number':  String(i + 1),
+          }),
+          body: chunk,
+        });
+        if (!partRes.ok) throw new Error(`Stuk ${i + 1} mislukt: ${await partRes.text()}`);
+        const { etag } = await partRes.json();
+        parts.push({ partNumber: i + 1, etag });
+        if (onProgress) onProgress(Math.round(((i + 1) / totalChunks) * 100));
+      }
+
+      // 3. Afronden
+      const completeRes = await fetch(`${R2_WORKER_URL}/complete`, {
+        method: 'POST',
+        headers: headers({
+          'Content-Type': 'application/json',
+          'X-Upload-Id':  uploadId,
+          'X-Key':        key,
+        }),
+        body: JSON.stringify(parts),
+      });
+      if (!completeRes.ok) throw new Error(`Afronden mislukt: ${await completeRes.text()}`);
+      return (await completeRes.json()).url;
     }
 
     function isVideo(item) { return item && typeof item === 'object' && item.type === 'video'; }
