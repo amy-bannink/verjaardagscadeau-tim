@@ -43,14 +43,13 @@
   <!-- Add / Edit modal -->
   <div id="addModal">
     <div class="add-box">
-      <button class="detail-close" onclick="closeAddModal()">✕</button>
-      <h2 id="modalTitle">✨ Wens toevoegen</h2>
+      <button class="detail-close" onclick="closeAddModal()" aria-label="Sluiten"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <h2 id="modalTitle"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon" aria-hidden="true"><path d="M12 2C12.5 6.5 17.5 11.5 22 12C17.5 12.5 12.5 17.5 12 22C11.5 17.5 6.5 12.5 2 12C6.5 11.5 11.5 6.5 12 2Z"/></svg> Wens toevoegen</h2>
       <div class="form-error" id="addError"></div>
 
       <div class="form-group">
-        <label for="addEmoji">Emoji <span class="optional">(optioneel)</span></label>
-        <input type="text" class="form-input emoji-input" id="addEmoji"
-               placeholder="🌍" maxlength="4" />
+        <label>Icoon <span class="optional">(optioneel)</span></label>
+        <div class="icon-picker" id="iconPicker"></div>
       </div>
 
       <div class="form-group">
@@ -67,7 +66,7 @@
 
       <div class="form-actions">
         <button class="btn-delete" id="deleteBtn" onclick="confirmDelete()" style="display:none">
-          <span class="btn-delete-icon">🗑 </span>Verwijderen
+          <span class="btn-delete-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4h12M5.5 4V3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 4V13.5H12V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Verwijderen
         </button>
         <button class="btn-cancel" onclick="closeAddModal()">Annuleren</button>
         <button class="btn-submit" id="submitBtn" onclick="submitItem()">Opslaan ✓</button>
@@ -89,6 +88,47 @@
     function doLogout() {
       localStorage.removeItem('app_session');
       window.location.href = './index.html';
+    }
+
+    // ── Icons ──
+    const ICONS = {
+      star:     `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26Z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+      travel:   `<svg viewBox="0 0 24 24" fill="none"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+      food:     `<svg viewBox="0 0 24 24" fill="none"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+      movie:    `<svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="2.5" stroke="currentColor" stroke-width="1.75"/><path d="M17 12l-8.5 5V7z" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/></svg>`,
+      music:    `<svg viewBox="0 0 24 24" fill="none"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.75"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.75"/></svg>`,
+      heart:    `<svg viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/></svg>`,
+      mountain: `<svg viewBox="0 0 24 24" fill="none"><path d="M3 21L11 4l8 17H3z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 11l5 10" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>`,
+      home:     `<svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 22V12h6v10" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+      nature:   `<svg viewBox="0 0 24 24" fill="none"><path d="M17 8C8 10 5.9 16.17 3.82 19c1.63-3.55 4-7.12 7.89-10C8.06 7.11 10.5 4 17 8z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.82 19C6 14 8 11 12 8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>`,
+      sport:    `<svg viewBox="0 0 24 24" fill="none"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    };
+    const ICON_LABELS = {
+      star: 'Wens', travel: 'Reizen', food: 'Eten', movie: 'Film', music: 'Muziek',
+      heart: 'Liefde', mountain: 'Avontuur', home: 'Thuis', nature: 'Natuur', sport: 'Sport',
+    };
+
+    let selectedIcon = null;
+
+    function buildIconPicker() {
+      document.getElementById('iconPicker').innerHTML = Object.keys(ICONS).map(key =>
+        `<button type="button" class="icon-pick-btn" data-icon="${key}" onclick="selectIcon('${key}')">
+          ${ICONS[key]}<span class="icon-pick-label">${ICON_LABELS[key]}</span>
+        </button>`
+      ).join('');
+    }
+
+    function selectIcon(key) {
+      selectedIcon = selectedIcon === key ? null : key;
+      document.querySelectorAll('#iconPicker .icon-pick-btn').forEach(b => {
+        b.classList.toggle('selected', b.dataset.icon === selectedIcon);
+      });
+    }
+
+    function renderItemIcon(item) {
+      if (item.icon && ICONS[item.icon]) return ICONS[item.icon];
+      if (item.emoji) return escHtml(item.emoji);
+      return ICONS.star;
     }
     function toggleUserMenu() {
       document.getElementById('userDropdown').classList.toggle('open');
@@ -164,7 +204,7 @@
                   title="${item.done ? 'Markeer als nog te doen' : 'Markeer als gedaan'}">
             ${item.done ? '✓' : ''}
           </button>
-          <div class="item-emoji">${escHtml(item.emoji || '🎯')}</div>
+          <div class="item-emoji">${renderItemIcon(item)}</div>
           <div class="item-body">
             <div class="item-title">${escHtml(item.title)}</div>
             ${item.description ? `<div class="item-desc">${escHtml(item.description)}</div>` : ''}
@@ -189,9 +229,13 @@
       editingId = itemId;
       const item = itemId ? items.find(i => i.id === itemId) : null;
 
-      document.getElementById('modalTitle').textContent =
-        item ? '✏️ Wens bewerken' : '✨ Wens toevoegen';
-      document.getElementById('addEmoji').value = item?.emoji       || '';
+      document.getElementById('modalTitle').innerHTML = item
+        ? `<svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M10.6 2a1.77 1.77 0 1 1 2.5 2.5L4.7 12.8 1.3 13.8l.9-3.4Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Wens bewerken`
+        : `<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon" aria-hidden="true"><path d="M12 2C12.5 6.5 17.5 11.5 22 12C17.5 12.5 12.5 17.5 12 22C11.5 17.5 6.5 12.5 2 12C6.5 11.5 11.5 6.5 12 2Z"/></svg> Wens toevoegen`;
+      selectedIcon = item?.icon || null;
+      document.querySelectorAll('#iconPicker .icon-pick-btn').forEach(b => {
+        b.classList.toggle('selected', b.dataset.icon === selectedIcon);
+      });
       document.getElementById('addTitle').value = item?.title       || '';
       document.getElementById('addDesc').value  = item?.description || '';
       document.getElementById('addError').style.display  = 'none';
@@ -233,7 +277,7 @@
 
       const ts   = firebase.firestore.FieldValue.serverTimestamp();
       const data = {
-        emoji:       document.getElementById('addEmoji').value.trim() || null,
+        icon:        selectedIcon || null,
         title,
         description: document.getElementById('addDesc').value.trim() || null,
         updatedAt:   ts,
@@ -283,6 +327,7 @@
       setTimeout(() => t.style.opacity = '0', 2800);
     }
 
+    buildIconPicker();
     loadItems();
   </script>
 </body>

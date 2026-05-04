@@ -50,7 +50,7 @@
   <!-- Detail modal -->
   <div id="detailModal">
     <div class="detail-box">
-      <button class="detail-close" onclick="closeDetail()">✕</button>
+      <button class="detail-close" onclick="closeDetail()" aria-label="Sluiten"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       <div class="detail-meta">
         <div class="detail-title" id="detailTitle"></div>
         <div class="detail-date-loc">
@@ -92,7 +92,7 @@
       <!-- Bottom bar: created-by left, edit right -->
       <div class="detail-edit-btn">
         <span class="detail-created-by" id="detailCreatedBy"></span>
-        <button onclick="openEditModal()">✏️ Bewerken</button>
+        <button onclick="openEditModal()"><svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M10.6 2a1.77 1.77 0 1 1 2.5 2.5L4.7 12.8 1.3 13.8l.9-3.4Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Bewerken</button>
       </div>
     </div>
   </div>
@@ -100,8 +100,8 @@
   <!-- Add memory modal -->
   <div id="addModal">
     <div class="add-box">
-      <button class="detail-close" onclick="closeAddModal()">✕</button>
-      <h2 id="addModalTitle">✨ Herinnering toevoegen</h2>
+      <button class="detail-close" onclick="closeAddModal()" aria-label="Sluiten"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <h2 id="addModalTitle"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon" aria-hidden="true"><path d="M12 2C12.5 6.5 17.5 11.5 22 12C17.5 12.5 12.5 17.5 12 22C11.5 17.5 6.5 12.5 2 12C6.5 11.5 11.5 6.5 12 2Z"/></svg> Herinnering toevoegen</h2>
       <div class="form-error" id="addError"></div>
 
       <div class="form-group">
@@ -133,13 +133,13 @@
         <label>Foto's &amp; video's <span class="optional">(optioneel)</span></label>
         <div class="photo-upload-area" onclick="document.getElementById('addPhotosInput').click()">
           <input type="file" id="addPhotosInput" multiple accept="image/*,video/*" onchange="handleFiles(this)" style="display:none" />
-          📷 Klik om foto's of video's te selecteren
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;margin-right:6px"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="13" r="4" stroke="currentColor" stroke-width="1.75"/></svg>Klik om foto's of video's te selecteren
         </div>
         <div class="photo-previews" id="photoPreviews"></div>
       </div>
 
       <div class="form-actions">
-        <button class="btn-delete" id="deleteMemBtn" onclick="confirmDeleteMemory()" style="display:none"><span class="btn-delete-icon">🗑 </span>Verwijderen</button>
+        <button class="btn-delete" id="deleteMemBtn" onclick="confirmDeleteMemory()" style="display:none"><span class="btn-delete-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4h12M5.5 4V3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 4V13.5H12V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Verwijderen</button>
         <button class="btn-cancel" onclick="closeAddModal()">Annuleren</button>
         <button class="btn-submit" id="addSubmitBtn" onclick="submitMemory()">Opslaan ✓</button>
       </div>
@@ -176,6 +176,8 @@
       // welcomeName element removed from HTML
       document.getElementById('userBadge').textContent   = '👤 ' + session.name;
     }
+
+    const SVG_CLOSE_SM = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 2l6 6M8 2L2 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
 
     function doLogout() {
       localStorage.removeItem('app_session');
@@ -697,7 +699,7 @@
           document.getElementById('addDateMonth').value = (memToEdit.sortDate || '').substring(0, 7);
         }
         stagedPhotos         = [...(memToEdit.images || [])];
-        titleEl.textContent  = '✏️ Herinnering bewerken';
+        titleEl.innerHTML    = `<svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M10.6 2a1.77 1.77 0 1 1 2.5 2.5L4.7 12.8 1.3 13.8l.9-3.4Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Herinnering bewerken`;
         submitEl.textContent = 'Wijzigingen opslaan ✓';
         submitEl.disabled    = true;
         deleteEl.style.display = '';
@@ -709,7 +711,7 @@
         document.getElementById('addDateMonth').value = '';
         stagedPhotos         = [];
         setDateType('day');
-        titleEl.textContent  = '✨ Herinnering toevoegen';
+        titleEl.innerHTML    = `<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon" aria-hidden="true"><path d="M12 2C12.5 6.5 17.5 11.5 22 12C17.5 12.5 12.5 17.5 12 22C11.5 17.5 6.5 12.5 2 12C6.5 11.5 11.5 6.5 12 2Z"/></svg> Herinnering toevoegen`;
         submitEl.textContent = 'Opslaan ✓';
         submitEl.disabled    = false;
         deleteEl.style.display = 'none';
@@ -805,7 +807,7 @@
         const inner = isVideo(item)
           ? `${item.thumb ? `<img src="${item.thumb}" alt="" style="object-fit:cover;width:80px;height:80px;border-radius:6px;" />` : ''}<div class="fan-video-icon" style="width:24px;height:24px;font-size:0.7rem;">▶</div>`
           : `<img src="${item}" alt="" />`;
-        return `<div class="preview-item">${inner}<button class="preview-remove" onclick="removePhoto(${i})">✕</button></div>`;
+        return `<div class="preview-item">${inner}<button class="preview-remove" onclick="removePhoto(${i})" aria-label="Verwijder">${SVG_CLOSE_SM}</button></div>`;
       }).join('');
     }
 

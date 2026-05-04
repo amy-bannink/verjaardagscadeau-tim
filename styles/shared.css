@@ -18,6 +18,21 @@
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ── SVG icon globals ── */
+button svg { flex-shrink: 0; }
+
+@keyframes sparkleGlow {
+  0%,  100% { transform: rotate(0deg)   scale(1);    }
+  30%        { transform: rotate(22deg)  scale(1.1);  }
+  65%        { transform: rotate(-12deg) scale(1.04); }
+}
+.sparkle-icon {
+  display: inline-block;
+  vertical-align: middle;
+  color: var(--primary-dark);
+  animation: sparkleGlow 4s ease-in-out infinite;
+}
+
 /* ── Base ── */
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

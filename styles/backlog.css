@@ -125,12 +125,83 @@
   padding: 16px 4px 4px;
 }
 
-/* ── Emoji input ── */
-.emoji-input {
-  font-size: 1.4rem !important;
-  width: 72px !important;
+/* ── Modal title ── */
+#modalTitle {
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* ── Close button rotation ── */
+.detail-close svg { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.detail-close:hover svg { transform: rotate(90deg); }
+
+/* ── Icon picker ── */
+.icon-picker {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.icon-pick-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 6px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  color: var(--text-muted);
+  font-family: inherit;
+}
+
+.icon-pick-btn:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  color: var(--text);
+}
+
+.icon-pick-btn.selected {
+  border-color: var(--primary-dark);
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.icon-pick-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-pick-label {
+  font-size: 0.62rem;
+  line-height: 1;
   text-align: center;
-  padding: 8px 10px !important;
+}
+
+/* SVG icons in wish-list cards */
+.item-emoji svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ── Icon picker animations ── */
+.icon-pick-btn svg {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.icon-pick-btn:hover svg {
+  transform: scale(1.25) rotate(8deg);
+}
+@keyframes iconBounce {
+  0%   { transform: scale(0.75) rotate(-8deg); }
+  55%  { transform: scale(1.35) rotate(6deg);  }
+  100% { transform: scale(1)    rotate(0deg);  }
+}
+.icon-pick-btn.selected svg {
+  animation: iconBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 @media (max-width: 600px) {

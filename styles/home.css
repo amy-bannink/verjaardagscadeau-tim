@@ -157,7 +157,8 @@ footer span { color: var(--primary-dark); }
 }
 #authDropdown.open { display: block; }
 .dropdown-item {
-  display: block; width: 100%; text-align: left;
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; text-align: left;
   padding: 10px 18px; background: none; border: none;
   font-size: 0.9rem; cursor: pointer; color: var(--text);
   transition: background 0.1s; font-family: inherit;
