@@ -14,7 +14,7 @@
 
   <div class="topbar">
     <div class="topbar-left">
-      <button class="back-btn" onclick="window.location.href='./dashboard.html'"><span class="back-btn-arrow">← </span>Terug</button>
+      <button class="back-btn" onclick="window.location.href='./index.html'"><span class="back-btn-arrow">← </span>Terug</button>
       <span class="topbar-title">Backlog</span>
     </div>
     <div class="topbar-right">
@@ -30,17 +30,10 @@
   <div class="page-content">
     <div class="page-header">
       <h1>Backlog</h1>
-      <p>Jullie persoonlijke sprint planning — dingen die we nog willen doen.</p>
+      <p>Dingen die we samen nog willen doen. ✨</p>
     </div>
 
-    <div class="status-tabs" id="statusTabs">
-      <button class="status-tab active" data-status="all">Alle</button>
-      <button class="status-tab" data-status="backlog">📋 Backlog</button>
-      <button class="status-tab" data-status="sprint">🏃 In Sprint</button>
-      <button class="status-tab" data-status="done">✅ Gedaan</button>
-    </div>
-
-    <button class="add-btn" onclick="openAddModal()">+ Ticket toevoegen</button>
+    <button class="add-btn" onclick="openAddModal()">+ Wens toevoegen</button>
 
     <div class="items-list" id="itemsList">
       <div class="items-loading">Laden...</div>
@@ -51,17 +44,17 @@
   <div id="addModal">
     <div class="add-box">
       <button class="detail-close" onclick="closeAddModal()">✕</button>
-      <h2 id="modalTitle">✨ Ticket toevoegen</h2>
+      <h2 id="modalTitle">✨ Wens toevoegen</h2>
       <div class="form-error" id="addError"></div>
 
       <div class="form-group">
         <label for="addEmoji">Emoji <span class="optional">(optioneel)</span></label>
         <input type="text" class="form-input emoji-input" id="addEmoji"
-               placeholder="🎯" maxlength="4" />
+               placeholder="🌍" maxlength="4" />
       </div>
 
       <div class="form-group">
-        <label for="addTitle">Titel *</label>
+        <label for="addTitle">Wens *</label>
         <input type="text" class="form-input" id="addTitle"
                placeholder="bijv. Weekendje Parijs" maxlength="100" />
       </div>
@@ -70,15 +63,6 @@
         <label for="addDesc">Beschrijving <span class="optional">(optioneel)</span></label>
         <textarea class="form-input" id="addDesc" rows="3"
                   placeholder="Vertel er iets meer over..."></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>Status</label>
-        <div class="status-picker" id="statusPicker">
-          <button class="status-pick-btn active" data-val="backlog">📋 Backlog</button>
-          <button class="status-pick-btn" data-val="sprint">🏃 In Sprint</button>
-          <button class="status-pick-btn" data-val="done">✅ Gedaan</button>
-        </div>
       </div>
 
       <div class="form-actions">
@@ -129,19 +113,14 @@
     const db = firebase.firestore();
 
     // ── State ──
-    let items       = [];
-    let activeTab   = 'all';
-    let editingId   = null;
-    let selStatus   = 'backlog';
-
-    const STATUS_LABEL = { backlog: '📋 Backlog', sprint: '🏃 In Sprint', done: '✅ Gedaan' };
-    const STATUS_CLASS = { backlog: 'badge-backlog', sprint: 'badge-sprint', done: 'badge-done' };
+    let items     = [];
+    let editingId = null;
 
     // ── Firestore ──
     async function loadItems() {
       try {
         const snap = await db.collection('backlog_items')
-          .orderBy('createdAt', 'desc').get();
+          .orderBy('createdAt', 'asc').get();
         items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         render();
       } catch(e) {
@@ -150,35 +129,16 @@
       }
     }
 
-    async function saveItem(data, id = null) {
-      const ts = firebase.firestore.FieldValue.serverTimestamp();
-      if (id) {
-        await db.collection('backlog_items').doc(id).update({ ...data, updatedAt: ts });
-      } else {
-        await db.collection('backlog_items').add({
-          ...data, createdBy: session.name, createdAt: ts, updatedAt: ts
-        });
-      }
-    }
-
-    // ── Tabs ──
-    document.getElementById('statusTabs').addEventListener('click', e => {
-      const btn = e.target.closest('.status-tab');
-      if (!btn) return;
-      document.querySelectorAll('.status-tab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeTab = btn.dataset.status;
+    async function toggleDone(id, current, event) {
+      event.stopPropagation();
+      await db.collection('backlog_items').doc(id).update({
+        done: !current,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      const item = items.find(i => i.id === id);
+      if (item) item.done = !current;
       render();
-    });
-
-    // ── Status picker (modal) ──
-    document.getElementById('statusPicker').addEventListener('click', e => {
-      const btn = e.target.closest('.status-pick-btn');
-      if (!btn) return;
-      document.querySelectorAll('.status-pick-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selStatus = btn.dataset.val;
-    });
+    }
 
     // ── Render ──
     function escHtml(s) {
@@ -188,51 +148,40 @@
     }
 
     function render() {
-      // Tab counts
-      document.querySelectorAll('.status-tab').forEach(tab => {
-        const s     = tab.dataset.status;
-        const count = s === 'all' ? items.length : items.filter(i => i.status === s).length;
-        const base  = tab.dataset.label || tab.textContent.replace(/\s*\(\d+\)\s*$/, '').trim();
-        tab.dataset.label = base;
-        tab.textContent   = count > 0 ? `${base} (${count})` : base;
-        if (tab.classList.contains('active')) tab.textContent = tab.textContent; // keep active style
-      });
-
-      const filtered = activeTab === 'all'
-        ? items
-        : items.filter(i => i.status === activeTab);
-
+      const todo = items.filter(i => !i.done);
+      const done = items.filter(i =>  i.done);
       const list = document.getElementById('itemsList');
 
-      if (filtered.length === 0) {
-        const msgs = {
-          all:     'Nog geen tickets. Voeg je eerste toe!',
-          backlog: 'Geen tickets in de backlog.',
-          sprint:  'Niets in sprint — tijd voor een refinement? 😄',
-          done:    'Nog niets afgerond. Kom op! 🚀',
-        };
-        list.innerHTML = `<div class="items-empty">${msgs[activeTab] || 'Geen tickets.'}</div>`;
+      if (items.length === 0) {
+        list.innerHTML = `<div class="items-empty">Nog geen wensen — voeg de eerste toe! 🌟</div>`;
         return;
       }
 
-      list.innerHTML = filtered.map(item => `
-        <div class="item-card" onclick="openEditModal('${item.id}')">
+      const renderCard = item => `
+        <div class="item-card ${item.done ? 'item-done' : ''}" onclick="openEditModal('${item.id}')">
+          <button class="item-check ${item.done ? 'checked' : ''}"
+                  onclick="toggleDone('${item.id}', ${!!item.done}, event)"
+                  title="${item.done ? 'Markeer als nog te doen' : 'Markeer als gedaan'}">
+            ${item.done ? '✓' : ''}
+          </button>
           <div class="item-emoji">${escHtml(item.emoji || '🎯')}</div>
           <div class="item-body">
             <div class="item-title">${escHtml(item.title)}</div>
-            ${item.description
-              ? `<div class="item-desc">${escHtml(item.description)}</div>`
-              : ''}
-            <div class="item-meta">
-              <span class="item-badge ${STATUS_CLASS[item.status] || ''}">
-                ${STATUS_LABEL[item.status] || item.status}
-              </span>
-              <span class="item-by">${escHtml(item.createdBy || '')}</span>
-            </div>
+            ${item.description ? `<div class="item-desc">${escHtml(item.description)}</div>` : ''}
+            <div class="item-by">${escHtml(item.createdBy || '')}</div>
           </div>
           <div class="item-arrow">›</div>
         </div>
-      `).join('');
+      `;
+
+      let html = todo.map(renderCard).join('');
+
+      if (done.length > 0) {
+        html += `<div class="done-divider">✅ Gedaan (${done.length})</div>`;
+        html += done.map(renderCard).join('');
+      }
+
+      list.innerHTML = html;
     }
 
     // ── Modal ──
@@ -241,17 +190,12 @@
       const item = itemId ? items.find(i => i.id === itemId) : null;
 
       document.getElementById('modalTitle').textContent =
-        item ? '✏️ Ticket bewerken' : '✨ Ticket toevoegen';
-      document.getElementById('addEmoji').value = item?.emoji   || '';
-      document.getElementById('addTitle').value = item?.title   || '';
+        item ? '✏️ Wens bewerken' : '✨ Wens toevoegen';
+      document.getElementById('addEmoji').value = item?.emoji       || '';
+      document.getElementById('addTitle').value = item?.title       || '';
       document.getElementById('addDesc').value  = item?.description || '';
-      document.getElementById('addError').style.display = 'none';
+      document.getElementById('addError').style.display  = 'none';
       document.getElementById('deleteBtn').style.display = item ? '' : 'none';
-
-      selStatus = item?.status || 'backlog';
-      document.querySelectorAll('.status-pick-btn').forEach(b =>
-        b.classList.toggle('active', b.dataset.val === selStatus)
-      );
 
       document.getElementById('addModal').classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -268,7 +212,6 @@
     document.getElementById('addModal').addEventListener('click', function(e) {
       if (e.target === this) closeAddModal();
     });
-
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && document.getElementById('addModal').classList.contains('open'))
         closeAddModal();
@@ -278,7 +221,7 @@
       const title = document.getElementById('addTitle').value.trim();
       const errEl = document.getElementById('addError');
       if (!title) {
-        errEl.textContent = 'Vul een titel in.';
+        errEl.textContent = 'Vul een wens in.';
         errEl.style.display = 'block';
         return;
       }
@@ -288,18 +231,28 @@
       btn.disabled    = true;
       btn.textContent = 'Opslaan... ⏳';
 
+      const ts   = firebase.firestore.FieldValue.serverTimestamp();
       const data = {
         emoji:       document.getElementById('addEmoji').value.trim() || null,
         title,
         description: document.getElementById('addDesc').value.trim() || null,
-        status:      selStatus,
+        updatedAt:   ts,
       };
 
       try {
-        await saveItem(data, editingId);
-        await loadItems();
+        if (editingId) {
+          await db.collection('backlog_items').doc(editingId).update(data);
+          const idx = items.findIndex(i => i.id === editingId);
+          if (idx !== -1) items[idx] = { ...items[idx], ...data };
+        } else {
+          const ref = await db.collection('backlog_items').add({
+            ...data, done: false, createdBy: session.name, createdAt: ts
+          });
+          items.push({ id: ref.id, ...data, done: false, createdBy: session.name });
+        }
+        render();
         closeAddModal();
-        showToast(editingId ? 'Ticket bijgewerkt! ✓' : 'Ticket toegevoegd! 🎉');
+        showToast(editingId ? 'Wens bijgewerkt! ✓' : 'Wens toegevoegd! 🌟');
       } catch(e) {
         errEl.textContent = 'Opslaan mislukt: ' + e.message;
         errEl.style.display = 'block';
@@ -310,13 +263,13 @@
     }
 
     async function confirmDelete() {
-      if (!confirm('Weet je zeker dat je dit ticket wilt verwijderen?')) return;
+      if (!confirm('Weet je zeker dat je deze wens wilt verwijderen?')) return;
       try {
         await db.collection('backlog_items').doc(editingId).delete();
         items = items.filter(i => i.id !== editingId);
         render();
         closeAddModal();
-        showToast('Ticket verwijderd.');
+        showToast('Wens verwijderd.');
       } catch(e) {
         showToast('Verwijderen mislukt: ' + e.message);
       }

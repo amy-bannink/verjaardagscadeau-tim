@@ -1,34 +1,6 @@
 /* ══════════════════════════════════════════════════════
-   BACKLOG — status tabs, item cards, status badges
+   BACKLOG — wensenlijst
    ══════════════════════════════════════════════════════ */
-
-/* ── Status tabs ── */
-.status-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-  overflow-x: auto;
-  padding-bottom: 2px;
-  scrollbar-width: none;
-}
-.status-tabs::-webkit-scrollbar { display: none; }
-
-.status-tab {
-  flex-shrink: 0;
-  padding: 8px 16px;
-  border: 1.5px solid var(--border);
-  border-radius: 50px;
-  background: var(--surface);
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--text-muted);
-  font-family: inherit;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
-  white-space: nowrap;
-}
-.status-tab:hover  { background: var(--primary-light); border-color: var(--primary); color: var(--text); }
-.status-tab.active { background: var(--primary); border-color: var(--primary); color: var(--text); }
 
 /* ── Items list ── */
 .items-list {
@@ -51,11 +23,11 @@
 .item-card {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 16px 18px;
+  padding: 14px 16px;
   cursor: pointer;
   transition: box-shadow 0.15s, border-color 0.15s, transform 0.1s;
   box-shadow: 0 1px 6px rgba(0,0,0,0.05);
@@ -67,14 +39,48 @@
 }
 .item-card:active { transform: translateY(0); }
 
+.item-card.item-done {
+  opacity: 0.55;
+}
+.item-card.item-done .item-title {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* ── Check button ── */
+.item-check {
+  flex-shrink: 0;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: transparent;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.item-check:hover {
+  border-color: var(--primary-dark);
+  background: var(--primary-light);
+}
+.item-check.checked {
+  background: #10b981;
+  border-color: #10b981;
+  color: #fff;
+}
+
+/* ── Emoji ── */
 .item-emoji {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   line-height: 1;
   flex-shrink: 0;
-  width: 40px;
+  width: 36px;
   text-align: center;
 }
 
+/* ── Body ── */
 .item-body {
   flex: 1;
   min-width: 0;
@@ -97,74 +103,27 @@
   overflow: hidden;
 }
 
-.item-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 8px;
-  flex-wrap: wrap;
-}
-
-.item-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 10px;
-  border-radius: 50px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  border: 1.5px solid transparent;
-}
-.badge-backlog {
-  background: var(--bg);
-  border-color: var(--border);
-  color: var(--text-muted);
-}
-.badge-sprint {
-  background: var(--primary-light);
-  border-color: var(--primary);
-  color: var(--text);
-}
-.badge-done {
-  background: #d1fae5;
-  border-color: #6ee7b7;
-  color: #065f46;
-}
-
 .item-by {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--text-muted);
+  margin-top: 4px;
 }
 
 .item-arrow {
   font-size: 1.3rem;
   color: var(--border);
   flex-shrink: 0;
-  margin-left: 4px;
 }
 
-/* ── Status picker (modal) ── */
-.status-picker {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+/* ── Done divider ── */
+.done-divider {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 16px 4px 4px;
 }
-.status-pick-btn {
-  flex: 1;
-  min-width: 90px;
-  padding: 10px 8px;
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  background: var(--bg);
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: inherit;
-  color: var(--text);
-  transition: border-color 0.15s, background 0.15s;
-  text-align: center;
-}
-.status-pick-btn:hover  { border-color: var(--primary); background: var(--primary-light); }
-.status-pick-btn.active { border-color: var(--primary-dark); background: var(--primary); }
 
 /* ── Emoji input ── */
 .emoji-input {
@@ -175,7 +134,6 @@
 }
 
 @media (max-width: 600px) {
-  .item-card { padding: 14px 14px; gap: 10px; }
-  .item-emoji { font-size: 1.5rem; width: 32px; }
-  .status-pick-btn { min-width: 70px; font-size: 0.78rem; }
+  .item-card  { padding: 12px 12px; gap: 10px; }
+  .item-emoji { font-size: 1.4rem; width: 28px; }
 }
