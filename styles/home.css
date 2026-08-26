@@ -234,6 +234,8 @@ footer span { color: var(--primary-dark); }
 .auth-success-icon { font-size: 3rem; text-align: center; margin-bottom: 12px; }
 
 /* Gebruikerskeuze-kaarten */
+/* Niet meer in gebruik sinds het inloggen via een e-mailcode gaat, maar de
+   stijl blijft staan voor het geval de naamkeuze ooit terugkomt. */
 .user-pick-wrap { display: flex; gap: 14px; margin-top: 8px; }
 .user-pick-btn {
   flex: 1; padding: 18px 10px;

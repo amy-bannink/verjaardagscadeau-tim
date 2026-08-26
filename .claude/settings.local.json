@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(npm --version)",
+      "Bash(git commit -m 'Fix alle-media grid: revert to object-fit cover, removes gray letterboxing *)",
+      "Bash(git commit -m 'Show exact Cloudinary error in toast for debugging *)",
+      "Bash(git commit -m 'Switch to chunked video upload \\(20MB chunks\\) with progress percentage *)"
+    ]
+  }
+}

@@ -50,20 +50,25 @@
   border: 1.5px solid var(--border);
   border-radius: 12px;
   padding: 4px 0;
-  min-width: 140px;
+  min-width: 190px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.12);
   z-index: 200;
 }
 .user-dropdown.open { display: block; }
 .user-dropdown button {
-  display: block; width: 100%;
+  display: flex; align-items: center; gap: 10px;
+  width: 100%;
   text-align: left; padding: 9px 16px;
   background: none; border: none;
   font-size: 0.88rem; cursor: pointer;
-  color: #cc2222; font-family: inherit;
+  color: var(--text); font-family: inherit;
+  white-space: nowrap;
   transition: background 0.1s;
 }
-.user-dropdown button:hover { background: #fee; }
+.user-dropdown button svg { flex-shrink: 0; }
+.user-dropdown button:hover { background: var(--primary-light); }
+.user-dropdown button.danger { color: #cc2222; }
+.user-dropdown button.danger:hover { background: #fee; }
 
 @media (max-width: 600px) {
   .back-btn-arrow { display: none; }
@@ -205,6 +210,9 @@
   box-shadow: 0 5px 18px rgba(0,0,0,0.15);
   transition: transform 0.28s ease, box-shadow 0.2s;
   background: white;
+  /* Basis voor kaart 3 en verder: recht achter de waaier, niet ernaast */
+  transform: translateX(-50%);
+  z-index: 0;
 }
 /* Vaste hoogte zodat de waaier consistent is, ongeacht beeldformaat */
 .fan-card img {
@@ -275,18 +283,29 @@
   .mobile-label-name { font-size: 1rem; font-weight: 700; }
   .mobile-label-meta { font-size: 0.8rem; color: var(--text-muted); margin-top: 3px; }
 
-  .mobile-fan {
-    display: flex; gap: 10px;
-    margin-top: 12px; flex-wrap: wrap;
+  /* ── Waaier op mobiel: dezelfde kaartenstapel als op de laptop ── */
+  .item-mobile-content .fan-wrap {
+    width: 170px; height: 190px;
+    margin-top: 16px;
   }
-  /* Uniforme thumbnail-grootte zodat de rij strak is */
-  .mobile-thumb {
-    width: 90px; height: 90px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-    cursor: pointer;
+  .item-mobile-content .fan-card         { width: 106px; }
+  .item-mobile-content .fan-card img     { height: 141px; }
+
+  /* Er is geen hover op mobiel; .in-view wordt tijdens het scrollen gezet
+     op de herinnering die door het midden van het scherm beweegt. */
+  .memory-item.in-view .timeline-dot {
+    transform: scale(1.3);
+    box-shadow: 0 0 0 4px rgba(245,197,24,0.35);
   }
+  .memory-item.in-view .fan-card:nth-child(1) {
+    transform: translateX(-70%) rotate(-22deg);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  }
+  .memory-item.in-view .fan-card:nth-child(2) {
+    transform: translateX(-30%) rotate(18deg);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  }
+
   .timeline-future { display: none; }
 }
 
@@ -637,8 +656,6 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
   display: flex; align-items: center; justify-content: center;
   font-size: 0.9rem; pointer-events: none;
 }
-.thumb-video-wrap { position: relative; display: inline-block; min-width: 90px; min-height: 90px; background: var(--primary-light); border-radius: 8px; }
-.thumb-video-wrap .thumb-video-icon,
 .detail-all-photo .thumb-video-icon,
 .detail-thumb .thumb-video-icon {
   position: absolute; top: 50%; left: 50%;
@@ -648,7 +665,6 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
   display: flex; align-items: center; justify-content: center;
   pointer-events: none;
 }
-.thumb-video-wrap .thumb-video-icon { width: 24px; height: 24px; font-size: 0.75rem; }
 .detail-all-photo .thumb-video-icon { width: 28px; height: 28px; font-size: 0.8rem; }
 .detail-thumb .thumb-video-icon     { width: 20px; height: 20px; font-size: 0.6rem; }
 

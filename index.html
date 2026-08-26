@@ -35,38 +35,21 @@
     <div id="authBox">
       <button class="auth-close" onclick="closeAuthModal()">×</button>
 
-      <!-- View: Kies gebruiker -->
-      <div class="auth-view active" id="viewChoice">
-        <div class="auth-title">Wie ben je?</div>
-        <div class="auth-subtitle">Kies je naam om in te loggen</div>
-        <div class="user-pick-wrap">
-          <button class="user-pick-btn" onclick="selectUser('Amy')">
-            <span class="pick-avatar">👩</span>
-            <span class="pick-name">Amy</span>
-          </button>
-          <button class="user-pick-btn" onclick="selectUser('Tim')">
-            <span class="pick-avatar">👨</span>
-            <span class="pick-name">Tim</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- View: Wachtwoord -->
-      <div class="auth-view" id="viewLogin">
+      <!-- View: E-mailadres -->
+      <div class="auth-view active" id="viewEmail">
         <div class="auth-title">Welkom terug! 👋</div>
-        <div class="auth-subtitle" id="loginSubtitle">Voer je wachtwoord in</div>
+        <div class="auth-subtitle">Vul je e-mailadres in, dan sturen we je een code.</div>
         <div class="auth-field">
-          <label>Wachtwoord</label>
-          <input type="password" id="loginPassword" placeholder="Jouw wachtwoord" />
+          <label>E-mailadres</label>
+          <input type="email" id="loginEmail" inputmode="email" autocomplete="email" placeholder="jij@voorbeeld.nl" />
         </div>
-        <div class="auth-error" id="loginError"></div>
-        <button class="auth-btn-primary" onclick="submitLogin()">Volgende →</button>
-        <div class="auth-switch"><button class="auth-link-btn" onclick="showAuthView('viewChoice')">← Terug</button></div>
+        <div class="auth-error" id="emailError"></div>
+        <button class="auth-btn-primary" id="sendCodeBtn" onclick="submitEmail()">Stuur me een code →</button>
       </div>
 
       <!-- View: Verificatie -->
       <div class="auth-view" id="viewVerify">
-        <div class="auth-title">Bevestig je e-mail 📬</div>
+        <div class="auth-title">Check je mail 📬</div>
         <div class="auth-subtitle" id="verifySubtitle">We hebben een code verstuurd.</div>
         <div class="auth-field">
           <label style="text-align:center; display:block;">Voer de 6-cijferige code in</label>
@@ -82,6 +65,11 @@
         <div class="auth-error" id="verifyError"></div>
         <button class="auth-btn-primary" onclick="submitVerify()">Bevestigen ✓</button>
         <p id="codeNote" style="margin-top:12px; font-size:0.82rem; color:var(--text-muted); text-align:center;"></p>
+        <div class="auth-switch">
+          <button class="auth-link-btn" id="resendBtn" onclick="resendCode()">Geen code ontvangen?</button>
+          <span style="margin:0 6px; color:var(--text-muted);">·</span>
+          <button class="auth-link-btn" onclick="showAuthView('viewEmail')">← Ander adres</button>
+        </div>
       </div>
 
       <!-- View: Success -->
@@ -610,36 +598,19 @@
     const EMAILJS_SERVICE_ID  = 'service_osvk9oq';    // Email Services → Service ID
     const EMAILJS_TEMPLATE_ID = 'template_nbx5nj3';   // Email Templates → Template ID
 
-    // ── Helpers ──
-    async function hashPassword(pw) {
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw + 'herinnering2026'));
-      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-    }
-    const getUsers   = ()   => JSON.parse(localStorage.getItem('app_users') || '[]');
-    const saveUsers  = (u)  => localStorage.setItem('app_users', JSON.stringify(u));
+    // ── Wie mag er op deze pagina ──
+    // Deze pagina is voor ons tweeën. Je vult je e-mailadres in en krijgt een
+    // code in je mail; een wachtwoord is er niet meer.
+    const KNOWN_USERS = [
+      { name: 'Amy', email: 'amy.bannink@gmail.com' },
+      { name: 'Tim', email: 'timoverbeek12@gmail.com' },
+    ];
 
-    // ── Seed default accounts (runs on every load, safe to re-run) ──
-    async function seedDefaultUsers() {
-      const users = getUsers();
-      const defaults = [
-        { name: 'Amy', email: 'amy.bannink@gmail.com' },
-        { name: 'Tim', email: 'timoverbeek12@gmail.com' }
-      ];
-      const hash = await hashPassword('Letsgofrontalekwab!');
-      let changed = false;
-      for (const d of defaults) {
-        const existing = users.find(u => u.email === d.email);
-        if (!existing) {
-          users.push({ name: d.name, email: d.email, passwordHash: hash, verified: true, createdAt: Date.now() });
-          changed = true;
-        } else if (existing.passwordHash !== hash) {
-          existing.passwordHash = hash;
-          changed = true;
-        }
-      }
-      if (changed) saveUsers(users);
+    function findUserByEmail(email) {
+      const needle = String(email).trim().toLowerCase();
+      return KNOWN_USERS.find(u => u.email.toLowerCase() === needle) || null;
     }
-    seedDefaultUsers();
+
     const getSession = ()   => {
       const s = JSON.parse(localStorage.getItem('app_session') || 'null');
       if (!s) return null;
@@ -655,19 +626,19 @@
     function showAuthView(id) {
       document.querySelectorAll('.auth-view').forEach(v => v.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-      ['regError','verifyError','loginError'].forEach(eid => {
+      ['emailError','verifyError'].forEach(eid => {
         const el = document.getElementById(eid); if (el) el.textContent = '';
       });
     }
     function openAuthModal(view) {
-      showAuthView(view || 'viewChoice');
+      showAuthView(view || 'viewEmail');
       document.getElementById('authModal').classList.add('open');
       document.getElementById('authDropdown').classList.remove('open');
     }
     function closeAuthModal() { document.getElementById('authModal').classList.remove('open'); }
     function toggleAuthMenu() {
       if (getSession()) document.getElementById('authDropdown').classList.toggle('open');
-      else openAuthModal('viewChoice');
+      else openAuthModal('viewEmail');
     }
     function updateAuthButton() {
       const s = getSession();
@@ -689,15 +660,76 @@
       if (e.target === this) closeAuthModal();
     });
 
-    // ── User selection ──
-    let selectedUser = null;
-    function selectUser(name) {
-      selectedUser = name;
-      document.getElementById('loginSubtitle').textContent = 'Hallo ' + name + ', voer je wachtwoord in';
-      document.getElementById('loginPassword').value = '';
-      document.getElementById('loginError').textContent = '';
-      showAuthView('viewLogin');
-      document.getElementById('loginPassword').focus();
+    // ── Code aanvragen ──
+    async function submitEmail() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const err   = document.getElementById('emailError');
+
+      if (!email) return err.textContent = 'Vul je e-mailadres in.';
+
+      const user = findUserByEmail(email);
+      if (!user) return err.textContent = 'Dit e-mailadres hoort niet bij deze pagina.';
+
+      err.textContent = '';
+      await sendLoginCode(user);
+    }
+
+    // Maakt een nieuwe code, onthoudt hem en mailt hem.
+    async function sendLoginCode(user) {
+      const btn  = document.getElementById('sendCodeBtn');
+      const code = String(Math.floor(100000 + Math.random() * 900000));
+
+      sessionStorage.setItem('pending_login', JSON.stringify({
+        name: user.name, email: user.email, code,
+        expiresAt: Date.now() + 10 * 60 * 1000
+      }));
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Versturen…'; }
+
+      document.getElementById('verifySubtitle').textContent =
+        'We hebben een code gestuurd naar ' + user.email + '.';
+      document.getElementById('codeNote').textContent = '';
+
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID,
+          { to_name: user.name, to_email: user.email, code }, EMAILJS_PUBLIC_KEY);
+      } catch(e) {
+        // Mailen mislukt: toon de code dan maar gewoon, anders kom je er niet in.
+        const msg = e?.text || e?.message || JSON.stringify(e);
+        document.getElementById('codeNote').innerHTML =
+          '📌 Mailen mislukt (' + msg + ').<br>Jouw code: <strong>' + code + '</strong>';
+      }
+
+      if (btn) { btn.disabled = false; btn.textContent = 'Stuur me een code →'; }
+
+      for (let i = 0; i < 6; i++) document.getElementById('cd' + i).value = '';
+      showAuthView('viewVerify');
+      document.getElementById('cd0').focus();
+      startResendCooldown();
+    }
+
+    // Opnieuw versturen, met een korte wachttijd zodat je niet per ongeluk
+    // vijf mails achter elkaar stuurt.
+    let resendTimer = null;
+    function startResendCooldown(seconds = 30) {
+      const btn = document.getElementById('resendBtn');
+      let left  = seconds;
+      clearInterval(resendTimer);
+      btn.disabled = true;
+      const tick = () => {
+        btn.textContent = left > 0 ? `Opnieuw versturen (${left})` : 'Geen code ontvangen?';
+        if (left <= 0) { clearInterval(resendTimer); btn.disabled = false; }
+        left--;
+      };
+      tick();
+      resendTimer = setInterval(tick, 1000);
+    }
+
+    async function resendCode() {
+      const p = JSON.parse(sessionStorage.getItem('pending_login') || 'null');
+      if (!p) return showAuthView('viewEmail');
+      const user = findUserByEmail(p.email);
+      if (user) await sendLoginCode(user);
     }
 
     // ── Code digit helpers ──
@@ -717,87 +749,44 @@
       const err = document.getElementById('verifyError');
       if (entered.length !== 6) return err.textContent = 'Voer alle 6 cijfers in.';
 
-      const pl = JSON.parse(sessionStorage.getItem('pending_login') || 'null');
-      const pr = JSON.parse(sessionStorage.getItem('pending_reg')   || 'null');
-      const p  = pl || pr;
+      const p = JSON.parse(sessionStorage.getItem('pending_login') || 'null');
 
-      if (!p) return err.textContent = 'Geen verificatie gevonden. Begin opnieuw.';
+      if (!p) return err.textContent = 'Geen code gevonden. Begin opnieuw.';
       if (Date.now() > p.expiresAt) {
         sessionStorage.removeItem('pending_login');
-        sessionStorage.removeItem('pending_reg');
-        return err.textContent = 'Code verlopen. Probeer opnieuw.';
+        err.textContent = 'Deze code is verlopen. Vraag een nieuwe aan.';
+        return;
       }
       if (entered !== p.code) return err.textContent = 'Onjuiste code.';
 
-      if (pl) {
-        // Login verificatie geslaagd
-        sessionStorage.removeItem('pending_login');
-        saveSession(p.name, p.email);
-        updateAuthButton();
-        hideArrowHint();
-        document.getElementById('successTitle').textContent = 'Welkom terug, ' + p.name + '! 👋';
-        document.getElementById('successMsg').textContent   = 'Je bent nu ingelogd.';
-        showAuthView('viewSuccess');
-        setTimeout(closeAuthModal, 2200);
-      } else {
-        // Registratie verificatie geslaagd
-        const hash  = await hashPassword(p.pass);
-        const users = getUsers();
-        users.push({ name: p.name, email: p.email, passwordHash: hash, verified: true, createdAt: Date.now() });
-        saveUsers(users);
-        sessionStorage.removeItem('pending_reg');
-        saveSession(p.name, p.email);
-        updateAuthButton();
-        hideArrowHint();
-        document.getElementById('successTitle').textContent = 'Welkom, ' + p.name + '! 🎉';
-        document.getElementById('successMsg').textContent   = 'Je account is aangemaakt en je bent ingelogd.';
-        showAuthView('viewSuccess');
-        setTimeout(closeAuthModal, 2200);
-      }
+      clearInterval(resendTimer);
+      sessionStorage.removeItem('pending_login');
+      saveSession(p.name, p.email);
+      updateAuthButton();
+      hideArrowHint();
+      document.getElementById('successTitle').textContent = 'Welkom terug, ' + p.name + '! 👋';
+      document.getElementById('successMsg').textContent   = 'Je bent nu ingelogd.';
+      showAuthView('viewSuccess');
+      setTimeout(closeAuthModal, 2200);
     }
 
-    // ── Login ──
-    async function submitLogin() {
-      const pass = document.getElementById('loginPassword').value;
-      const err  = document.getElementById('loginError');
+    // Enter bevestigt het formulier dat je op dat moment ziet.
+    document.getElementById('authModal').addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      const view = document.querySelector('.auth-view.active');
+      if (!view) return;
+      const btn = view.querySelector('.auth-btn-primary');
+      if (btn && !btn.disabled) { e.preventDefault(); btn.click(); }
+    });
 
-      if (!selectedUser) return err.textContent = 'Kies eerst een gebruiker.';
-      if (!pass)         return err.textContent = 'Voer je wachtwoord in.';
-
-      const user = getUsers().find(u => u.name === selectedUser);
-      if (!user) return err.textContent = 'Account niet gevonden.';
-
-      if (await hashPassword(pass) !== user.passwordHash)
-        return err.textContent = 'Onjuist wachtwoord.';
-
-      // Wachtwoord klopt — stuur verificatiecode
-      const code = String(Math.floor(100000 + Math.random() * 900000));
-      sessionStorage.setItem('pending_login', JSON.stringify({
-        name: user.name, email: user.email, code, expiresAt: Date.now() + 10 * 60 * 1000
-      }));
-
-      document.getElementById('verifySubtitle').textContent =
-        'We hebben een code verstuurd naar ' + user.email + '.';
-      document.getElementById('codeNote').textContent = '';
-
-      if (EMAILJS_PUBLIC_KEY !== 'JOUW_PUBLIC_KEY') {
-        try {
-          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID,
-            { to_name: user.name, to_email: user.email, code }, EMAILJS_PUBLIC_KEY);
-        } catch(e) {
-          const msg = e?.text || e?.message || JSON.stringify(e);
-          document.getElementById('codeNote').innerHTML =
-            '📌 Fout: ' + msg + '<br>Jouw code: <strong>' + code + '</strong>';
-        }
-      } else {
-        document.getElementById('codeNote').innerHTML =
-          '📌 EmailJS niet ingesteld. Jouw code: <strong>' + code + '</strong>';
-      }
-
-      for (let i = 0; i < 6; i++) document.getElementById('cd' + i).value = '';
-      showAuthView('viewVerify');
-      document.getElementById('cd0').focus();
-    }
+    // Een code plakken vult meteen alle zes de vakjes.
+    document.getElementById('cd0').addEventListener('paste', e => {
+      const digits = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+      if (!digits) return;
+      e.preventDefault();
+      for (let i = 0; i < 6; i++) document.getElementById('cd' + i).value = digits[i] || '';
+      document.getElementById('cd' + Math.min(digits.length, 5)).focus();
+    });
 
     // ── Logout ──
     function logoutUser() {
