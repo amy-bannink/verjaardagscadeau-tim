@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Foto's verplaatsen – Onze Herinneringen</title>
+  <link rel="stylesheet" href="styles/shared.css" />
+  <link rel="stylesheet" href="styles/dashboard.css" />
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="js/media-store.js"></script>
+  <style>
+    .mig-box {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 22px 24px; margin-bottom: 20px;
+    }
+    .mig-box h2 { font-size: 1.05rem; margin-bottom: 10px; }
+    .mig-box p  { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+    .mig-safe {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+    .mig-safe p, .mig-safe li { color: var(--text); }
+    .mig-safe ul { margin: 8px 0 0 18px; font-size: 0.9rem; line-height: 1.7; }
+    .mig-cijfers { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 4px; }
+    .mig-cijfer strong { display: block; font-size: 1.6rem; font-weight: 700; }
+    .mig-cijfer span   { font-size: 0.82rem; color: var(--text-muted); }
+    .mig-balk {
+      height: 10px; border-radius: 6px; background: var(--border);
+      overflow: hidden; margin: 14px 0 8px;
+    }
+    .mig-balk div { height: 100%; width: 0; background: var(--primary); transition: width 0.25s; }
+    #migLog {
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 0.78rem; line-height: 1.7;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+      padding: 12px 14px; max-height: 320px; overflow-y: auto;
+      white-space: pre-wrap; color: var(--text-muted);
+    }
+    #migLog b   { color: var(--text); font-weight: 600; }
+    #migLog i   { color: var(--danger); font-style: normal; }
+    #migLog em  { color: var(--accent-text); font-style: normal; }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="back-btn" onclick="window.location.href='./dashboard.html'"><span class="back-btn-arrow">← </span>Terug</button>
+      <span class="topbar-title">Foto's verplaatsen</span>
+    </div>
+  </div>
+
+  <div class="page-content" style="max-width: 760px;">
+    <div class="page-header">
+      <h1>Foto's naar de <span>snelle opslag</span></h1>
+      <p>De foto's staan nu als tekst in de database, waardoor de tijdlijn ze bij
+         elke pagina-opening allemaal opnieuw moet downloaden. Deze pagina zet ze
+         over naar dezelfde opslag als de video's, zodat er alleen nog een
+         verwijzing in de database staat.</p>
+    </div>
+
+    <div class="mig-box mig-safe">
+      <h2>Wat er met de bestaande gegevens gebeurt</h2>
+      <ul>
+        <li>Er wordt <strong>niets verwijderd of overschreven</strong> — de originele
+            foto's blijven onaangeroerd in de database staan als archief.</li>
+        <li>Er wordt alleen <strong>bij geschreven</strong>: een kopie in de opslag
+            en een nieuwe verwijzing ernaartoe.</li>
+        <li>Een herinnering telt pas als overgezet nadat elke nieuwe foto
+            <strong>daadwerkelijk opgehaald</strong> kon worden. Lukt dat niet, dan
+            blijft hij de oude foto's gebruiken.</li>
+        <li>Je kunt dit veilig afbreken en later hervatten; wat al gedaan is
+            wordt overgeslagen.</li>
+      </ul>
+    </div>
+
+    <div class="mig-box">
+      <h2>Stand van zaken</h2>
+      <div class="mig-cijfers">
+        <div class="mig-cijfer"><strong id="cijferTotaal">–</strong><span>herinneringen</span></div>
+        <div class="mig-cijfer"><strong id="cijferKlaar">–</strong><span>al overgezet</span></div>
+        <div class="mig-cijfer"><strong id="cijferTeDoen">–</strong><span>te doen</span></div>
+      </div>
+      <div class="mig-balk"><div id="migBalk"></div></div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+        <button class="btn-submit" id="startBtn" onclick="startMigratie()" disabled>Overzetten starten</button>
+        <button class="btn-cancel" id="stopBtn" onclick="pauzeer()" style="display:none;">Pauzeren</button>
+      </div>
+    </div>
+
+    <div class="mig-box">
+      <h2>Verloop</h2>
+      <div id="migLog">Bezig met inlezen…</div>
+    </div>
+  </div>
+
+  <script>
+    // ── Session guard, gelijk aan het dashboard ──
+    const session = JSON.parse(localStorage.getItem('app_session') || 'null');
+    if (!session || Date.now() - session.loginAt > 30 * 24 * 60 * 60 * 1000) {
+      window.location.replace('./index.html');
+    }
+
+    const firebaseConfig = {
+      apiKey:            "AIzaSyDfLpYTRYxM3FAIiRoBUe21TZ7-vS0K1jg",
+      authDomain:        "herinneringen-webapp.firebaseapp.com",
+      projectId:         "herinneringen-webapp",
+      storageBucket:     "herinneringen-webapp.firebasestorage.app",
+      messagingSenderId: "331175860752",
+      appId:             "1:331175860752:web:794ee8ae902e3a971e0895"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    let herinneringen = [];   // { id, titel }
+    let overgezet     = new Set();
+    let stopGevraagd  = false;
+    function pauzeer() { stopGevraagd = true; }
+
+    const logEl = document.getElementById('migLog');
+    function log(regel, soort) {
+      const tag = soort === 'fout' ? 'i' : soort === 'kop' ? 'b' : soort === 'goed' ? 'em' : 'span';
+      logEl.innerHTML += '<' + tag + '>' + regel + '</' + tag + '>\n';
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    function toonCijfers() {
+      const klaar = herinneringen.filter(h => overgezet.has(h.id)).length;
+      document.getElementById('cijferTotaal').textContent = herinneringen.length;
+      document.getElementById('cijferKlaar').textContent  = klaar;
+      document.getElementById('cijferTeDoen').textContent = herinneringen.length - klaar;
+      document.getElementById('migBalk').style.width =
+        (herinneringen.length ? Math.round(klaar / herinneringen.length * 100) : 0) + '%';
+    }
+
+    // Een nieuwe foto telt pas als geslaagd wanneer de browser hem echt kan
+    // ophalen. Via een Image() in plaats van fetch(), zodat er geen CORS-regels
+    // aan te pas hoeven te komen.
+    function urlIsOphaalbaar(url) {
+      return new Promise(resolve => {
+        const img = new Image();
+        const klaar = ok => { img.onload = img.onerror = null; resolve(ok); };
+        img.onload  = () => klaar(true);
+        img.onerror = () => klaar(false);
+        setTimeout(() => klaar(false), 20000);
+        img.src = url;
+      });
+    }
+
+    async function inlezen() {
+      try {
+        // Alleen de lichte documenten: de foto's zelf worden hier niet opgehaald.
+        const [memoriesSnap, staat] = await Promise.all([
+          db.collection('memories').get(),
+          MediaStore.readMigrated(db)
+        ]);
+        herinneringen = memoriesSnap.docs.map(d => ({ id: d.id, titel: d.data().title || '(zonder titel)' }));
+        overgezet     = staat;
+        logEl.innerHTML = '';
+        log(herinneringen.length + ' herinneringen gevonden, waarvan ' + overgezet.size + ' al overgezet.', 'kop');
+        toonCijfers();
+        document.getElementById('startBtn').disabled = herinneringen.length === overgezet.size;
+        if (herinneringen.length === overgezet.size && herinneringen.length)
+          log('Alles staat al in de nieuwe opslag — er is niets meer te doen.', 'goed');
+      } catch (e) {
+        log('Inlezen mislukt: ' + (e.message || e), 'fout');
+      }
+    }
+
+    async function startMigratie() {
+      stopGevraagd = false;
+      document.getElementById('startBtn').disabled = true;
+      document.getElementById('stopBtn').style.display = '';
+
+      const teDoen = herinneringen.filter(h => !overgezet.has(h.id));
+      log('', '');
+      log('Start — ' + teDoen.length + ' herinneringen te gaan.', 'kop');
+
+      let gelukt = 0, mislukt = 0;
+      for (const h of teDoen) {
+        if (stopGevraagd) { log('Gepauzeerd. Je kunt later verder waar je gebleven was.', 'kop'); break; }
+        log('▸ ' + h.titel, 'kop');
+        try {
+          const aantal = await MediaStore.migrateMemory(db, h.id, {
+            log:    regel => log('   ' + regel),
+            verify: urlIsOphaalbaar
+          });
+          overgezet.add(h.id);
+          gelukt++;
+          log('   ✓ ' + aantal + ' item(s) overgezet en gecontroleerd', 'goed');
+        } catch (e) {
+          mislukt++;
+          log('   ✗ overslaan: ' + (e.message || e), 'fout');
+          log('   deze herinnering blijft de oude foto’s gebruiken', 'fout');
+        }
+        toonCijfers();
+      }
+
+      log('', '');
+      log('Klaar — ' + gelukt + ' overgezet' + (mislukt ? ', ' + mislukt + ' overgeslagen' : '') + '.', 'kop');
+      if (mislukt) log('Druk gerust nog eens op starten; alleen de overgeslagen herinneringen worden dan opnieuw geprobeerd.', '');
+      document.getElementById('stopBtn').style.display = 'none';
+      document.getElementById('startBtn').disabled = herinneringen.length === overgezet.size;
+      document.getElementById('startBtn').textContent = 'Opnieuw proberen';
+    }
+
+    inlezen();
+  </script>
+</body>
+</html>
