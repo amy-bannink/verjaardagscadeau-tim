@@ -53,13 +53,16 @@
         <div class="auth-subtitle" id="verifySubtitle">We hebben een code verstuurd.</div>
         <div class="auth-field">
           <label style="text-align:center; display:block;">Voer de 6-cijferige code in</label>
+          <!-- Geen maxlength: op mobiel plakt het toetsenbord de hele code in
+               één vakje, en met maxlength="1" gooit de browser de rest weg
+               voordat het script hem kan verdelen. -->
           <div class="code-input-wrap">
-            <input class="code-digit" type="text" maxlength="1" inputmode="numeric" id="cd0" oninput="codeDigitInput(0)" onkeydown="codeDigitKey(event,0)" />
-            <input class="code-digit" type="text" maxlength="1" inputmode="numeric" id="cd1" oninput="codeDigitInput(1)" onkeydown="codeDigitKey(event,1)" />
-            <input class="code-digit" type="text" maxlength="1" inputmode="numeric" id="cd2" oninput="codeDigitInput(2)" onkeydown="codeDigitKey(event,2)" />
-            <input class="code-digit" type="text" maxlength="1" inputmode="numeric" id="cd3" oninput="codeDigitInput(3)" onkeydown="codeDigitKey(event,3)" />
-            <input class="code-digit" type="text" maxlength="1" inputmode="numeric" id="cd4" oninput="codeDigitInput(4)" onkeydown="codeDigitKey(event,4)" />
-            <input class="code-digit" type="text" maxlength="1" inputmode="numeric" id="cd5" oninput="codeDigitInput(5)" onkeydown="codeDigitKey(event,5)" />
+            <input class="code-digit" type="text" inputmode="numeric" autocomplete="one-time-code" id="cd0" oninput="codeDigitInput(0)" onkeydown="codeDigitKey(event,0)" />
+            <input class="code-digit" type="text" inputmode="numeric" autocomplete="off" id="cd1" oninput="codeDigitInput(1)" onkeydown="codeDigitKey(event,1)" />
+            <input class="code-digit" type="text" inputmode="numeric" autocomplete="off" id="cd2" oninput="codeDigitInput(2)" onkeydown="codeDigitKey(event,2)" />
+            <input class="code-digit" type="text" inputmode="numeric" autocomplete="off" id="cd3" oninput="codeDigitInput(3)" onkeydown="codeDigitKey(event,3)" />
+            <input class="code-digit" type="text" inputmode="numeric" autocomplete="off" id="cd4" oninput="codeDigitInput(4)" onkeydown="codeDigitKey(event,4)" />
+            <input class="code-digit" type="text" inputmode="numeric" autocomplete="off" id="cd5" oninput="codeDigitInput(5)" onkeydown="codeDigitKey(event,5)" />
           </div>
         </div>
         <div class="auth-error" id="verifyError"></div>
@@ -733,10 +736,26 @@
     }
 
     // ── Code digit helpers ──
+    // Verdeel een reeks cijfers over de vakjes, vanaf het vakje waar ze binnen-
+    // komen. Een volledige code van zes cijfers begint altijd vooraan, ook als
+    // hij per ongeluk in het derde vakje geplakt wordt.
+    function fillCodeDigits(start, digits) {
+      if (digits.length >= 6) { start = 0; digits = digits.slice(0, 6); }
+      else                    { digits = digits.slice(0, 6 - start); }
+      for (let n = 0; n < digits.length; n++)
+        document.getElementById('cd' + (start + n)).value = digits[n];
+      document.getElementById('cd' + Math.min(start + digits.length, 5)).focus();
+    }
+
     function codeDigitInput(i) {
-      const el = document.getElementById('cd' + i);
-      el.value = el.value.replace(/\D/g, '');
-      if (el.value && i < 5) document.getElementById('cd' + (i+1)).focus();
+      const el     = document.getElementById('cd' + i);
+      const digits = el.value.replace(/\D/g, '');
+      // Meer dan één cijfer betekent plakken of automatisch invullen: het
+      // mobiele toetsenbord doet dat zonder bruikbaar paste-event, dus
+      // verdelen we hier alsnog over de vakjes.
+      if (digits.length > 1) { el.value = ''; return fillCodeDigits(i, digits); }
+      el.value = digits;
+      if (digits && i < 5) document.getElementById('cd' + (i+1)).focus();
     }
     function codeDigitKey(e, i) {
       if (e.key === 'Backspace' && !document.getElementById('cd'+i).value && i > 0)
@@ -779,13 +798,19 @@
       if (btn && !btn.disabled) { e.preventDefault(); btn.click(); }
     });
 
-    // Een code plakken vult meteen alle zes de vakjes.
-    document.getElementById('cd0').addEventListener('paste', e => {
-      const digits = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
-      if (!digits) return;
-      e.preventDefault();
-      for (let i = 0; i < 6; i++) document.getElementById('cd' + i).value = digits[i] || '';
-      document.getElementById('cd' + Math.min(digits.length, 5)).focus();
+    // Een code plakken vult meteen alle zes de vakjes — in elk vakje, niet
+    // alleen in het eerste.
+    [0,1,2,3,4,5].forEach(i => {
+      const el = document.getElementById('cd' + i);
+      el.addEventListener('paste', e => {
+        const cb     = e.clipboardData || window.clipboardData;
+        const digits = ((cb && cb.getData('text')) || '').replace(/\D/g, '');
+        if (!digits) return;   // niets bruikbaars: laat de browser zelf plakken
+        e.preventDefault();
+        fillCodeDigits(i, digits);
+      });
+      // Een gevuld vakje selecteert zichzelf, zodat typen het cijfer vervangt.
+      el.addEventListener('focus', () => el.select());
     });
 
     // ── Logout ──
