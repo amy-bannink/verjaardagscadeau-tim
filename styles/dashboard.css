@@ -41,7 +41,7 @@
   cursor: pointer; font-family: inherit;
   transition: background 0.15s;
 }
-.user-badge:hover { background: var(--primary); }
+.user-badge:hover { background: var(--primary); color: var(--on-primary); }
 .user-dropdown {
   display: none;
   position: absolute;
@@ -67,8 +67,8 @@
 }
 .user-dropdown button svg { flex-shrink: 0; }
 .user-dropdown button:hover { background: var(--primary-light); }
-.user-dropdown button.danger { color: #cc2222; }
-.user-dropdown button.danger:hover { background: #fee; }
+.user-dropdown button.danger { color: var(--danger); }
+.user-dropdown button.danger:hover { background: var(--danger-bg); }
 
 @media (max-width: 600px) {
   .back-btn-arrow { display: none; }
@@ -82,7 +82,7 @@
   font-weight: 700;
 }
 .page-header h1 span {
-  background: var(--primary-light); color: var(--primary-dark);
+  background: var(--primary-light); color: var(--accent-text);
   padding: 0 8px; border-radius: 6px;
 }
 .page-header p { margin-top: 8px; color: var(--text-muted); font-size: 0.95rem; }
@@ -91,7 +91,7 @@
 .add-btn {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 10px 22px;
-  background: var(--primary);
+  background: var(--primary); color: var(--on-primary);
   border: none; border-radius: 50px;
   font-size: 0.92rem; font-weight: 700;
   cursor: pointer; font-family: inherit;
@@ -134,7 +134,7 @@
   top: 50%;
   transform: translateY(-50%);
   background: none; border: none;
-  color: var(--primary);
+  color: var(--accent-text);
   font-size: 2.2rem; line-height: 1;
   cursor: pointer;
   padding: 4px 8px;
@@ -209,7 +209,7 @@
   overflow: hidden;
   box-shadow: 0 5px 18px rgba(0,0,0,0.15);
   transition: transform 0.28s ease, box-shadow 0.2s;
-  background: white;
+  background: var(--surface);
   /* Basis voor kaart 3 en verder: recht achter de waaier, niet ernaast */
   transform: translateX(-50%);
   z-index: 0;
@@ -243,7 +243,7 @@
   height: calc(var(--half-h) * 2 + 18px);
 }
 .future-dots-inner { display: flex; gap: 10px; margin-top: calc(var(--half-h) + 9px - 5px); }
-.future-dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; opacity: 0.55; }
+.future-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--text-muted); opacity: 0.55; }
 
 /* ══════════════════════════════════
    MOBIELE TIMELINE (verticaal)
@@ -489,7 +489,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
   transition: transform 0.15s, box-shadow 0.15s;
   outline: 2.5px solid transparent;
-  background: #f0f0f0;
+  background: var(--placeholder);
   display: flex; align-items: center; justify-content: center;
 }
 .detail-all-photo:hover  { transform: scale(1.04); box-shadow: 0 4px 14px rgba(0,0,0,0.18); }
@@ -586,7 +586,7 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
   cursor: pointer; color: var(--text-muted);
   transition: background 0.15s, color 0.15s;
 }
-.date-type-btn.active { background: var(--primary); color: var(--text); font-weight: 700; }
+.date-type-btn.active { background: var(--primary); color: var(--on-primary); font-weight: 700; }
 
 .photo-upload-area {
   border: 2px dashed var(--border); border-radius: 10px;
@@ -624,7 +624,7 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
 }
 .btn-cancel:hover { background: var(--bg); }
 .btn-submit {
-  padding: 10px 24px; background: var(--primary); border: none;
+  padding: 10px 24px; background: var(--primary); color: var(--on-primary); border: none;
   border-radius: 50px; font-family: inherit; font-size: 0.9rem; font-weight: 700;
   cursor: pointer; transition: background 0.15s, transform 0.1s;
 }
@@ -633,16 +633,16 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
 .btn-delete {
   display: flex; align-items: center; gap: 7px;
   padding: 10px 18px; background: none;
-  border: 1.5px solid #cc2222; border-radius: 50px;
+  border: 1.5px solid var(--danger); border-radius: 50px;
   font-family: inherit; font-size: 0.9rem;
-  cursor: pointer; color: #cc2222;
+  cursor: pointer; color: var(--danger);
   transition: background 0.15s; margin-right: auto;
 }
-.btn-delete:hover { background: #fee; }
+.btn-delete:hover { background: var(--danger-bg); }
 .btn-delete svg { flex-shrink: 0; transition: transform 0.2s ease; }
 .btn-delete:hover svg { transform: translateY(-2px); }
 .form-error {
-  background: #fee; color: #cc2222;
+  background: var(--danger-bg); color: var(--danger);
   padding: 8px 14px; border-radius: 8px;
   font-size: 0.85rem; margin-bottom: 16px; display: none;
 }
@@ -685,7 +685,7 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
 #toast {
   position: fixed; bottom: 28px; left: 50%;
   transform: translateX(-50%);
-  background: var(--text); color: white;
+  background: var(--text); color: var(--bg);
   padding: 12px 24px; border-radius: 50px;
   font-size: 0.9rem; font-weight: 600;
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);

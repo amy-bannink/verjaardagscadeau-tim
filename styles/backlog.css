@@ -166,7 +166,7 @@
 .icon-pick-btn.selected {
   border-color: var(--primary-dark);
   background: var(--primary-light);
-  color: var(--primary-dark);
+  color: var(--accent-text);
 }
 
 .icon-pick-btn svg {

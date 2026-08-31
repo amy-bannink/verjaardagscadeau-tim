@@ -10,7 +10,7 @@ header h1 {
   font-weight: 700; letter-spacing: -0.5px;
 }
 header h1 span {
-  color: var(--primary-dark);
+  color: var(--accent-text);
   background: var(--primary-light);
   padding: 0 8px; border-radius: 6px;
 }
@@ -71,7 +71,7 @@ header p { margin-top: 10px; color: var(--text-muted); font-size: 1.05rem; }
   display: flex; align-items: center; justify-content: center;
   color: var(--text);
 }
-.nav-btn:hover  { background: var(--primary); border-color: var(--primary); transform: scale(1.05); }
+.nav-btn:hover  { background: var(--primary); border-color: var(--primary); color: var(--on-primary); transform: scale(1.05); }
 .nav-btn:active { transform: scale(0.97); }
 
 .counter {
@@ -87,7 +87,7 @@ header p { margin-top: 10px; color: var(--text-muted); font-size: 1.05rem; }
   background: var(--border); cursor: pointer;
   transition: background 0.15s, transform 0.15s; border: none;
 }
-.dot.active { background: var(--primary-dark); transform: scale(1.4); }
+.dot.active { background: var(--accent-text); transform: scale(1.4); }
 
 /* ── Intro-slide badge ── */
 .slide-intro .slide-caption h3::before {
@@ -131,7 +131,7 @@ header p { margin-top: 10px; color: var(--text-muted); font-size: 1.05rem; }
 
 /* ── Footer ── */
 footer { text-align: center; padding: 0 24px 96px; color: var(--text-muted); font-size: 0.85rem; }
-footer span { color: var(--primary-dark); }
+footer span { color: var(--accent-text); }
 
 /* ── Auth-knop (vast rechtsbovenin) ── */
 #authBtn {
@@ -164,7 +164,7 @@ footer span { color: var(--primary-dark); }
   transition: background 0.1s; font-family: inherit;
 }
 .dropdown-item:hover  { background: var(--primary-light); }
-.dropdown-item.danger { color: #cc2222; }
+.dropdown-item.danger { color: var(--danger); }
 
 /* ── Auth modal ── */
 #authModal {
@@ -203,7 +203,7 @@ footer span { color: var(--primary-dark); }
 .auth-field select:focus { border-color: var(--primary); }
 .auth-btn-primary {
   width: 100%; padding: 13px;
-  background: var(--primary); border: none;
+  background: var(--primary); color: var(--on-primary); border: none;
   border-radius: 12px; font-size: 0.95rem;
   font-weight: 700; cursor: pointer; margin-top: 6px;
   font-family: inherit; transition: background 0.15s;
@@ -219,11 +219,11 @@ footer span { color: var(--primary-dark); }
 .auth-btn-secondary:hover { background: var(--primary-light); }
 .auth-link-btn {
   background: none; border: none;
-  color: var(--primary-dark); font-size: 0.88rem;
+  color: var(--accent-text); font-size: 0.88rem;
   cursor: pointer; text-decoration: underline;
   padding: 0; font-family: inherit;
 }
-.auth-error  { color: #cc2222; font-size: 0.84rem; margin-top: 8px; min-height: 18px; }
+.auth-error  { color: var(--danger); font-size: 0.84rem; margin-top: 8px; min-height: 18px; }
 .auth-switch { text-align: center; margin-top: 18px; font-size: 0.88rem; color: var(--text-muted); }
 .code-input-wrap { display: flex; gap: 8px; justify-content: center; margin: 4px 0 8px; }
 .code-digit {
@@ -251,7 +251,7 @@ footer span { color: var(--primary-dark); }
 /* ── Slide 21 CTA-knop ── */
 .slide-cta-btn {
   display: inline-block; margin-top: 10px;
-  padding: 11px 24px; background: var(--primary); border: none;
+  padding: 11px 24px; background: var(--primary); color: var(--on-primary); border: none;
   border-radius: 50px; font-size: 0.95rem; font-weight: 700;
   cursor: pointer; font-family: inherit;
   transition: background 0.15s, transform 0.1s;
@@ -260,6 +260,7 @@ footer span { color: var(--primary-dark); }
 
 /* ── Pijl-hint ── */
 #arrowHint {
+  color: var(--accent-text);
   display: none; position: fixed;
   top: 18px; right: 90px;
   z-index: 1800; pointer-events: none;
@@ -272,7 +273,7 @@ footer span { color: var(--primary-dark); }
   to   { transform: translateX(6px); }
 }
 .arrow-label {
-  background: var(--primary); color: #1a1a1a;
+  background: var(--primary); color: var(--on-primary);
   font-size: 0.82rem; font-weight: 700;
   padding: 6px 12px; border-radius: 18px;
   white-space: nowrap; box-shadow: 0 3px 12px rgba(0,0,0,0.15);

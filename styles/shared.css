@@ -3,20 +3,62 @@
    Gedeeld door index.html en dashboard.html
    ══════════════════════════════════════════════════════ */
 
-/* ── Design tokens ── */
+/* ── Design tokens ──
+   De site volgt de licht/donker-voorkeur van het toestel. `color-scheme`
+   vertelt de browser dat we donker zelf regelen; zonder die regel gaat hij
+   de pagina op eigen houtje verduisteren en wordt het geel modderbruin.
+
+   Rollen van het geel:
+   --primary      vlakken (knoppen, dots) met --on-primary als tekst erop
+   --primary-light zacht vlak achter gewone tekst
+   --primary-dark  hover-variant van een geel vlak
+   --accent-text   geel als tékst of icoon op de achtergrond
+
+   In donkere modus gaat het geel juist omhoog in helderheid: donkergeel op
+   zwart haalt de 4.5:1 van WCAG AA niet, lichtgeel wel. Tekst óp het geel
+   blijft in beide modi bijna-zwart, want geel is en blijft een lichte kleur. */
 :root {
-  --primary:       #F5C518;
+  color-scheme: light dark;
+
+  --primary:       #F5C518;   /* met --on-primary: 11:1 */
   --primary-light: #FFF8D6;
   --primary-dark:  #C9A000;
+  --accent-text:   #8A6D00;   /* op --surface: 4.9:1 */
+  --on-primary:    #1A1A1A;
   --bg:            #F7F7F5;
   --surface:       #FFFFFF;
   --border:        #E8E8E5;
   --text:          #1A1A1A;
   --text-muted:    #6B6B6B;
+  --danger:        #CC2222;
+  --danger-bg:     #FEECEC;
+  --placeholder:   #F0F0F0;   /* vlak achter een foto die nog laadt */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary:       #FFD84D;   /* op --bg: 13:1, met --on-primary erop: 12:1 */
+    --primary-light: #38300F;
+    --primary-dark:  #FFE27A;   /* hover wordt lichter in plaats van donkerder */
+    --accent-text:   #FFE27A;   /* op --bg: 15:1 */
+    --on-primary:    #1A1A1A;
+    --bg:            #121211;
+    --surface:       #1D1D1B;
+    --border:        #34342F;
+    --text:          #F2F2EF;
+    --text-muted:    #A9A9A2;   /* op --surface: 7:1 */
+    --danger:        #FF8A80;   /* op --bg: 8:1 */
+    --danger-bg:     #3A1A1A;
+    --placeholder:   #2A2A27;
+  }
 }
 
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Knoppen erven de tekstkleur niet vanzelf: zonder deze regel maakt de
+   browser ze in donkere modus wit, ook op een geel vlak. */
+button { color: var(--text); }
 
 /* ── SVG icon globals ── */
 button svg { flex-shrink: 0; }
@@ -29,7 +71,7 @@ button svg { flex-shrink: 0; }
 .sparkle-icon {
   display: inline-block;
   vertical-align: middle;
-  color: var(--primary-dark);
+  color: var(--accent-text);
   animation: sparkleGlow 4s ease-in-out infinite;
 }
 
@@ -99,6 +141,7 @@ body {
 .ctrl-btn:hover { background: var(--primary-light); }
 #playPauseBtn {
   background: var(--primary);
+  color: var(--on-primary);
   width: 42px; height: 42px;
   font-size: 1.1rem;
 }
